@@ -1,0 +1,7 @@
+{
+  "name": "at-unisa",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
