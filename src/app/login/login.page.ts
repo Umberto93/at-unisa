@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -11,7 +13,9 @@ export class LoginPage implements OnInit {
     loginForm: FormGroup;
 
     constructor(
-        private formBuilder: FormBuilder
+        private router: Router,
+        private formBuilder: FormBuilder,
+        private auth: AuthService
     ) {
         this.loginForm = this.formBuilder.group({
             username: new FormControl('', Validators.compose([
@@ -27,8 +31,15 @@ export class LoginPage implements OnInit {
 
     login() {
         if (this.loginForm.valid) {
-            console.log(this.loginForm.value.username);
-            console.log(this.loginForm.value.password);
+            this.auth.loginWithCredentials(
+                this.loginForm.value.username,
+                this.loginForm.value.password)
+                .subscribe(
+                    () => { },
+                    err => console.log(err),
+                    () => {
+                        this.router.navigateByUrl('/home');
+                    });
         }
     }
 
