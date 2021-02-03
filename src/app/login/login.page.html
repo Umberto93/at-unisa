@@ -1,32 +1,53 @@
-<ion-content>
-    <form 
-        [formGroup]="loginForm"
-        (submit)="login()"
-    >
-        <ion-item>
-            <ion-label position="stacked">Username</ion-label>
-            <ion-input
-                formControlName="username"
-                type="text" 
-                required
-            ></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="stacked">Password</ion-label>
-            <ion-input 
-                formControlName="password"
-                type="password" 
-                required
-            ></ion-input>
-        </ion-item>
-        <ion-row>
-            <ion-col>
-                <ion-button 
+<ion-content class="ion-align-self-center">
+    <div class="container-flex">
+        <div class="container">
+            <ion-img src="../../assets/images/student.svg"></ion-img>
+            <h1 class="page-title">Accedi</h1>
+            <form
+                [formGroup]="loginForm"
+                (submit)="login()"
+                (keyup.enter)="login()"
+            >
+                <ion-list>
+                    <ion-item class="form-control form-control--text">
+                        <i class="fas fa-user  form-control__icon"></i>
+                        <ion-input
+                            placeholder="Username (es. m.rossi)"
+                            formControlName="username"
+                            type="text"
+                            required
+                        ></ion-input>
+                    </ion-item>
+                    <ion-item class="form-control form-control--text">
+                        <i class="fas fa-lock form-control__icon"></i>
+                        <ion-input
+                            placeholder="Password"
+                            formControlName="password"
+                            [type]="showPassword ? 'text' : 'password'"
+                            required
+                        ></ion-input>
+                        <i
+                            class="fas form-control__icon"
+                            [class.fa-eye]="!showPassword"
+                            [class.fa-eye-slash]="showPassword"
+                            (click)="showPassword = !showPassword"
+                        ></i>
+                    </ion-item>
+                    <ion-item class="form-options">
+                        <ion-checkbox 
+                            (ionChange)="storeCredentials = !storeCredentials"
+                        ></ion-checkbox>
+                        <ion-label>Ricorda i dati di accesso</ion-label>
+                    </ion-item>
+                </ion-list>
+                <ion-button
+                    class="ion-no-margin form-submit form-submit--round"
                     type="submit"
-                    expand="block"
                     [disabled]="!loginForm.valid"
-                >Accedi</ion-button>
-            </ion-col>
-        </ion-row>
-    </form>
+                >
+                    <i class="fas fa-arrow-right form-submit__icon"></i>
+                </ion-button>
+            </form>
+        </div>
+    </div>
 </ion-content>

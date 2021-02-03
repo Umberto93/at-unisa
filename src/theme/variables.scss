@@ -76,7 +76,93 @@
     --ion-color-light-tint: #f5f6f9;
 }
 
-/** UNISA - Theme **/
+/** UNISA theme variables **/
+
+:root {
+    /** UNISA base **/
+    --ion-color-unisa-base: #c4c4c4;
+    --ion-color-unisa-base-rgb: 196, 196, 196;
+    --ion-color-unisa-base-contrast: #000000;
+    --ion-color-unisa-base-contrast-rgb: 0, 0, 0;
+    --ion-color-unisa-base-shade: #acacac;
+    --ion-color-unisa-base-tint: #cacaca;
+
+    /** UNISA blue **/
+    --ion-color-unisa-blue: #2f577f;
+    --ion-color-unisa-blue-rgb: 47, 87, 127;
+    --ion-color-unisa-blue-contrast: #ffffff;
+    --ion-color-unisa-blue-contrast-rgb: 255, 255, 255;
+    --ion-color-unisa-blue-shade: #294d70;
+    --ion-color-unisa-blue-tint: #44688c;
+
+    /** UNISA cobalt blue **/
+    --ion-color-unisa-cobalt-blue: #3a559b;
+    --ion-color-unisa-cobalt-blue-rgb: 58, 85, 155;
+    --ion-color-unisa-cobalt-blue-contrast: #ffffff;
+    --ion-color-unisa-cobalt-blue-contrast-rgb: 255, 255, 255;
+    --ion-color-unisa-cobalt-blue-shade: #334b88;
+    --ion-color-unisa-cobalt-blue-tint: #4e66a5;
+
+    /** UNISA orange **/
+    --ion-color-unisa-orange: #fd9738;
+    --ion-color-unisa-orange-rgb: 253, 151, 56;
+    --ion-color-unisa-orange-contrast: #000000;
+    --ion-color-unisa-orange-contrast-rgb: 0, 0, 0;
+    --ion-color-unisa-orange-shade: #df8531;
+    --ion-color-unisa-orange-tint: #fda14c;
+
+    /** UNISA soft blue **/
+    --ion-color-unisa-soft-blue: #fff0e1;
+    --ion-color-unisa-soft-blue-rgb: 255, 240, 225;
+    --ion-color-unisa-soft-blue-contrast: #000000;
+    --ion-color-unisa-soft-blue-contrast-rgb: 0, 0, 0;
+    --ion-color-unisa-soft-blue-shade: #e0d3c6;
+    --ion-color-unisa-soft-blue-tint: #fff2e4;
+
+    /** UNISA soft gray **/
+    --ion-color-unisa-soft-gray: #e6e6e6;
+    --ion-color-unisa-soft-gray-rgb: 230, 230, 230;
+    --ion-color-unisa-soft-gray-contrast: #000000;
+    --ion-color-unisa-soft-gray-contrast-rgb: 0, 0, 0;
+    --ion-color-unisa-soft-gray-shade: #cacaca;
+    --ion-color-unisa-soft-gray-tint: #e9e9e9;
+
+    /** UNISA soft orange **/
+    --ion-color-unisa-soft-orange: #fff0e1;
+    --ion-color-unisa-soft-orange-rgb: 255, 240, 225;
+    --ion-color-unisa-soft-orange-contrast: #000000;
+    --ion-color-unisa-soft-orange-contrast-rgb: 0, 0, 0;
+    --ion-color-unisa-soft-orange-shade: #e0d3c6;
+    --ion-color-unisa-soft-orange-tint: #fff2e4;
+
+    /** UNISA success green **/
+    --ion-color-unisa-success-green: #7ad972;
+    --ion-color-unisa-success-green-rgb: 122, 217, 114;
+    --ion-color-unisa-success-green-contrast: #000000;
+    --ion-color-unisa-success-green-contrast-rgb: 0, 0, 0;
+    --ion-color-unisa-success-green-shade: #6bbf64;
+    --ion-color-unisa-success-green-tint: #87dd80;
+
+    /** UNISA danger red **/
+    --ion-color-unisa-danger-red: #ff795b;
+    --ion-color-unisa-danger-red-rgb: 255, 121, 91;
+    --ion-color-unisa-danger-red-contrast: #000000;
+    --ion-color-unisa-danger-red-contrast-rgb: 0, 0, 0;
+    --ion-color-unisa-danger-red-shade: #e06a50;
+    --ion-color-unisa-danger-red-tint: #ff866b;
+}
+
+/** Global variables **/
+
+:root {
+    /** fonts **/
+    --ion-font-weight-medium: 500;
+    --ion-font-weight-semibold: 600;
+    --ion-font-weight-bold: 700;
+
+    /** transitions **/
+    --ion-transition-fast: 0.25s ease-out;
+}
 
 @media (prefers-color-scheme: dark) {
     /*

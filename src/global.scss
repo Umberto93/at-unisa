@@ -33,5 +33,178 @@
 @import "./scss/solid.scss";
 
 :root {
+    --ion-background-color: white;
     --ion-font-family: "Montserrat", sans-serif;
+    --ion-text-color: var(--ion-color-unisa-base);
+}
+
+.ion-color-unisa-base {
+    --ion-color-base: var(--ion-color-unisa-base);
+    --ion-color-base-rgb: var(--ion-color-unisa-base-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-base-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-base-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-base-shade);
+    --ion-color-tint: var(--ion-color-unisa-base-tint);
+}
+
+.ion-color-unisa-blue {
+    --ion-color-base: var(--ion-color-unisa-blue);
+    --ion-color-base-rgb: var(--ion-color-unisa-blue-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-blue-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-blue-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-blue-shade);
+    --ion-color-tint: var(--ion-color-unisa-blue-tint);
+}
+
+.ion-color-unisa-cobalt-blue {
+    --ion-color-base: var(--ion-color-unisa-cobalt-blue);
+    --ion-color-base-rgb: var(--ion-color-unisa-cobalt-blue-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-cobalt-blue-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-cobalt-blue-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-cobalt-blue-shade);
+    --ion-color-tint: var(--ion-color-unisa-cobalt-blue-tint);
+}
+
+.ion-color-unisa-orange {
+    --ion-color-base: var(--ion-color-unisa-orange);
+    --ion-color-base-rgb: var(--ion-color-unisa-orange-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-orange-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-orange-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-orange-shade);
+    --ion-color-tint: var(--ion-color-unisa-orange-tint);
+}
+
+.ion-color-unisa-soft-blue {
+    --ion-color-base: var(--ion-color-unisa-soft-blue);
+    --ion-color-base-rgb: var(--ion-color-unisa-soft-blue-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-soft-blue-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-soft-blue-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-soft-blue-shade);
+    --ion-color-tint: var(--ion-color-unisa-soft-blue-tint);
+}
+
+.ion-color-unisa-soft-orange {
+    --ion-color-base: var(--ion-color-unisa-soft-orange);
+    --ion-color-base-rgb: var(--ion-color-unisa-soft-orange-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-soft-orange-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-soft-orange-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-soft-orange-shade);
+    --ion-color-tint: var(--ion-color-unisa-soft-orange-tint);
+}
+
+.ion-color-unisa-soft-gray {
+    --ion-color-base: var(--ion-color-unisa-soft-gray);
+    --ion-color-base-rgb: var(--ion-color-unisa-soft-gray-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-soft-gray-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-soft-gray-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-soft-gray-shade);
+    --ion-color-tint: var(--ion-color-unisa-soft-gray-tint);
+}
+
+.ion-color-unisa-success-green {
+    --ion-color-base: var(--ion-color-unisa-success-green);
+    --ion-color-base-rgb: var(--ion-color-unisa-success-green-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-success-green-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-success-green-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-success-green-shade);
+    --ion-color-tint: var(--ion-color-unisa-success-green-tint);
+}
+
+.ion-color-unisa-danger-red {
+    --ion-color-base: var(--ion-color-unisa-danger-red);
+    --ion-color-base-rgb: var(--ion-color-unisa-danger-red-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-danger-red-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-danger-red-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-danger-red-shade);
+    --ion-color-tint: var(--ion-color-unisa-danger-red-tint);
+}
+
+ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --highlight-background: none;
+    --border-width: 0;
+    --inner-border-width: 0;
+}
+
+ion-button {
+    --box-shadow: none;
+}
+
+ion-checkbox {
+    margin: 0;
+    --background-checked: var(--ion-color-unisa-blue);
+    --border-color: var(--ion-color-unisa-soft-gray);
+    --border-color-checked: var(--ion-color-unisa-blue);
+}
+
+ion-label {
+    margin: 0;
+}
+
+.container-flex {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.page-title {
+    color: var(--ion-color-unisa-blue);
+    font-size: 24px;
+    font-weight: var(--ion-font-weight-bold);
+}
+
+.form-control {
+    $form-control-height: 50px;
+
+    --padding-start: 20px;
+    --inner-padding-end: 20px;
+    height: $form-control-height;
+    border: 1px solid var(--ion-color-unisa-soft-gray);
+    border-radius: $form-control-height / 2;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.form-control--text {
+    transition: border-color var(--ion-transition-fast);
+
+    .form-control__icon:first-of-type {
+        transition: color var(--ion-transition-fast);
+    }
+
+    &.ion-dirty.ion-invalid {
+        border-color: var(--ion-color-unisa-danger-red);
+
+        .form-control__icon:first-of-type {
+            color: var(--ion-color-unisa-danger-red);
+        }
+    }
+
+    &.ion-valid {
+        border-color: var(--ion-color-unisa-success-green);
+
+        .form-control__icon:first-of-type {
+            color: var(--ion-color-unisa-success-green);
+        }
+    }
+}
+
+.form-submit {
+    --background: var(--ion-color-unisa-orange);
 }

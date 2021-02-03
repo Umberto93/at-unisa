@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Storage } from '@ionic/storage';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-login',
@@ -10,7 +12,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginPage implements OnInit {
 
-    loginForm: FormGroup;
+    private loginForm: FormGroup;
+    private loginSubscription: Subscription;
+    private showPassword: boolean;
+    private storeCredentials: boolean;
 
     constructor(
         private router: Router,
@@ -24,23 +29,35 @@ export class LoginPage implements OnInit {
             ])),
             password: new FormControl('', Validators.required)
         });
+        this.showPassword = false;
+        this.storeCredentials = false;
     }
 
     ngOnInit() {
+        
+    }
+
+    ionViewDidLeave() {
+        this.loginSubscription.unsubscribe();
     }
 
     login() {
         if (this.loginForm.valid) {
-            this.auth.loginWithCredentials(
+            this.loginSubscription = this.auth.loginWithCredentials(
                 this.loginForm.value.username,
-                this.loginForm.value.password)
-                .subscribe(
-                    () => { },
-                    err => console.log(err),
-                    () => {
-                        this.router.navigateByUrl('/home');
-                    });
+                this.loginForm.value.password,
+                this.storeCredentials
+            ).subscribe(
+                () => { },
+                err => console.log(err),
+                () => {
+                    this.router.navigateByUrl('/home');
+                });
         }
+    }
+
+    togglePassword() {
+        this.showPassword = !this.showPassword;
     }
 
 }

@@ -1,27 +1,25 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+ion-list {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
+ion-item {
+    display: flex;
+    justify-content: space-between;
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+    span {
+        display: block;
+        width: 100%;
 
-  color: #8c8c8c;
+        text-transform: lowercase;
 
-  margin: 0;
-}
+        &:first-letter {
+            text-transform: uppercase;
+        }
 
-#container a {
-  text-decoration: none;
+        &:last-child {
+            text-align: right;
+        }
+    }
 }

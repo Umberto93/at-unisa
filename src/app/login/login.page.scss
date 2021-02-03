@@ -1,5 +1,54 @@
+.page-title {
+    margin: 47px 0;
+}
+
+ion-img {
+    height: 241px;
+}
+
 form {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
+    ion-list {
+        padding-top: 0;
+        padding-bottom: 0;
+    }    
+}
+
+.form-control {
+    margin-bottom: 30px;
+
+    ion-input {
+        --padding-start: 20px;
+        font-size: 14px;
+    }
+}
+
+.form-control__icon:last-of-type {
+    cursor: pointer;
+}
+
+.form-options {
+    --min-height: auto;
+    font-size: 14px;
+
+    ion-checkbox {
+        margin-right: 10px;
+    }
+}
+
+.form-submit--round {
+    $size: 60px;
+
+    display: block;
+    height: $size;
+    width: $size;
+    margin-top: 47px;
+    margin-left: auto;
+    --border-radius: 50%;
+
+    transition: opacity var(--ion-transition-fast);
+}
+
+.form-submit__icon {
+    color: white;
+    font-size: 18px;
 }

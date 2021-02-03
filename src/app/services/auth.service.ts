@@ -15,7 +15,11 @@ export class AuthService {
         private storage: Storage
     ) { }
 
-    loginWithCredentials(username: string, password: string): Observable<any> {
+    loginWithCredentials(
+        username: string,
+        password: string,
+        storeCredentials: boolean
+    ): Observable<any> {
         const credentials = btoa(`${username}:${password}`);
 
         return this.http.get(`${environment.esse3Api}/login`, {
