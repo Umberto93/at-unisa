@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { Storage } from '@ionic/storage';
+import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -34,10 +33,10 @@ export class LoginPage implements OnInit {
     }
 
     ngOnInit() {
-        
     }
 
     ionViewDidLeave() {
+        this.loginForm.reset();
         this.loginSubscription.unsubscribe();
     }
 

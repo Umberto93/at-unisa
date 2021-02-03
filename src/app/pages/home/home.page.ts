@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { TranscriptService } from '../services/esse3/transcript.service';
+import { TranscriptService } from '../../services/esse3/transcript.service';
 
 @Component({
     selector: 'app-home',
@@ -12,6 +13,7 @@ export class HomePage {
     private exams: any = [];
 
     constructor(
+        private router: Router,
         private storage: Storage,
         private transcripts: TranscriptService
     ) { }
@@ -26,9 +28,9 @@ export class HomePage {
         });
     }
 
+    /* Method used only for testing */
     testMethod() {
-        this.storage.get('user').then(user => {
-            console.log(user);
-        });
+        this.storage.clear();
+        this.router.navigateByUrl('/login');
     }
 }

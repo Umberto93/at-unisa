@@ -15,6 +15,11 @@ export class AuthService {
         private storage: Storage
     ) { }
 
+    /*Test method to check user authentication validity*/
+    isAuthenticated(): Promise<any> {
+        return this.storage.get('credentials');
+    }
+
     loginWithCredentials(
         username: string,
         password: string,

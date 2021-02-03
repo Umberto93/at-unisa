@@ -11,9 +11,10 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InterceptorService } from './services/interceptor.service';
+import { HeaderComponent } from './pages/components/header/header.component';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, HeaderComponent],
     entryComponents: [],
     imports: [
         BrowserModule,
@@ -27,6 +28,7 @@ import { InterceptorService } from './services/interceptor.service';
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    exports: [HeaderComponent]
 })
 export class AppModule { }

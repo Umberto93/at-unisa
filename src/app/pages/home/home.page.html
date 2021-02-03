@@ -1,11 +1,3 @@
-<ion-header [translucent]="true">
-    <ion-toolbar>
-        <ion-title>
-            Libretto
-        </ion-title>
-    </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
     <ion-list *ngFor="let exam of exams">
         <ion-item>
@@ -13,4 +5,9 @@
             <span>{{exam.esito.voto}}</span>
         </ion-item>
     </ion-list>
+    <!-- Added testing button ----------------- -->
+    <ion-row>
+        <ion-button (click)="testMethod()">Esci</ion-button>
+    </ion-row>
+    <!-- --------------------------------------- -->
 </ion-content>
