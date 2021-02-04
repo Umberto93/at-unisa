@@ -13,16 +13,25 @@ import { NavigationStart, Router } from '@angular/router';
 export class AppComponent {
 
     private isLoginPage: boolean;
+    private menuRoute = [
+        {
+            path: '/home',
+            name: 'Home'
+        },
+        {
+            path: '/mail',
+            name: 'Mail'
+        }
+    ];
 
     constructor(
+        private router: Router,
         private platform: Platform,
-        private splashScreen: SplashScreen,
         private statusBar: StatusBar,
-        private router: Router
+        private splashScreen: SplashScreen
     ) {
         this.initializeApp();
         this.isLoginPage = false;
-        
         this.router.events.subscribe((event: any) => {
             if (event instanceof NavigationStart) {
                 this.isLoginPage = event.url === '/login';
@@ -36,4 +45,5 @@ export class AppComponent {
             this.splashScreen.hide();
         });
     }
+
 }

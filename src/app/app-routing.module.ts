@@ -18,6 +18,10 @@ const routes: Routes = [
         path: 'login',
         loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
         canActivate: [GuestGuardService]
+    },
+    {
+        path: '**', // indicates whatever not existent path 
+        redirectTo: '/home' // you can substitute redirect to with a component related to PageNotFound
     }
 ];
 
