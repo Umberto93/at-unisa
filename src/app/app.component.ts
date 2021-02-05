@@ -19,8 +19,8 @@ export class AppComponent {
             name: 'Home'
         },
         {
-            path: '/mail',
-            name: 'Mail'
+            path: '/transcript',
+            name: 'Libretto'
         }
     ];
 

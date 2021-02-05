@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { exhaustMap, filter, map } from 'rxjs/operators';
 import { Exam } from 'src/app/interfaces/exam';
 import { environment } from '../../../environments/environment';
@@ -15,8 +16,8 @@ export class TranscriptService {
         private http: HttpClient
     ) { }
 
-    getExams(matId: number) {
-        return this.http.get(`${this.base}/${matId}/righe/`, {
+    getExams(matId: number): Observable<Exam[]> {
+        return this.http.get<Exam[]>(`${this.base}/${matId}/righe/`, {
             params: new HttpParams()
                 .set('order', '+adDes')
                 .set('fields', 'aaFreqId,adDes,annoCorso,esito.dataEsa,esito.modValCod.value,esito.voto,esito.lodeFlg,peso,stato.value')
@@ -42,6 +43,6 @@ export class TranscriptService {
     }
 
     getStats(matId: number) {
-        return this.http.get(`${this.base} / ${matId} / stats /`);
+        return this.http.get(`${this.base}/${matId}/stats/`);
     }
 }
