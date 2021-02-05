@@ -1,10 +1,4 @@
 <ion-content>
-    <ion-list *ngFor="let exam of exams">
-        <ion-item>
-            <span>{{exam.adDes}}</span>
-            <span>{{exam.esito.voto}}</span>
-        </ion-item>
-    </ion-list>
     <!-- Added testing button ----------------- -->
     <ion-row>
         <ion-button (click)="testMethod()">Esci</ion-button>

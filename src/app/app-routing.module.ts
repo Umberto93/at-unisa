@@ -20,9 +20,15 @@ const routes: Routes = [
         canActivate: [GuestGuardService]
     },
     {
+        path: 'transcript',
+        loadChildren: () => import('./pages/transcript/transcript.module').then(m => m.TranscriptPageModule),
+        canActivate: [AuthGuardService]
+    },
+    {
         path: '**', // indicates whatever not existent path 
         redirectTo: '/home' // you can substitute redirect to with a component related to PageNotFound
-    }
+    },
+
 ];
 
 @NgModule({

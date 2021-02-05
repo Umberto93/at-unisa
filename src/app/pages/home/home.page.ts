@@ -18,15 +18,7 @@ export class HomePage {
         private transcripts: TranscriptService
     ) { }
 
-    ngOnInit() {
-        this.storage.get('user').then(user => {
-            const matId = user.user.trattiCarriera[0].matId;
-            this.transcripts.getExams(matId)
-                .subscribe(exams => {
-                    this.exams = exams;
-                });
-        });
-    }
+    ngOnInit() {}
 
     /* Method used only for testing */
     testMethod() {

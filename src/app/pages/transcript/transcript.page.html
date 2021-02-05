@@ -1,0 +1,43 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-title class="page-title">Libretto</ion-title>
+        <ion-buttons slot="end">
+            <ion-button class="ion-no-margin">
+                <i class="fas fa-sort app-icon"></i>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar class="segment-toolbar">
+        <ion-segment value="done">
+            <ion-segment-button value="done">
+                <ion-label>Sostenuti</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="todo">
+                <ion-label>Da sostenere</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list class="app-list">
+        <ion-item *ngFor="let exam of exams">
+            <ion-label>
+                <h3>{{exam.name}}</h3>
+                <div>
+                    <i class="far fa-calendar"></i>
+                    <span>
+                        {{exam.passedDate ? 
+                        exam.passedDate.split(' ')[0] : '--/--/----'}}
+                    </span>
+                </div>
+                <div>
+                    <i class="fas fa-coins"></i>
+                    <span>{{exam.credits}}</span>
+                </div>
+            </ion-label>
+            <ion-note [class.max]="exam.maxGrade">
+                {{exam.grade}}
+            </ion-note>
+        </ion-item>
+    </ion-list>
+</ion-content>

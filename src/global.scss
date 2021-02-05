@@ -31,6 +31,7 @@
 /* Font Awesome 5 */
 @import "./scss/fontawesome.scss";
 @import "./scss/solid.scss";
+@import "./scss/regular.scss";
 
 :root {
     --ion-background-color: white;
@@ -119,18 +120,48 @@
     --ion-color-tint: var(--ion-color-unisa-danger-red-tint);
 }
 
+ion-toolbar {
+    --min-height: none;
+}
+
+ion-title {
+    padding: 0;
+}
+
+ion-content {
+    --padding-bottom: var(--ion-app-padding);
+    --padding-end: var(--ion-app-padding);
+    --padding-start: var(--ion-app-padding);
+    --padding-top: var(--ion-app-padding);
+}
+
 ion-item {
     --padding-start: 0;
     --inner-padding-end: 0;
+    --background: none;
+    --background-activated: transparent;
     --highlight-background: none;
+    --ripple-color: transparent;
     --border-width: 0;
     --inner-border-width: 0;
-    --ripple-color: transparent;
-    --background-activated: transparent;
+}
+
+ion-buttons {
+    margin: 0;
 }
 
 ion-button {
     --box-shadow: none;
+    --ripple-color: transparent;
+    --background-hover-opacity: 0;
+
+    &.button {
+        margin: 0;
+    }
+
+    &::part(native) {
+        padding: 0;
+    }
 }
 
 ion-checkbox {
@@ -156,11 +187,63 @@ ion-label {
 }
 
 .container {
+    align-self: center;
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
+    --padding-start: 30px;
+    --padding-end: 30px;
     padding: 0 30px;
     box-sizing: border-box;
+}
+
+.app-list {
+    ion-item {
+        --background: white;
+        --padding-bottom: 20px;
+        --padding-end: 20px;
+        --padding-start: 20px;
+        --padding-top: 20px;
+
+        margin-bottom: 20px;
+        border-radius: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        ion-label {
+            h3 {
+                margin-bottom: 8px;
+                color: var(--ion-color-unisa-blue);
+                font-size: 16px;
+                font-weight: var(--ion-font-weight-semibold);
+                text-transform: capitalize;
+            }
+
+            div {
+                margin-bottom: 8px;
+                font-size: 14px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                span {
+                    margin-left: 8px;
+                }
+            }
+        }
+
+        ion-note {
+            align-self: center;
+        }
+    }
+}
+
+.app-icon {
+    color: var(--ion-color-unisa-blue);
+    font-size: 15px;
 }
 
 .page-title {
