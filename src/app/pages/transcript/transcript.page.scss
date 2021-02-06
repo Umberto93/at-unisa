@@ -49,16 +49,18 @@ ion-content {
     border-top-right-radius: 25px;
 
     ion-list {
+        width: 100%;
         background: none;
     }
 
     ion-item {
+        box-sizing: border-box;
         cursor: pointer;
     }
 
     ion-note {
         color: var(--ion-color-unisa-blue);
-        font-size: 22px;
+        font-size: 20px;
         font-weight: var(--ion-font-weight-semibold);
 
         &.max:after {

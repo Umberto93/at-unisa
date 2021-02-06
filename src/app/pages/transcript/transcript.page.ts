@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonSlides } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Exam } from 'src/app/interfaces/exam';
 import { TranscriptService } from 'src/app/services/esse3/transcript.service';
@@ -10,27 +11,21 @@ import { TranscriptService } from 'src/app/services/esse3/transcript.service';
 })
 export class TranscriptPage implements OnInit {
 
-    private exams: Exam[];
-    private slideOpts: any;
-    private activeSegment: string;
-    private labels: any;
+    @ViewChild(IonSlides) slides: IonSlides;
+
+    private examsList: Exam[][];
+    private labels: String[];
+    private activeIndex: number;
+    private test: boolean;
 
     constructor(
         private storage: Storage,
         private transcripts: TranscriptService
     ) {
-        this.exams = [];
-        this.activeSegment = 'done';
-        this.labels = [
-            {
-                name: 'done',
-                displayName: 'Sostenuti'
-            },
-            {
-                name: 'todo',
-                displayName: 'Da sostenere'
-            }
-        ];
+        this.examsList = [[], []];
+        this.labels = ['Sostenuti', 'Da sostenere'];
+        this.activeIndex = 0;
+        this.test = false;
     }
 
     ngOnInit() {
@@ -38,49 +33,21 @@ export class TranscriptPage implements OnInit {
             const matId = user.user.trattiCarriera[0].matId;
             this.transcripts.getExams(matId)
                 .subscribe((exams: Exam[]) => {
-                    this.exams = exams;
-                    console.log(this.exams);
+                    exams.forEach(exam => {
+                        const index = exam.passed ? 0 : 1;
+                        this.examsList[index].push(exam);
+                    });
+                    this.test = true;
                 });
         });
     }
 
-    _getDoneExams(): Exam[] {
-        return this.exams.filter((exam: Exam) => exam.passed);
-    }
-
-    _getToDoExams(): Exam[] {
-        return this.exams.filter((exam: Exam) => !exam.passed);
-    }
-
-    _toggleSlide(slider: any): void {
-        slider.isEnd().then((ended: boolean) => {
-            if (!ended) {
-                slider.slideNext();
-            } else {
-                slider.slidePrev();
-            }
-        })
-    }
-
-    getExams(examType: string): Exam[] {
-        return examType === 'done'
-            ? this._getDoneExams()
-            : this._getToDoExams();
-    }
-
-    handleChange(event: any, slider: any): void {
-        if (this.activeSegment !== event.target.value) {
-            this.activeSegment = event.target.value;
-            this._toggleSlide(slider);
+    getDate(exam: Exam): string {
+        if (exam.passedDate) {
+            return exam.passedDate.split(' ')[0];
         }
-    }
 
-    handleSlideChange(event: any) {
-        if (event.target.swiper.activeIndex === 0) {
-            this.activeSegment = 'done';
-        } else {
-            this.activeSegment = 'todo';
-        }
+        return '--/--/----';
     }
 
     getGrade(exam: Exam): number | string {
@@ -89,6 +56,18 @@ export class TranscriptPage implements OnInit {
         }
 
         return '--';
+    }
+
+    slideTo(event: any): void {
+        this.slides.slideTo(event.target.value).then(() => {
+            this.activeIndex = event.target.value;
+        });
+    }
+
+    setActiveIndex(): void {
+        this.slides.getActiveIndex().then(index => {
+            this.activeIndex = index;
+        });
     }
 
 }

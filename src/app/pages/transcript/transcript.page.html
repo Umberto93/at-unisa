@@ -8,35 +8,40 @@
         </ion-buttons>
     </ion-toolbar>
     <ion-toolbar class="segment-toolbar">
-        <ion-segment [value]="activeSegment" (ionChange)="handleChange($event, slider)">
-            <ion-segment-button *ngFor="let label of labels" [value]="label.name">
-                <ion-label>{{label.displayName}}</ion-label>
+        <ion-segment
+            [value]="activeIndex"
+            (ionChange)="slideTo($event)"
+        >
+            <ion-segment-button
+                *ngFor="let label of labels; index as i"
+                [value]="i"
+            >
+                <ion-label>{{label}}</ion-label>
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-slides #slider (ionSlideWillChange)="handleSlideChange($event)">
-        <ion-slide *ngFor="let label of labels">
+    <ion-slides
+        *ngIf="test"
+        (ionSlideWillChange)="setActiveIndex()"
+        [options]="{autoHeight: true}"
+    >
+        <ion-slide *ngFor="let exams of examsList">
             <ion-list class="app-list">
-                <ion-item *ngFor="let exam of getExams(label.name)">
+                <ion-item *ngFor="let exam of exams">
                     <ion-label>
                         <h3>{{exam.name}}</h3>
                         <div>
                             <i class="far fa-calendar"></i>
-                            <span>
-                                {{exam.passedDate ?
-                                exam.passedDate.split(' ')[0] : '--/--/----'}}
-                            </span>
+                            <span>{{getDate(exam)}}</span>
                         </div>
                         <div>
                             <i class="fas fa-coins"></i>
-                            <span>{{exam.credits}}</span>
+                            <span>{{exam.credits}} CFU</span>
                         </div>
                     </ion-label>
-                    <ion-note [class.max]="exam.maxGrade">
-                        {{getGrade(exam)}}
-                    </ion-note>
+                    <ion-note [class.max]="exam.maxGrade">{{getGrade(exam)}}</ion-note>
                 </ion-item>
             </ion-list>
         </ion-slide>
