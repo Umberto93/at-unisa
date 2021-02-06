@@ -35,7 +35,6 @@ ion-header {
             font-weight: var(--ion-font-weight-semibold);
             text-transform: capitalize;
 
-            
             &::part(indicator-background) {
                 border-radius: calc(var(--ion-toolbar-height) / 2);
             }
@@ -67,9 +66,5 @@ ion-content {
         color: var(--ion-color-unisa-blue);
         font-size: 20px;
         font-weight: var(--ion-font-weight-semibold);
-
-        &.max:after {
-            content: "L";
-        }
     }
 }

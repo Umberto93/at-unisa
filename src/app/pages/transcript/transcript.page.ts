@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Exam } from 'src/app/interfaces/exam';
 import { TranscriptService } from 'src/app/services/esse3/transcript.service';
 
@@ -13,10 +13,11 @@ export class TranscriptPage implements OnInit {
 
     @ViewChild(IonSlides) slides: IonSlides;
 
-    private examsList: Exam[][];
-    private labels: String[];
+    private isReady: boolean;
     private activeIndex: number;
-    private test: boolean;
+    private labels: String[];
+    private slideOpts: any;
+    private examsList: Exam[][];
 
     constructor(
         private storage: Storage,
@@ -25,7 +26,11 @@ export class TranscriptPage implements OnInit {
         this.examsList = [[], []];
         this.labels = ['Sostenuti', 'Da sostenere'];
         this.activeIndex = 0;
-        this.test = false;
+        this.isReady = false;
+        this.slideOpts = {
+            autoHeight: true,
+            spaceBetween: 20
+        }
     }
 
     ngOnInit() {
@@ -37,7 +42,7 @@ export class TranscriptPage implements OnInit {
                         const index = exam.passed ? 0 : 1;
                         this.examsList[index].push(exam);
                     });
-                    this.test = true;
+                    this.isReady = true;
                 });
         });
     }
@@ -58,13 +63,13 @@ export class TranscriptPage implements OnInit {
         return '--';
     }
 
-    slideTo(event: any): void {
+    slideTo(event: any) {
         this.slides.slideTo(event.target.value).then(() => {
             this.activeIndex = event.target.value;
         });
     }
 
-    setActiveIndex(): void {
+    setActiveIndex() {
         this.slides.getActiveIndex().then(index => {
             this.activeIndex = index;
         });

@@ -21,14 +21,19 @@ export class TaxService {
             params: new HttpParams()
                 .set('persId', `${persId}`)
         }).pipe(map((res: any) => {
-            return res.map((tax: any) => {
-                return {
-                    name: tax.desMav1,
-                    paymentDate: tax.dataPagamento,
-                    expirationDate: tax.scadFattura,
-                    payed: Boolean(tax.pagatoFlg)
-                } as Tax;
+            let taxs: Tax[] = [];
+
+            res.forEach((el: any) => {
+                el.importoPag > 0 && taxs.push({
+                    name: el.desMav1,
+                    amount: el.importoPag,
+                    paymentDate: el.dataPagamento,
+                    expirationDate: el.scadFattura,
+                    payed: Boolean(el.pagatoFlg)
+                } as Tax);
             });
+
+            return taxs;
         }));
     }
 

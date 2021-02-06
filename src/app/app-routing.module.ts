@@ -10,14 +10,14 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'home',
-        loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
-        canActivate: [AuthGuardService]
-    },
-    {
         path: 'login',
         loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
         canActivate: [GuestGuardService]
+    },
+    {
+        path: 'home',
+        loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
+        canActivate: [AuthGuardService]
     },
     {
         path: 'transcript',
@@ -25,10 +25,14 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
     },
     {
-        path: '**', // indicates whatever not existent path 
-        redirectTo: '/home' // you can substitute redirect to with a component related to PageNotFound
+        path: 'tax',
+        loadChildren: () => import('./pages/tax/tax.module').then(m => m.TaxPageModule),
+        canActivate: [AuthGuardService]
     },
-
+    {
+        path: '**', // indicates whatever not existent path 
+        redirectTo: '/home' // you can substitute redirectTo with a custom component to render on Page Not Found
+    },
 ];
 
 @NgModule({

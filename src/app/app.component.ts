@@ -21,6 +21,10 @@ export class AppComponent {
         {
             path: '/transcript',
             name: 'Libretto'
+        },
+        {
+            path: '/tax',
+            name: 'Tasse'
         }
     ];
 
