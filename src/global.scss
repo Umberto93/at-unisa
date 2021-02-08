@@ -150,6 +150,14 @@ ion-buttons {
     margin: 0;
 }
 
+ion-menu-button {
+    --padding-start: 0;
+    --padding-end: 0;
+    
+    width: auto;
+    height: auto;
+}
+
 ion-button {
     --box-shadow: none;
     --ripple-color: transparent;

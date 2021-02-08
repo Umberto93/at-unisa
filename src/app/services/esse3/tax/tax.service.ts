@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class TaxService {
 
-    readonly base = `${environment.esse3Api}/tasse-service-v1/`;
+    readonly base = `${environment.esse3Api}/tasse-service-v1`;
 
     constructor(
         private http: HttpClient
@@ -24,9 +24,9 @@ export class TaxService {
             let taxs: Tax[] = [];
 
             res.forEach((el: any) => {
-                el.importoPag > 0 && taxs.push({
+                el.importoFattura > 0 && taxs.push({
                     name: el.desMav1,
-                    amount: el.importoPag,
+                    amount: el.importoFattura,
                     paymentDate: el.dataPagamento,
                     expirationDate: el.scadFattura,
                     payed: Boolean(el.pagatoFlg)

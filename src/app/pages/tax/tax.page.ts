@@ -2,7 +2,7 @@ import { Storage } from '@ionic/storage';
 import { IonSlides } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Tax } from 'src/app/interfaces/tax';
-import { TaxService } from 'src/app/services/esse3/tax.service';
+import { TaxService } from 'src/app/services/esse3/tax/tax.service';
 
 @Component({
     selector: 'app-tax',

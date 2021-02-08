@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -10,7 +10,7 @@ import { NavigationStart, Router } from '@angular/router';
     templateUrl: 'app.component.html',
     styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     private isLoginPage: boolean;
     private menuRoute = [
@@ -35,19 +35,21 @@ export class AppComponent {
         private splashScreen: SplashScreen
     ) {
         this.initializeApp();
-        this.isLoginPage = false;
+    }
+
+    ngOnInit() {
         this.router.events.subscribe((event: any) => {
             if (event instanceof NavigationStart) {
                 this.isLoginPage = event.url === '/login';
             }
-        })
+        });
     }
 
-    initializeApp() {
-        this.platform.ready().then(() => {
-            this.statusBar.styleDefault();
-            this.splashScreen.hide();
-        });
+    async initializeApp() {
+        await this.platform.ready();
+        this.statusBar.styleDefault();
+        this.splashScreen.hide();
+        this.isLoginPage = true;
     }
 
 }

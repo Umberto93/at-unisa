@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-	production: false,
-	esse3Api: 'http://192.168.1.5:80/esse3',
+    production: false,
+    esse3Api: 'https://www.unisa.it/proxy-test/e3rest/api',
 };
 
 /*

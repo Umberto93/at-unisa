@@ -9,12 +9,12 @@ import { TranscriptPageRoutingModule } from './transcript-routing.module';
 import { TranscriptPage } from './transcript.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    TranscriptPageRoutingModule
-  ],
-  declarations: [TranscriptPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        TranscriptPageRoutingModule
+    ],
+    declarations: [TranscriptPage]
 })
-export class TranscriptPageModule {}
+export class TranscriptPageModule { }

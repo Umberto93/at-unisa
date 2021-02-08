@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { TranscriptService } from '../../services/esse3/transcript.service';
+import { TranscriptService } from '../../services/esse3/transcript/transcript.service';
 
 @Component({
     selector: 'app-home',

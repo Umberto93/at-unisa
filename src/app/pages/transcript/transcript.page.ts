@@ -1,8 +1,8 @@
-import { IonSlides } from '@ionic/angular';
+import { IonSegment, IonSlides } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Exam } from 'src/app/interfaces/exam';
-import { TranscriptService } from 'src/app/services/esse3/transcript.service';
+import { TranscriptService } from 'src/app/services/esse3/transcript/transcript.service';
 
 @Component({
     selector: 'app-transcript',
@@ -12,6 +12,7 @@ import { TranscriptService } from 'src/app/services/esse3/transcript.service';
 export class TranscriptPage implements OnInit {
 
     @ViewChild(IonSlides) slides: IonSlides;
+    @ViewChild(IonSegment) segment: IonSegment;
 
     private isReady: boolean;
     private activeIndex: number;
@@ -63,19 +64,21 @@ export class TranscriptPage implements OnInit {
         return '--';
     }
 
-    slideTo(event: CustomEvent) {
+    async slideTo(event: CustomEvent) {
         const target = event.target as HTMLIonSegmentButtonElement;
         const value = parseInt(target.value);
 
-        this.slides.slideTo(value).then(() => {
-            this.activeIndex = value;
-        });
+        await this.slides.slideTo(value);
+        this.activeIndex = value;
     }
 
-    setActiveIndex() {
-        this.slides.getActiveIndex().then(index => {
-            this.activeIndex = index;
-        });
+    async setActiveIndex() {
+        const index = await this.slides.getActiveIndex();
+
+        if (index !== this.activeIndex) {
+            const button = this.segment['el'].children[index] as HTMLElement;
+            button.click();
+        }
     }
 
 }

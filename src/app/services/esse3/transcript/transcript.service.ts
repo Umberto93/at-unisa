@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { exhaustMap, filter, map } from 'rxjs/operators';
 import { Exam } from 'src/app/interfaces/exam';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
