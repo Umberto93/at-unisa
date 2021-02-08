@@ -4,7 +4,7 @@
 
 export const environment = {
 	production: false,
-	esse3Api: 'http://localhost:80/esse3',
+	esse3Api: 'http://192.168.1.5:80/esse3',
 };
 
 /*

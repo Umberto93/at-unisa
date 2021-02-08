@@ -1,5 +1,6 @@
 ion-header {
     margin-bottom: var(--ion-app-margin);
+    padding-left: var(--ion-app-padding);
 
     ion-toolbar {
         margin-bottom: var(--ion-app-margin);
@@ -57,10 +58,6 @@ ion-content {
     ion-item {
         box-sizing: border-box;
         cursor: pointer;
-    }
-
-    h3 {
-        padding-right: 20px;
     }
 
     ion-note {

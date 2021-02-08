@@ -1,7 +1,11 @@
 <ion-app>
     <app-header *ngIf="!isLoginPage"></app-header>
     <ion-content>
-        <ion-menu *ngIf="!isLoginPage" type="reveal" contentId="main">
+        <ion-menu
+            *ngIf="!isLoginPage"
+            type="reveal"
+            contentId="main"
+        >
             <ion-header>
                 <ion-toolbar>
                     <ion-title>Hi, User!</ion-title>
@@ -9,7 +13,10 @@
             </ion-header>
             <ion-content>
                 <ion-list>
-                    <ion-item *ngFor="let route of menuRoute" [routerLink]="route.path" routerDirection="forward">
+                    <ion-item
+                        *ngFor="let route of menuRoute"
+                        [routerLink]="route.path"
+                    >
                         {{route.name}}
                     </ion-item>
                 </ion-list>

@@ -63,9 +63,12 @@ export class TranscriptPage implements OnInit {
         return '--';
     }
 
-    slideTo(event: any) {
-        this.slides.slideTo(event.target.value).then(() => {
-            this.activeIndex = event.target.value;
+    slideTo(event: CustomEvent) {
+        const target = event.target as HTMLIonSegmentButtonElement;
+        const value = parseInt(target.value);
+
+        this.slides.slideTo(value).then(() => {
+            this.activeIndex = value;
         });
     }
 

@@ -8,15 +8,26 @@
         </ion-buttons>
     </ion-toolbar>
     <ion-toolbar class="segment-toolbar">
-        <ion-segment [value]="activeIndex" (ionChange)="slideTo($event)">
-            <ion-segment-button *ngFor="let label of labels; index as i" [value]="i">
+        <ion-segment
+            [value]="activeIndex"
+            (ionChange)="slideTo($event)"
+            swipeGesture="false"
+        >
+            <ion-segment-button
+                *ngFor="let label of labels; index as i"
+                [value]="i"
+            >
                 <ion-label>{{label}}</ion-label>
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-slides *ngIf="isReady" (ionSlideWillChange)="setActiveIndex()" [options]="slideOpts">
+    <ion-slides
+        *ngIf="isReady"
+        (ionSlideWillChange)="setActiveIndex()"
+        [options]="slideOpts"
+    >
         <ion-slide *ngFor="let exams of examsList">
             <ion-list class="app-list">
                 <ion-item *ngFor="let exam of exams">
