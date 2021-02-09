@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TranscriptPageRoutingModule } from './transcript-routing.module';
 
 import { TranscriptPage } from './transcript.page';
+import { HeaderComponent } from '../components/header/header.component';
 
 @NgModule({
     imports: [
@@ -15,6 +16,9 @@ import { TranscriptPage } from './transcript.page';
         IonicModule,
         TranscriptPageRoutingModule
     ],
-    declarations: [TranscriptPage]
+    declarations: [TranscriptPage, HeaderComponent],
+    exports: [
+        HeaderComponent
+    ]
 })
 export class TranscriptPageModule { }

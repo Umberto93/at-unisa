@@ -1,3 +1,74 @@
-ion-app {
-    padding-right: 30px;
+ion-menu {
+    --width: 100%;
+    --background: var(--ion-color-unisa-cobalt-blue);
+
+    ion-content:after {
+        position: absolute;
+        left: -50%;
+        width: 100%;
+        height: 100%;
+        content: "";
+        background: url('../assets/images/unisa-lineart-inverse.png') no-repeat center;
+        background-size: contain;
+        mix-blend-mode: lighten;
+        opacity: 0.1;
+    }
+
+    ion-header {
+        padding: var(--ion-app-padding);
+
+        ion-toolbar {
+            margin-bottom: var(--ion-app-margin);
+        }
+
+        .app-icon {
+            color: white;
+        }
+    }
+
+    ion-avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        width: 60px;
+        background: white;
+        color: var(--ion-color-unisa-cobalt-blue);
+        font-size: 20px;
+        font-weight: var(--ion-font-weight-bold);
+        text-transform: uppercase;
+    }
+
+    ion-label {
+        color: white;
+
+        h3 {
+            margin-bottom: 5px;
+            font-size: 16px;
+            font-weight: var(--ion-font-weight-bold);
+            text-transform: capitalize;
+        }
+
+        p {
+            margin-bottom: 5px;
+            color: white;
+            font-size: 14px;
+            opacity: 0.5;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    ion-content {
+        &::part(scroll) {
+            z-index: 1;
+        }
+    }
+
+    ion-list {
+        background: none;
+        z-index: 1;
+    }
 }

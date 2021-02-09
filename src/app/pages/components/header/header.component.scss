@@ -1,5 +1,46 @@
-ion-back-button {
-    --color: var(--ion-color-unisa-blue);
+.app-header {
+    margin-bottom: var(--ion-app-margin);
+    padding-left: var(--ion-app-padding);
+    padding-right: var(--ion-app-padding);
+    padding-top: var(--ion-app-padding);
 
-    
+    ion-toolbar {
+        margin-bottom: var(--ion-app-margin);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .segment-toolbar {
+        --ion-toolbar-height: 50px;
+
+        --min-height: var(--ion-toolbar-height);
+
+        ion-segment {
+            background: var(--ion-color-unisa-soft-orange);
+            border-radius: calc(var(--ion-toolbar-height) / 2);
+        }
+
+        ion-segment-button {
+            --indicator-height: var(--ion-toolbar-height);
+            --indicator-color: var(--ion-color-unisa-orange);
+            --background-hover: transparent;
+            --ripple-color: transparent;
+            --color: var(--ion-color-unisa-orange);
+            --color-checked: white;
+
+            width: 50%;
+            min-width: initial;
+            max-width: initial;
+
+            font-size: 15px;
+            font-weight: var(--ion-font-weight-semibold);
+            text-transform: capitalize;
+
+            &::part(indicator-background) {
+                border-radius: calc(var(--ion-toolbar-height) / 2);
+            }
+        }
+    }
 }

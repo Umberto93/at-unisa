@@ -21,7 +21,8 @@ import { HeaderComponent } from './pages/components/header/header.component';
         HttpClientModule,
         IonicModule.forRoot(),
         IonicStorageModule.forRoot(),
-        AppRoutingModule],
+        AppRoutingModule
+    ],
     providers: [
         StatusBar,
         SplashScreen,

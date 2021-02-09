@@ -122,6 +122,7 @@
 
 ion-toolbar {
     --min-height: none;
+    --background: none;
 }
 
 ion-title {
@@ -129,10 +130,7 @@ ion-title {
 }
 
 ion-content {
-    --padding-bottom: var(--ion-app-padding);
-    --padding-end: var(--ion-app-padding);
-    --padding-start: var(--ion-app-padding);
-    --padding-top: var(--ion-app-padding);
+    --background: none; 
 }
 
 ion-item {
@@ -153,6 +151,7 @@ ion-buttons {
 ion-menu-button {
     --padding-start: 0;
     --padding-end: 0;
+    --ripple-color: transparent;
     
     width: auto;
     height: auto;
@@ -255,7 +254,7 @@ ion-label {
 
 .app-icon {
     color: var(--ion-color-unisa-blue);
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .page-title {
