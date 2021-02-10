@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { TranscriptService } from '../../services/esse3/transcript/transcript.service';
 
 @Component({
     selector: 'app-home',
@@ -14,11 +13,10 @@ export class HomePage {
 
     constructor(
         private router: Router,
-        private storage: Storage,
-        private transcripts: TranscriptService
+        private storage: Storage
     ) { }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     /* Method used only for testing */
     testMethod() {

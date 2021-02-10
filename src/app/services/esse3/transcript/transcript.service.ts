@@ -30,7 +30,7 @@ export class TranscriptService {
                     courseYear: exam.annoCorso,
                     grade: exam.esito.voto,
                     maxGrade: Boolean(exam.esito.lodeFlg),
-                    passedDate: exam.esito.dataEsa,
+                    passedDate: this.toDate(exam.esito.dataEsa),
                     passed: exam.stato.value === 'S'
                 } as Exam;
             });
@@ -44,5 +44,10 @@ export class TranscriptService {
 
     getStats(matId: number) {
         return this.http.get(`${this.base}/${matId}/stats/`);
+    }
+
+    private toDate(dateTime: string): Date {
+        const date = dateTime.split(' ')[0];
+        return new Date(date.split('/').reverse().join('/'));
     }
 }

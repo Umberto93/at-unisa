@@ -34,6 +34,7 @@
 @import "./scss/regular.scss";
 
 :root {
+    --ion-backdrop-opacity: 0.6;
     --ion-background-color: white;
     --ion-font-family: "Montserrat", sans-serif;
     --ion-text-color: var(--ion-color-unisa-base);
@@ -120,6 +121,12 @@
     --ion-color-tint: var(--ion-color-unisa-danger-red-tint);
 }
 
+app-modal {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 ion-toolbar {
     --min-height: none;
     --background: none;
@@ -130,7 +137,7 @@ ion-title {
 }
 
 ion-content {
-    --background: none; 
+    --background: none;
 }
 
 ion-item {
@@ -152,7 +159,7 @@ ion-menu-button {
     --padding-start: 0;
     --padding-end: 0;
     --ripple-color: transparent;
-    
+
     width: auto;
     height: auto;
 }
@@ -204,50 +211,77 @@ ion-label {
     box-sizing: border-box;
 }
 
-.app-list {
-    ion-item {
-        --background: white;
-        --padding-bottom: 20px;
-        --padding-end: 20px;
-        --padding-start: 20px;
-        --padding-top: 20px;
+.app-content {
+    --padding-bottom: var(--ion-app-padding);
+    --padding-end: var(--ion-app-padding);
+    --padding-top: var(--ion-app-padding);
+    --padding-start: var(--ion-app-padding);
+    --background: var(--ion-color-unisa-soft-blue);
 
-        margin-bottom: 20px;
-        border-radius: 15px;
+    overflow: hidden;
+    width: calc(100% - 30px);
+    border-top-right-radius: 25px;
 
-        &:last-child {
-            margin-bottom: 0;
-        }
+    .app-list {
+        width: 100%;
+        padding: 0;
+        background: none;
 
-        ion-label {
-            h3 {
-                padding-right: 20px;
-                margin-bottom: 8px;
+        ion-item {
+            --background: white;
+            --padding-bottom: 20px;
+            --padding-end: 20px;
+            --padding-start: 20px;
+            --padding-top: 20px;
+
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-sizing: border-box;
+            cursor: pointer;
+            box-shadow: 0 5px 40px -20px rgb(0, 0, 0, 0.1);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            ion-label {
+                h3 {
+                    padding-right: 20px;
+                    margin-bottom: 8px;
+                    color: var(--ion-color-unisa-blue);
+                    font-size: 16px;
+                    font-weight: var(--ion-font-weight-semibold);
+                    text-transform: lowercase;
+
+                    &:first-letter {
+                        text-transform: capitalize;
+                    }
+                }
+
+                div {
+                    margin-bottom: 8px;
+                    font-size: 14px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    span {
+                        margin-left: 8px;
+                    }
+                }
+            }
+
+            ion-note {
+                align-self: center;
                 color: var(--ion-color-unisa-blue);
-                font-size: 16px;
+                font-size: 20px;
                 font-weight: var(--ion-font-weight-semibold);
 
-                &:first-letter {
-                    text-transform: capitalize;
+                &.max:after {
+                    content: "L";
                 }
             }
-
-            div {
-                margin-bottom: 8px;
-                font-size: 14px;
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-
-                span {
-                    margin-left: 8px;
-                }
-            }
-        }
-
-        ion-note {
-            align-self: center;
         }
     }
 }

@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-title class="page-title">Libretto</ion-title>
         <ion-buttons slot="end">
-            <ion-button class="ion-no-margin">
+            <ion-button class="ion-no-margin" (click)="showModal()">
                 <i class="fas fa-sort app-icon"></i>
             </ion-button>
         </ion-buttons>
@@ -22,7 +22,7 @@
         </ion-segment>
     </ion-toolbar>
 </app-header>
-<ion-content>
+<ion-content class="app-content">
     <ion-slides
         *ngIf="isReady"
         (ionSlideWillChange)="setActiveIndex()"
@@ -35,7 +35,7 @@
                         <h3>{{exam.name}}</h3>
                         <div>
                             <i class="far fa-calendar"></i>
-                            <span>{{getDate(exam)}}</span>
+                            <span>{{exam.passed ? (exam.passedDate | date: 'dd/MM/yyyy') : '--/--/----'}}</span>
                         </div>
                         <div>
                             <i class="fas fa-coins"></i>

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TaxPageRoutingModule } from './tax-routing.module';
 
 import { TaxPage } from './tax.page';
+import { HeaderComponent } from '../components/header/header.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { TaxPage } from './tax.page';
     IonicModule,
     TaxPageRoutingModule
   ],
-  declarations: [TaxPage]
+  declarations: [TaxPage, HeaderComponent],
+  exports: [HeaderComponent]
 })
 export class TaxPageModule {}

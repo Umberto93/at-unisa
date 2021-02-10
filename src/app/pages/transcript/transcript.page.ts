@@ -1,8 +1,9 @@
-import { IonSegment, IonSlides } from '@ionic/angular';
+import { IonSegment, IonSlides, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Exam } from 'src/app/interfaces/exam';
 import { TranscriptService } from 'src/app/services/esse3/transcript/transcript.service';
+import { SortModalPage } from '../sort-modal/sort-modal.page';
 
 @Component({
     selector: 'app-transcript',
@@ -22,7 +23,8 @@ export class TranscriptPage implements OnInit {
 
     constructor(
         private storage: Storage,
-        private transcripts: TranscriptService
+        private transcripts: TranscriptService,
+        private modalController: ModalController
     ) {
         this.examsList = [[], []];
         this.labels = ['Sostenuti', 'Da sostenere'];
@@ -48,12 +50,18 @@ export class TranscriptPage implements OnInit {
         });
     }
 
-    getDate(exam: Exam): string {
-        if (exam.passedDate) {
-            return exam.passedDate.split(' ')[0];
-        }
+    async showModal() {
+        const modal = await this.modalController.create({
+            component: SortModalPage,
+            componentProps: {
+                'examsList': this.examsList,
+                'title': 'Ordina per',
+                'confirmButton': true,
+            },
+            cssClass: 'app-modal'
+        });
 
-        return '--/--/----';
+        return await modal.present();
     }
 
     getGrade(exam: Exam): number | string {

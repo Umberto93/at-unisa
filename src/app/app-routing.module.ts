@@ -17,22 +17,34 @@ const routes: Routes = [
     {
         path: 'home',
         loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService],
+        data: {
+            name: 'Home',
+            icon: 'icon-name'
+        }
     },
     {
         path: 'transcript',
         loadChildren: () => import('./pages/transcript/transcript.module').then(m => m.TranscriptPageModule),
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService],
+        data: {
+            name: 'Libretto',
+            icon: 'icon-name'
+        }
     },
     {
         path: 'tax',
         loadChildren: () => import('./pages/tax/tax.module').then(m => m.TaxPageModule),
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService],
+        data: {
+            name: 'Tasse',
+            icon: 'icon-name'
+        }
     },
     {
         path: '**', // indicates whatever not existent path 
         redirectTo: '/home' // you can substitute redirectTo with a custom component to render on Page Not Found
-    },
+    }
 ];
 
 @NgModule({

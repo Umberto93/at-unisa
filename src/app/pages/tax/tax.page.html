@@ -1,4 +1,4 @@
-<ion-header class="ion-no-border">
+<app-header>
   <ion-toolbar>
     <ion-title class="page-title">Tasse</ion-title>
     <ion-buttons slot="end">
@@ -14,8 +14,8 @@
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
-</ion-header>
-<ion-content>
+</app-header>
+<ion-content class="app-content">
   <ion-slides *ngIf="isReady" (ionSlideWillChange)="setActiveIndex()" [options]="slideOpts">
     <ion-slide *ngFor="let taxs of taxsList">
       <ion-list class="app-list">

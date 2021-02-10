@@ -1,0 +1,16 @@
+<app-modal title="Ordina per" confirmButton="true" [confirmCallback]='sort'>
+  <ion-list>
+      <ion-radio-group
+          [value]="activeSort"
+          (ionChange)=handleChange($event)
+      >
+          <ion-item *ngFor="let option of radioOptions; index as i">
+              <ion-radio
+                  slot="start"
+                  [value]="i"
+              ></ion-radio>
+              <ion-label>{{option.label}}</ion-label>
+          </ion-item>
+      </ion-radio-group>
+  </ion-list>
+</app-modal>

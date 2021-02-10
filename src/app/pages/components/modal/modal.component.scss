@@ -1,0 +1,40 @@
+.app-modal {
+    padding-top: 150px;
+
+    .modal-wrapper {
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+
+        ion-header {
+            padding: var(--ion-app-padding);
+
+            ion-title {
+                --color: var(--ion-color-unisa-blue);
+                font-size: 18px;
+                font-weight: var(--ion-font-weight-bold);
+            }
+        }
+
+        ion-content {
+            --padding-start: var(--ion-app-padding);
+            --padding-end: var(--ion-app-padding);
+            height: 100%;
+        }
+
+        ion-footer {
+            padding: var(--ion-app-padding);
+
+            ion-button {
+                --background: var(--ion-color-unisa-orange);
+                --border-radius: 10px;
+                --color: white;
+                width: 100%;
+                min-height: 50px;
+                text-align: center;
+                text-transform: capitalize;
+                font-weight: var(--ion-font-weight-semibold);
+                font-size: 16px;
+            }
+        }
+    }
+}

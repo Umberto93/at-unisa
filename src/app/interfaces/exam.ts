@@ -5,6 +5,6 @@ export interface Exam {
     courseYear: number;
     grade: number | null;
     maxGrade: boolean;
-    passedDate: string;
+    passedDate: Date;
     passed: boolean;
 }
