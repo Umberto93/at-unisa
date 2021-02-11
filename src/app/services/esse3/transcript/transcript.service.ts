@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { exhaustMap, filter, map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Exam } from 'src/app/interfaces/exam';
 import { environment } from '../../../../environments/environment';
 
@@ -39,11 +39,18 @@ export class TranscriptService {
 
     getAverage(matId: number) {
         return this.http.get(`${this.base}/${matId}/medie/`)
-            .pipe(filter((avg: any) => avg.tipoMediaCod.value === 'P'));
+            .pipe(map((res: any) => res.filter(el => el.tipoMediaCod.value === 'P')));
     }
 
     getStats(matId: number) {
         return this.http.get(`${this.base}/${matId}/stats/`);
+    }
+
+    getCareerStats(matId: number) {
+        return combineLatest([
+            this.getAverage(matId),
+            this.getStats(matId)
+        ]);
     }
 
     private toDate(dateTime: string): Date {
