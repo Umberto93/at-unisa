@@ -1,9 +1,9 @@
-import { IonSegment, IonSlides, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonSegment, IonSlides, ModalController } from '@ionic/angular';
 import { Exam } from 'src/app/interfaces/exam';
 import { TranscriptService } from 'src/app/services/esse3/transcript/transcript.service';
-import { SortModalPage } from '../sort-modal/sort-modal.page';
+import { TranscriptSortModalComponent } from '../components/transcript-sort-modal/transcript-sort-modal.component';
 
 @Component({
     selector: 'app-transcript',
@@ -36,32 +36,42 @@ export class TranscriptPage implements OnInit {
         }
     }
 
-    ngOnInit() {
-        this.storage.get('user').then(user => {
-            const matId = user.user.trattiCarriera[0].matId;
-            this.transcripts.getExams(matId)
-                .subscribe((exams: Exam[]) => {
-                    exams.forEach(exam => {
-                        const index = exam.passed ? 0 : 1;
-                        this.examsList[index].push(exam);
-                    });
-                    this.isReady = true;
+    async ngOnInit() {
+        const user = await this.storage.get('user');
+        const matId = user.user.trattiCarriera[0].matId;
+        this.transcripts.getExams(matId)
+            .subscribe((exams: Exam[]) => {
+                exams.forEach(exam => {
+                    const index = exam.passed ? 0 : 1;
+                    this.examsList[index].push(exam);
                 });
-        });
+                this.isReady = true;
+            });
     }
 
     async showModal() {
         const modal = await this.modalController.create({
-            component: SortModalPage,
+            component: TranscriptSortModalComponent,
             componentProps: {
-                'examsList': this.examsList,
-                'title': 'Ordina per',
-                'confirmButton': true,
+                'examsList': this.examsList
             },
             cssClass: 'app-modal'
         });
 
         return await modal.present();
+    }
+
+    async showStatsModal() {
+        const modal = await this.modalController.create({
+            component: null,
+            componentProps: {
+                'exams': this.examsList[0]
+            },
+            cssClass: 'app-modal'
+        });
+
+        await modal.present();
+
     }
 
     getGrade(exam: Exam): number | string {

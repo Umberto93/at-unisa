@@ -7,8 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TranscriptPageRoutingModule } from './transcript-routing.module';
 
 import { TranscriptPage } from './transcript.page';
-import { HeaderComponent } from '../components/header/header.component';
-import { SortModalPageModule } from '../sort-modal/sort-modal.module';
+import { UtilityModule } from '../utility/utility.module';
 
 @NgModule({
     imports: [
@@ -16,9 +15,8 @@ import { SortModalPageModule } from '../sort-modal/sort-modal.module';
         FormsModule,
         IonicModule,
         TranscriptPageRoutingModule,
-        SortModalPageModule
+        UtilityModule
     ],
-    declarations: [TranscriptPage, HeaderComponent],
-    exports: [HeaderComponent]
+    declarations: [TranscriptPage],
 })
 export class TranscriptPageModule { }

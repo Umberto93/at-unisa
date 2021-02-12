@@ -4,10 +4,10 @@ import { Exam } from 'src/app/interfaces/exam';
 
 @Component({
     selector: 'app-sort-modal',
-    templateUrl: './sort-modal.page.html',
-    styleUrls: ['./sort-modal.page.scss']
+    templateUrl: './transcript-sort-modal.component.html',
+    styleUrls: ['./transcript-sort-modal.component.scss'],
 })
-export class SortModalPage implements OnInit {
+export class TranscriptSortModalComponent implements OnInit {
 
     private examsList: Exam[][];
     private activeSort: number;

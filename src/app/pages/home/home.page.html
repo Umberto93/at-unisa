@@ -1,33 +1,12 @@
 <ion-content>
     <ion-list>
-        <ion-list-header>
-            <canvas #ctx></canvas>
-        </ion-list-header>
         <ion-item>
-            <ion-label>
-                <b>Media Ponderata</b>
-                {{avg}}
-            </ion-label>
+            <ion-button>Show Modal</ion-button>
         </ion-item>
+        <!-- Added testing button ----------------- -->
         <ion-item>
-            <ion-label>
-                <b>Voto di Laurea</b>
-                {{degreeMark}}
-            </ion-label>
+            <ion-button (click)="testMethod()">Esci</ion-button>
         </ion-item>
-        <ion-item>
-            <ion-label>
-                <b>CFU</b>
-                <span>{{acquiredCredits}}</span>
-                <span>{{totalCredits}}</span>
-            </ion-label>
-        </ion-item>
+        <!-- --------------------------------------- -->
     </ion-list>
-
-
-    <!-- Added testing button ----------------- -->
-    <ion-row>
-        <ion-button (click)="testMethod()">Esci</ion-button>
-    </ion-row>
-    <!-- --------------------------------------- -->
 </ion-content>
