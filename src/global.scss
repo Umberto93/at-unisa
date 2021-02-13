@@ -144,6 +144,7 @@ ion-item {
     --padding-start: 0;
     --inner-padding-end: 0;
     --background: none;
+    --background-hover: none;
     --background-activated: transparent;
     --highlight-background: none;
     --ripple-color: transparent;
@@ -185,8 +186,39 @@ ion-checkbox {
     --border-color-checked: var(--ion-color-unisa-blue);
 }
 
+ion-radio {
+    --color: var(--ion-color-unisa-soft-gray);
+    --color-checked: var(--ion-color-unisa-blue);
+
+    margin-right: 15px;
+}
+
+ion-thumbnail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    margin: 0;
+    background: var(--ion-color-unisa-soft-blue);
+    border-radius: 15px;
+    color: var(--ion-color-unisa-blue);
+}
+
 ion-label {
     margin: 0;
+}
+
+ion-toggle {
+    --handle-width: 16px;
+    --handle-max-height: 16px;
+    --handle-spacing: 2px;
+    --handle-box-shadow: none;
+    --background: var(--ion-color-unisa-soft-gray);
+    --background-checked: var(--ion-color-unisa-blue);
+
+    height: 20px;
+    width: 36px;
 }
 
 .container-flex {
@@ -238,7 +270,7 @@ ion-label {
             border-radius: 15px;
             box-sizing: border-box;
             cursor: pointer;
-            box-shadow: 0 5px 40px -20px rgb(0, 0, 0, 0.1);
+            box-shadow: 0 5px 40px -20px rgb(0, 0, 0, 0.2);
 
             &:last-child {
                 margin-bottom: 0;

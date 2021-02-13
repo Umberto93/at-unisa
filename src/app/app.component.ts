@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-import { Platform } from '@ionic/angular';
+import { Platform, isPlatform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Account } from './interfaces/account';
+
 
 @Component({
     selector: 'app-root',
@@ -36,6 +38,7 @@ export class AppComponent implements OnInit {
         private platform: Platform,
         private statusBar: StatusBar,
         private splashScreen: SplashScreen,
+        private screenOrientation: ScreenOrientation,
         private storage: Storage
     ) {
         this.initializeApp();
@@ -43,19 +46,12 @@ export class AppComponent implements OnInit {
         this.account = {} as Account;
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.router.events.subscribe((event: any) => {
             if (event instanceof NavigationEnd) {
                 this.isLoginPage = event.urlAfterRedirects === '/login';
+                this.getAccount();
             }
-        });
-
-        this.storage.get('user').then(user => {
-            this.account.id = user.user.trattiCarriera[0].matricola;
-            this.account.firstname = user.user.firstName.toLowerCase();
-            this.account.lastname = user.user.lastName.toLowerCase();
-            this.account.email = `${user.user.userId.toLowerCase()}@studenti.unisa.it`;
-            this.account.avatar = this.account.firstname[0] + this.account.lastname[0];
         });
     }
 
@@ -63,6 +59,22 @@ export class AppComponent implements OnInit {
         await this.platform.ready();
         this.statusBar.styleDefault();
         this.splashScreen.hide();
+
+        if (isPlatform('android') || isPlatform('ios')) {
+            this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+        }
+    }
+
+    async getAccount() {
+        const user = await this.storage.get('user');
+
+        if (user) {
+            this.account.id = user.user.trattiCarriera[0].matricola;
+            this.account.firstname = user.user.firstName.toLowerCase();
+            this.account.lastname = user.user.lastName.toLowerCase();
+            this.account.email = `${user.user.userId.toLowerCase()}@studenti.unisa.it`;
+            this.account.avatar = this.account.firstname[0] + this.account.lastname[0];
+        }
     }
 
 }

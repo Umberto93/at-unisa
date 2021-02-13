@@ -2,8 +2,17 @@
     <ion-toolbar>
         <ion-title class="page-title">Libretto</ion-title>
         <ion-buttons slot="end">
-            <ion-button class="ion-no-margin" (click)="showModal()">
+            <ion-button
+                class="ion-no-margin"
+                (click)="presentSortingModal()"
+            >
                 <i class="fas fa-sort app-icon"></i>
+            </ion-button>
+            <ion-button
+                class="ion-no-margin"
+                (click)="presentStatsModal()"
+            >
+            <i class="fas fa-chart-area app-icon"></i>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
@@ -35,7 +44,9 @@
                         <h3>{{exam.name}}</h3>
                         <div>
                             <i class="far fa-calendar"></i>
-                            <span>{{exam.passed ? (exam.passedDate | date: 'dd/MM/yyyy') : '--/--/----'}}</span>
+                            <span>
+                                {{exam.passed ? (exam.passedDate | date: 'dd/MM/yyyy') : '--/--/----'}}
+                            </span>
                         </div>
                         <div>
                             <i class="fas fa-coins"></i>

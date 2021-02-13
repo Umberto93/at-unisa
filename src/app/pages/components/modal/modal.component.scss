@@ -1,5 +1,5 @@
 .app-modal {
-    padding-top: 150px;
+    align-items: flex-end;
 
     .modal-wrapper {
         border-top-left-radius: 30px;
@@ -10,15 +10,15 @@
 
             ion-title {
                 --color: var(--ion-color-unisa-blue);
+
                 font-size: 18px;
                 font-weight: var(--ion-font-weight-bold);
             }
         }
 
         ion-content {
-            --padding-start: var(--ion-app-padding);
             --padding-end: var(--ion-app-padding);
-            height: 100%;
+            --padding-start: var(--ion-app-padding);
         }
 
         ion-footer {
@@ -26,14 +26,15 @@
 
             ion-button {
                 --background: var(--ion-color-unisa-orange);
-                --border-radius: 10px;
+                --border-radius: 25px;
                 --color: white;
+
                 width: 100%;
                 min-height: 50px;
                 text-align: center;
                 text-transform: capitalize;
-                font-weight: var(--ion-font-weight-semibold);
                 font-size: 16px;
+                font-weight: var(--ion-font-weight-semibold);
             }
         }
     }

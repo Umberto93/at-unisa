@@ -15,7 +15,7 @@ export class ModalComponent implements OnInit {
 
     constructor(
         private modalController: ModalController
-    ) { 
+    ) {
         this.confirmButton = false;
     }
 

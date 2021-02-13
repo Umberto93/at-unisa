@@ -52,19 +52,20 @@ export class TranscriptService {
             this.getAverage(matId),
             this.getStats(matId)
         ]).pipe(map((res: any) => {
-            let stats = {} as TranscriptStats;
-
             const avgs = res[0];
+            const credits = res[1];
+            const stats = {} as TranscriptStats;
+
             avgs.forEach((avg: any) => {
                 if (avg.definizioneBase.value === 'CDSORD') {
                     stats.avg = avg.media;
                 } else {
-                    stats.degreeMark = avg.media
+                    stats.degreeMark = Math.round(avg.media);
                 }
             });
 
-            const credits = res[1];
             stats.acquiredCredits = credits.umPesoSuperato;
+            stats.validatedCredits = credits.umPesoConvalidato;
             stats.totalCredits = credits.umPesoPiano;
 
             return stats;

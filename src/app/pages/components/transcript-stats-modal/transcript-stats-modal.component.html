@@ -1,26 +1,36 @@
-<app-modal title="Statistiche" confirmButton="false">
-  <ion-list>
-      <ion-list-header>
-          <canvas #ctx></canvas>
-      </ion-list-header>
-      <ion-item>
-          <ion-label>
-              <b>Media Ponderata</b>
-              {{stats.avg}}
-          </ion-label>
-      </ion-item>
-      <ion-item>
-          <ion-label>
-              <b>Voto di Laurea</b>
-              {{stats.degreeMark}}
-          </ion-label>
-      </ion-item>
-      <ion-item>
-          <ion-label>
-              <b>CFU</b>
-              <span>{{stats.acquiredCredits}}</span>
-              <span>{{stats.totalCredits}}</span>
-          </ion-label>
-      </ion-item>
-  </ion-list>
+<app-modal title="Statistiche">
+    <ion-list>
+        <ion-list-header>
+            <canvas #ctx></canvas>
+        </ion-list-header>
+        <ion-item>
+            <ion-thumbnail>
+                <i class="fas fa-divide"></i>
+            </ion-thumbnail>
+            <ion-label>
+                <h3>Media ponderata</h3>
+                <p>{{stats.avg}} / 30</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-thumbnail>
+                <i class="fas fa-graduation-cap"></i>
+            </ion-thumbnail>
+            <ion-label>
+                <h3>Voto di laurea</h3>
+                <p>{{stats.degreeMark}} / 110</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-thumbnail>
+                <i class="fas fa-coins"></i>
+            </ion-thumbnail>
+            <ion-label>
+                <h3>Crediti acquisiti</h3>
+                <p>
+                    {{stats.acquiredCredits}} / {{stats.totalCredits}}
+                </p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
 </app-modal>

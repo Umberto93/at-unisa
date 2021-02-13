@@ -1,5 +1,6 @@
 import { NavParams } from '@ionic/angular';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { Chart } from 'chart.js';
 import { Exam } from 'src/app/interfaces/exam';
 import { TranscriptStats } from 'src/app/interfaces/transcript-stats';
@@ -23,23 +24,39 @@ export class TranscriptStatsModalComponent implements OnInit {
         private navParams: NavParams,
         private transcriptService: TranscriptService
     ) {
+        this.stats = {} as TranscriptStats;
         this.exams = this.navParams.get('exams');
-        this.exams = this.exams.filter(exam => exam.grade);
-        this.createStatsChart();
     }
 
     async ngOnInit() {
         const user = await this.storage.get('user');
-        const matId = user.user.trattiCarriera[0].matId;
-        this.transcriptService.getStats(matId)
-            .subscribe((stats: TranscriptStats) => {
-                this.stats = stats;
-            })
 
+        if (user) {
+            const matId = user.user.trattiCarriera[0].matId;
+            this.transcriptService.getCareerStats(matId)
+                .subscribe((stats: TranscriptStats) => {
+                    this.stats = stats;
+                });
+            this.createStatsChart();
+        }
+    }
+
+    private getGrades(exams: Exam[]) {
+        return exams.reduce((grades: number[], exam: Exam) => {
+            exam.grade !== null && grades.push(exam.grade);
+            return grades;
+        }, []);
+    }
+
+    private getGradesDist(grades: number[]) {
+        return grades.reduce((dist: any, grade: number) => {
+            dist[grade] = dist[grade] + 1 || 1;
+            return dist;
+        }, {});
     }
 
     private createStatsChart() {
-        const grades = this.exams.map((exam: Exam) => exam.grade);
+        const grades = this.getGrades(this.exams);
         const gradesDist = this.getGradesDist(grades);
 
         this.chart = new Chart(this.ctx.nativeElement, {
@@ -50,20 +67,21 @@ export class TranscriptStatsModalComponent implements OnInit {
                     {
                         label: 'Numero di esami per voto',
                         data: Object.values(gradesDist),
-                        backgroundColor: 'rgba(255, 240, 225, .5)',
+                        backgroundColor: 'rgba(253, 151, 56, .5)',
 
                     }
                 ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }]
+                }
             }
         });
     }
-
-    private getGradesDist(grades: number[]) {
-        return grades.reduce((data, grade) => {
-            data[grade] = data[grade] + 1 || 1;
-            return data;
-        }, {});
-
-    }
-
 }

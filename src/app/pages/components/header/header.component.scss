@@ -10,6 +10,14 @@
         &:last-child {
             margin-bottom: 0;
         }
+
+        ion-button {
+            margin-right: 15px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
     }
 
     .segment-toolbar {
