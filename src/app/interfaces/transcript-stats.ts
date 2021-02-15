@@ -4,4 +4,4 @@ export interface TranscriptStats {
     acquiredCredits: number,
     validatedCredits: number,
     totalCredits: number
-}
+};

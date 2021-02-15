@@ -127,6 +127,10 @@ app-modal {
     flex-direction: column;
 }
 
+ion-router-outlet {
+    background: var(--ion-background-color);
+}
+
 ion-toolbar {
     --min-height: none;
     --background: none;
@@ -134,10 +138,6 @@ ion-toolbar {
 
 ion-title {
     padding: 0;
-}
-
-ion-content {
-    --background: none;
 }
 
 ion-item {
@@ -207,6 +207,15 @@ ion-thumbnail {
 
 ion-label {
     margin: 0;
+}
+
+ion-chip {
+    margin: 0;
+    padding: 5px 10px;
+
+    ion-label {
+        text-transform: capitalize;
+    }
 }
 
 ion-toggle {
@@ -321,6 +330,15 @@ ion-toggle {
 .app-icon {
     color: var(--ion-color-unisa-blue);
     font-size: 20px;
+    vertical-align: middle;
+}
+
+.app-icon-left {
+    margin-right: 10px;
+}
+
+.app-icon-right {
+    margin-left: 10px;
 }
 
 .page-title {

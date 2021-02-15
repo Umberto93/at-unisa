@@ -4,6 +4,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Exam } from 'src/app/interfaces/exam';
 import { TranscriptStats } from 'src/app/interfaces/transcript-stats';
+import { ExamDetails } from 'src/app/interfaces/exam-details';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
@@ -21,10 +22,11 @@ export class TranscriptService {
         return this.http.get<Exam[]>(`${this.base}/${matId}/righe/`, {
             params: new HttpParams()
                 .set('order', '+adDes')
-                .set('fields', 'aaFreqId,adDes,annoCorso,esito.dataEsa,esito.modValCod.value,esito.voto,esito.lodeFlg,peso,stato.value')
+                .set('fields', 'aaFreqId,adsceId,adDes,annoCorso,esito.dataEsa,esito.modValCod.value,esito.voto,esito.lodeFlg,peso,stato.value')
         }).pipe(map((res: any) => {
             return res.map((exam: any) => {
                 return {
+                    id: exam.adsceId,
                     name: exam.adDes.toLowerCase(),
                     credits: exam.peso,
                     attendanceYear: exam.aaFreqId,
@@ -70,6 +72,21 @@ export class TranscriptService {
 
             return stats;
         }));
+    }
+
+    getExamDetails(matId: number, examId: number): Observable<ExamDetails> {
+        return this.http.get(`${this.base}/${matId}/righe/${examId}/syllabus/AD`)
+            .pipe(map((res: any) => {
+                return {
+                    goals: res[0].obiettiviFormativi,
+                    requirements: res[0].prerequisiti,
+                    contents: res[0].contenuti,
+                    teachingMethods: res[0].metodiDidattici,
+                    verificationMode: res[0].modalitaVerificaApprendimento,
+                    books: res[0].testiRiferimento,
+                    other: res[0].altreInfo
+                } as ExamDetails;
+            }));
     }
 
     private toDate(dateTime: string): Date {

@@ -1,7 +1,7 @@
 export interface Account {
-    id: string,
-    firstname: string,
-    lastname: string,
-    email: string,
-    avatar: string
-}
+    id: String,
+    firstname: String,
+    lastname: String,
+    email: String,
+    avatar: String
+};

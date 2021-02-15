@@ -12,7 +12,7 @@
                 class="ion-no-margin"
                 (click)="presentStatsModal()"
             >
-            <i class="fas fa-chart-area app-icon"></i>
+                <i class="fas fa-chart-area app-icon"></i>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
@@ -37,15 +37,15 @@
         (ionSlideWillChange)="setActiveIndex()"
         [options]="slideOpts"
     >
-        <ion-slide *ngFor="let exams of examsList">
+        <ion-slide>
             <ion-list class="app-list">
-                <ion-item *ngFor="let exam of exams">
+                <ion-item *ngFor="let exam of examsList[0]">
                     <ion-label>
                         <h3>{{exam.name}}</h3>
                         <div>
                             <i class="far fa-calendar"></i>
                             <span>
-                                {{exam.passed ? (exam.passedDate | date: 'dd/MM/yyyy') : '--/--/----'}}
+                                {{exam.passedDate | date: 'dd/MM/yyyy'}}
                             </span>
                         </div>
                         <div>
@@ -55,7 +55,37 @@
                     </ion-label>
                     <ion-note [class.max]="exam.maxGrade">{{getGrade(exam)}}</ion-note>
                 </ion-item>
-                <ion-item *ngIf="exams.length === 0">Nessun elemento da mostrare.</ion-item>
+                <ion-item *ngIf="examsList[0].length === 0">Nessun elemento da mostrare.</ion-item>
+            </ion-list>
+        </ion-slide>
+        <ion-slide>
+            <ion-list class="app-list">
+                <ion-item *ngFor="let exam of examsList[1]">
+                    <ion-label>
+                        <h3>{{exam.name}}</h3>
+                        <div>
+                            <i class="fas fa-coins"></i>
+                            <span>{{exam.credits}} CFU</span>
+                        </div>
+                        <div class="app-item-footer">
+                            <ion-buttons>
+                                <ion-button (click)="presentDetailsModal(exam.id)">
+                                    <i class="fas fa-info-circle app-icon"></i>
+                                </ion-button>
+                                <ion-button (click)="presentPrevisionModal(exam)">
+                                    <i class="fas fa-balance-scale app-icon"></i>
+                                </ion-button>
+                                <ion-button>
+                                    <i class="fas fa-clipboard-list app-icon"></i>
+                                </ion-button>
+                            </ion-buttons>
+                            <ion-chip outline="true">
+                                <ion-label>Segui</ion-label>
+                                <i class="fas fa-bell"></i>
+                            </ion-chip>
+                        </div>
+                    </ion-label>
+                </ion-item>
             </ion-list>
         </ion-slide>
     </ion-slides>

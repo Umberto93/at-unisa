@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SwipeableListComponent } from './swipeable-list.component';
+import { TranscriptPrevisionModalComponent } from './transcript-prevision-modal.component';
 
-describe('SwipeableListComponent', () => {
-  let component: SwipeableListComponent;
-  let fixture: ComponentFixture<SwipeableListComponent>;
+describe('TranscriptPrevisionModalComponent', () => {
+  let component: TranscriptPrevisionModalComponent;
+  let fixture: ComponentFixture<TranscriptPrevisionModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SwipeableListComponent ],
+      declarations: [ TranscriptPrevisionModalComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SwipeableListComponent);
+    fixture = TestBed.createComponent(TranscriptPrevisionModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

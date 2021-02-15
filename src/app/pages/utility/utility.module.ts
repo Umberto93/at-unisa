@@ -5,6 +5,8 @@ import { HeaderComponent } from '../components/header/header.component';
 import { ModalComponent } from '../components/modal/modal.component';
 import { TranscriptSortModalComponent } from '../components/transcript-sort-modal/transcript-sort-modal.component';
 import { TranscriptStatsModalComponent } from '../components/transcript-stats-modal/transcript-stats-modal.component';
+import { TranscriptExamModalComponent } from '../components/transcript-exam-modal/transcript-exam-modal.component';
+import { TranscriptPrevisionModalComponent } from '../components/transcript-prevision-modal/transcript-prevision-modal.component';
 
 
 
@@ -13,7 +15,9 @@ import { TranscriptStatsModalComponent } from '../components/transcript-stats-mo
         HeaderComponent,
         ModalComponent,
         TranscriptSortModalComponent,
-        TranscriptStatsModalComponent
+        TranscriptStatsModalComponent,
+        TranscriptExamModalComponent,
+        TranscriptPrevisionModalComponent
     ],
     imports: [
         CommonModule
@@ -22,7 +26,9 @@ import { TranscriptStatsModalComponent } from '../components/transcript-stats-mo
         HeaderComponent,
         ModalComponent,
         TranscriptSortModalComponent,
-        TranscriptStatsModalComponent
+        TranscriptStatsModalComponent,
+        TranscriptExamModalComponent,
+        TranscriptPrevisionModalComponent
     ]
 })
 export class UtilityModule { }

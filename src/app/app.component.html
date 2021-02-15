@@ -2,7 +2,7 @@
     <ion-split-pane contentId="main">
         <ion-menu
             *ngIf="!isLoginPage"
-            type="push"
+            type="reveal"
             contentId="main"
         >
             <ion-header class="ion-no-border">
@@ -27,12 +27,41 @@
                 </ion-item>
             </ion-header>
             <ion-content>
-                <ion-list>
+                <ion-list *ngIf="!subMenuOpened">
                     <ion-item
-                        *ngFor="let route of menuRoute"
-                        [routerLink]="route.path"
+                        *ngFor="let item of menuItems | keyvalue: noSort"
+                        [class.active]="item.key === activeItem"
                     >
-                        {{route.name}}
+                        <ion-label (click)="navigateForward(item.value, item.key)">
+                            <i class="fas {{item.value.icon}} app-icon app-icon-left"></i>
+                            {{item.value.name}}
+                        </ion-label>
+                    </ion-item>
+                    <ion-item (click)="logout()">
+                        <ion-label>
+                            <i class="fas fa-power-off app-icon app-icon-left"></i>
+                            Logout
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+                <ion-list *ngIf="subMenuOpened">
+                    <ion-item
+                        class="active"
+                        (click)="navigateBack()"
+                    >
+                        <ion-label class="close">
+                            <i class="fas {{menuItems[activeItem].icon}} app-icon app-icon-left"></i>
+                            {{menuItems[activeItem].name}}
+                            <i class="fas fa-angle-left app-icon app-icon-right"></i>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item
+                        *ngFor="let item of menuItems[activeItem].routes | keyvalue: noSort"
+                        class="subitem"
+                        [class.active]="item.key === activeSubItem"
+                        [routerLink]="[activeItem, item.key]"
+                    >
+                        <ion-label (click)="closeMenu()">{{item.value.name}}</ion-label>
                     </ion-item>
                 </ion-list>
             </ion-content>

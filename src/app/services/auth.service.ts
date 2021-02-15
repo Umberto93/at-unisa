@@ -15,15 +15,9 @@ export class AuthService {
         private storage: Storage
     ) { }
 
-    /*Test method to check user authentication validity*/
-    isAuthenticated(): Promise<any> {
-        return this.storage.get('credentials');
-    }
-
     loginWithCredentials(
         username: string,
-        password: string,
-        storeCredentials: boolean
+        password: string
     ): Observable<any> {
         const credentials = btoa(`${username}:${password}`);
 
@@ -40,6 +34,10 @@ export class AuthService {
 
             return null;
         }));
+    }
+
+    canHoldSession(): Promise<boolean> {
+        return this.storage.get('storeCredentials');
     }
 
 }

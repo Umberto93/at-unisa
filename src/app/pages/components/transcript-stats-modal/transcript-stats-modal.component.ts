@@ -17,6 +17,7 @@ export class TranscriptStatsModalComponent implements OnInit {
 
     private chart: any;
     private stats: TranscriptStats;
+    private matId: number;
     private exams: Exam[];
 
     constructor(
@@ -25,20 +26,16 @@ export class TranscriptStatsModalComponent implements OnInit {
         private transcriptService: TranscriptService
     ) {
         this.stats = {} as TranscriptStats;
+        this.matId = this.navParams.get('matId');
         this.exams = this.navParams.get('exams');
     }
 
     async ngOnInit() {
-        const user = await this.storage.get('user');
-
-        if (user) {
-            const matId = user.user.trattiCarriera[0].matId;
-            this.transcriptService.getCareerStats(matId)
-                .subscribe((stats: TranscriptStats) => {
-                    this.stats = stats;
-                });
-            this.createStatsChart();
-        }
+        this.transcriptService.getCareerStats(this.matId)
+            .subscribe((stats: TranscriptStats) => {
+                this.stats = stats;
+                this.createStatsChart();
+            });
     }
 
     private getGrades(exams: Exam[]) {

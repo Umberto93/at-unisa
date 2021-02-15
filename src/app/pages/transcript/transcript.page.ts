@@ -6,6 +6,8 @@ import { TranscriptService } from 'src/app/services/esse3/transcript/transcript.
 import { TranscriptSortModalComponent } from '../components/transcript-sort-modal/transcript-sort-modal.component';
 import { TranscriptSortingService } from 'src/app/services/transcript-sorting.service';
 import { TranscriptStatsModalComponent } from '../components/transcript-stats-modal/transcript-stats-modal.component';
+import { TranscriptExamModalComponent } from '../components/transcript-exam-modal/transcript-exam-modal.component';
+import { TranscriptPrevisionModalComponent } from '../components/transcript-prevision-modal/transcript-prevision-modal.component';
 
 @Component({
     selector: 'app-transcript',
@@ -17,6 +19,7 @@ export class TranscriptPage implements OnInit {
     @ViewChild(IonSlides) slides: IonSlides;
     @ViewChild(IonSegment) segment: IonSegment;
 
+    private matId: number;
     private isReady: boolean;
     private activeIndex: number;
     private labels: String[];
@@ -43,8 +46,10 @@ export class TranscriptPage implements OnInit {
 
     async ngOnInit() {
         const user = await this.storage.get('user');
-        const matId = user.user.trattiCarriera[0].matId;
-        this.transcripts.getExams(matId)
+
+        this.matId = user.user.trattiCarriera[0].matId;
+
+        this.transcripts.getExams(this.matId)
             .subscribe((exams: Exam[]) => {
                 exams.forEach(exam => {
                     const index = exam.passed ? 0 : 1;
@@ -79,10 +84,11 @@ export class TranscriptPage implements OnInit {
         return await modal.present();
     }
 
-    async presentStatsModal() {
+    private async presentStatsModal() {
         const modal = await this.modalController.create({
             component: TranscriptStatsModalComponent,
             componentProps: {
+                'matId': this.matId,
                 'exams': this.examsList[0]
             },
             cssClass: 'app-modal'
@@ -90,6 +96,32 @@ export class TranscriptPage implements OnInit {
 
         await modal.present();
 
+    }
+
+    private async presentDetailsModal(examId: number) {
+        const modal = await this.modalController.create({
+            component: TranscriptExamModalComponent,
+            componentProps: {
+                'matId': this.matId,
+                'examId': examId
+            },
+            cssClass: 'app-modal'
+        });
+
+        await modal.present();
+    }
+
+    private async presentPrevisionModal(exam: Exam) {
+        const modal = await this.modalController.create({
+            component: TranscriptPrevisionModalComponent,
+            componentProps: {
+                'matId': this.matId,
+                'exam': exam
+            },
+            cssClass: 'app-modal'
+        });
+
+        await modal.present();
     }
 
     private getGrade(exam: Exam): number | string {

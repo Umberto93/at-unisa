@@ -1,0 +1,39 @@
+ion-list {
+    ion-list-header {
+        text-align: center;
+
+        h3 {
+            color: var(--ion-color-unisa-blue);
+            font-size: 30px;
+            font-weight: var(--ion-font-weight-semibold);
+        }
+
+        p {
+            font-size: 18px;
+            color: var(--ion-color-unisa-danger-red);
+        }
+
+        .positive {
+            color: var(--ion-color-unisa-success-green);
+
+            &:before {
+                content: '+';
+            }
+        }
+    }
+
+    ion-item {
+        ion-note {
+            color: var(--ion-color-unisa-base);
+            font-size: 18px;
+            font-weight: var(--ion-font-weight-semibold);
+        }
+
+        ion-range {
+            --bar-background: var(--ion-color-unisa-soft-gray);
+            --bar-background-active: var(--ion-color-unisa-orange);
+            --knob-background: var(--ion-color-unisa-orange);
+            --pin-background: var(--ion-color-unisa-orange);
+        }
+    }
+}

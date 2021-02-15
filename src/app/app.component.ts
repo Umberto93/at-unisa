@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-import { Platform, isPlatform } from '@ionic/angular';
+import { Platform, isPlatform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Account } from './interfaces/account';
+import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -16,22 +17,34 @@ import { Account } from './interfaces/account';
 })
 export class AppComponent implements OnInit {
 
-    private isLoginPage: boolean;
-    private menuRoute = [
-        {
-            path: '/home',
-            name: 'Home'
+    private readonly menuItems = {
+        'home': {
+            name: 'Home',
+            icon: 'fa-home'
         },
-        {
-            path: '/transcript',
-            name: 'Libretto'
+        'esse3': {
+            name: 'Carriera',
+            icon: 'fa-user-graduate',
+            routes: {
+                'transcript': {
+                    name: 'Libretto'
+                },
+                'tax': {
+                    name: 'Tasse'
+                }
+            }
         },
-        {
-            path: '/tax',
-            name: 'Tasse'
+        'settings': {
+            name: 'Impostazioni',
+            icon: 'fa-cog'
         }
-    ];
+    };
+
+    private isLoginPage: boolean;
     private account: Account;
+    private activeItem: string;
+    private activeSubItem: string;
+    private subMenuOpened: boolean;
 
     constructor(
         private router: Router,
@@ -39,11 +52,15 @@ export class AppComponent implements OnInit {
         private statusBar: StatusBar,
         private splashScreen: SplashScreen,
         private screenOrientation: ScreenOrientation,
-        private storage: Storage
+        private storage: Storage,
+        private menuController: MenuController
     ) {
         this.initializeApp();
         this.isLoginPage = false;
         this.account = {} as Account;
+        this.activeItem = '';
+        this.activeSubItem = '';
+        this.subMenuOpened = false;
     }
 
     async ngOnInit() {
@@ -51,8 +68,10 @@ export class AppComponent implements OnInit {
             if (event instanceof NavigationEnd) {
                 this.isLoginPage = event.urlAfterRedirects === '/login';
                 this.getAccount();
+                this.setMenuInitailState();
             }
         });
+
     }
 
     async initializeApp() {
@@ -65,7 +84,7 @@ export class AppComponent implements OnInit {
         }
     }
 
-    async getAccount() {
+    private async getAccount() {
         const user = await this.storage.get('user');
 
         if (user) {
@@ -75,6 +94,49 @@ export class AppComponent implements OnInit {
             this.account.email = `${user.user.userId.toLowerCase()}@studenti.unisa.it`;
             this.account.avatar = this.account.firstname[0] + this.account.lastname[0];
         }
+    }
+
+    private noSort() {
+        return 0;
+    }
+
+    private setMenuInitailState() {
+        const pathParams = this.router.url.split('/');
+
+        this.activeItem = pathParams[1];
+
+        if (pathParams.length > 2) {
+            this.activeSubItem = pathParams[2];
+            this.subMenuOpened = true;
+        }
+    }
+
+    private closeMenu() {
+        this.menuController.close();
+    }
+
+    private toggleSubMenu() {
+        this.subMenuOpened = !this.subMenuOpened;
+    }
+
+    private navigateForward(item: any, path: string) {
+        this.activeItem = path;
+
+        if (!item.routes) {
+            this.closeMenu();
+            return this.router.navigateByUrl(path);
+        }
+
+        this.toggleSubMenu();
+    }
+
+    private navigateBack() {
+        this.toggleSubMenu();
+    }
+
+    private logout() {
+        this.storage.clear();
+        this.router.navigateByUrl('/login');
     }
 
 }

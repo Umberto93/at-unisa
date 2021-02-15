@@ -1,7 +1,7 @@
 export interface Tax {
-    name: string,
+    name: String,
     amount: number,
-    paymentDate: string,
-    expirationDate: string,
+    paymentDate: String,
+    expirationDate: String,
     payed: boolean
-}
+};

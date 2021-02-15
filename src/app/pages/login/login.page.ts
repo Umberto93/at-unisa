@@ -14,7 +14,6 @@ export class LoginPage implements OnInit {
     private loginForm: FormGroup;
     private loginSubscription: Subscription;
     private showPassword: boolean;
-    private storeCredentials: boolean;
 
     constructor(
         private router: Router,
@@ -29,7 +28,6 @@ export class LoginPage implements OnInit {
             password: new FormControl('', Validators.required)
         });
         this.showPassword = false;
-        this.storeCredentials = false;
     }
 
     ngOnInit() {
@@ -40,12 +38,11 @@ export class LoginPage implements OnInit {
         this.loginSubscription.unsubscribe();
     }
 
-    login() {
+    private login() {
         if (this.loginForm.valid) {
             this.loginSubscription = this.auth.loginWithCredentials(
                 this.loginForm.value.username,
-                this.loginForm.value.password,
-                this.storeCredentials
+                this.loginForm.value.password
             ).subscribe(
                 () => { },
                 err => console.log(err),
@@ -55,7 +52,7 @@ export class LoginPage implements OnInit {
         }
     }
 
-    togglePassword() {
+    private togglePassword() {
         this.showPassword = !this.showPassword;
     }
 
