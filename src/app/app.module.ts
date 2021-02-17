@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InterceptorService } from './services/interceptor.service';
 import { ErrorService } from './services/error/error.service';
-//import { Network } from '@ionic-native/network/ngx';
+import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
     declarations: [AppComponent],
@@ -29,7 +29,7 @@ import { ErrorService } from './services/error/error.service';
         StatusBar,
         SplashScreen,
         ScreenOrientation,
-        //Network,
+        Network,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
         { provide: ErrorHandler, useClass: ErrorService}

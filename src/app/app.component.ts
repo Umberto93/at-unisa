@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Network, NetworkStatus } from '@capacitor/core';
-//import { Network } from '@ionic-native/network/ngx';
+import { Network } from '@ionic-native/network/ngx';
 import { Storage } from '@ionic/storage';
 
 import { Platform, isPlatform, MenuController } from '@ionic/angular';
@@ -46,12 +45,13 @@ export class AppComponent implements OnInit {
     private account: Account;
     private activeItem: string;
     private activeSubItem: string;
-    private networkType: string;
     private subMenuOpened: boolean;
+
+    private wasOffline: boolean;
 
     constructor(
         private menuController: MenuController,
-        //private network: Network,
+        private network: Network,
         private platform: Platform,
         private router: Router,
         private statusBar: StatusBar,
@@ -65,8 +65,9 @@ export class AppComponent implements OnInit {
         this.account = {} as Account;
         this.activeItem = '';
         this.activeSubItem = '';
-        this.networkType = '';
         this.subMenuOpened = false;
+
+        this.wasOffline = false;
     }
 
     async ngOnInit() {
@@ -78,41 +79,30 @@ export class AppComponent implements OnInit {
             }
         });
 
-        Network.addListener('networkStatusChange', (status: NetworkStatus) => {
-            if (!status.connected) {
-                this.toastService.presentWarningToast('Applicazione offline.');
-            } else {   
-                if (status.connectionType === 'cellular') {
-                    this.toastService.presentWarningToast('Stai utilizzando i dati mobili.');
-                } else {
-                    this.toastService.presentSuccessToast('Applicazione online.');
-                }
-            }
-        });
-
-        /*
-        this.network.onDisconnect().subscribe(() => {
-            this.toastService.presentWarningToast('Applicazione offline.');
-            this.networkType = this.network.type;
-        });
-
         this.network.onConnect().subscribe(() => {
-            if (this.networkType === this.network.Connection.NONE) {
-                this.toastService.presentSuccessToast('Applicazione online.');
+            if (this.network.type === this.network.Connection.CELL ||
+                this.network.type === this.network.Connection.CELL_2G ||
+                this.network.type === this.network.Connection.CELL_3G ||
+                this.network.type === this.network.Connection.CELL_4G
+            ) {
+                this.wasOffline = false;
+                this.toastService.presentWarningToast('Stai usando i dati mobili');
+            }
+
+            if (this.wasOffline) {
+                this.wasOffline = false;
+                this.toastService.presentSuccessToast('Ti sei riconnesso!');
             }
         });
 
-
-        this.network.onChange().subscribe(() => {
-            switch (this.network.type) {
-                case this.network.Connection.CELL:
-                case this.network.Connection.CELL_2G:
-                case this.network.Connection.CELL_3G:
-                case this.network.Connection.CELL_4G:
-                    this.toastService.presentWarningToast('Stai utilizzando i dati mobili.');
-                    break;
-            }
-        })*/
+        this.network.onDisconnect().subscribe(() => {
+            setTimeout(() => {
+                if (this.network.type === this.network.Connection.NONE) {
+                    this.wasOffline = true;
+                    this.toastService.presentFailureToast('Sei offline');
+                }
+            }, 3000);
+        });
     }
 
     async initializeApp() {
