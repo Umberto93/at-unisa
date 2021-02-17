@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Network } from '@capacitor/core';
 import { Storage } from '@ionic/storage';
 
 import { Platform, isPlatform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Account } from './interfaces/account';
-import { AuthService } from './services/auth.service';
 
 
 @Component({

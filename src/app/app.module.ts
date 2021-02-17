@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,6 +12,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InterceptorService } from './services/interceptor.service';
+import { ErrorService } from './services/error/error.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -28,7 +29,8 @@ import { InterceptorService } from './services/interceptor.service';
         SplashScreen,
         ScreenOrientation,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-        { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+        { provide: ErrorHandler, useClass: ErrorService}
     ],
     bootstrap: [AppComponent]
 })

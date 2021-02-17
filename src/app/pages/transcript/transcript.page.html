@@ -67,7 +67,10 @@
                             <i class="fas fa-coins"></i>
                             <span>{{exam.credits}} CFU</span>
                         </div>
-                        <div class="app-item-footer">
+                        <div
+                            *ngIf="exam.isExam"
+                            class="app-item-footer"
+                        >
                             <ion-buttons>
                                 <ion-button (click)="presentDetailsModal(exam.id)">
                                     <i class="fas fa-info-circle app-icon"></i>
@@ -75,13 +78,10 @@
                                 <ion-button (click)="presentPrevisionModal(exam)">
                                     <i class="fas fa-balance-scale app-icon"></i>
                                 </ion-button>
-                                <ion-button>
-                                    <i class="fas fa-clipboard-list app-icon"></i>
-                                </ion-button>
                             </ion-buttons>
                             <ion-chip outline="true">
-                                <ion-label>Segui</ion-label>
-                                <i class="fas fa-bell"></i>
+                                <ion-label>Appelli</ion-label>
+                                <i class="fas fa-clipboard-list"></i>
                             </ion-chip>
                         </div>
                     </ion-label>

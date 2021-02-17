@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
     selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginPage implements OnInit {
     constructor(
         private router: Router,
         private formBuilder: FormBuilder,
-        private auth: AuthService
+        private auth: AuthService,
+        private toastService: ToastService
     ) {
         this.loginForm = this.formBuilder.group({
             username: new FormControl('', Validators.compose([
@@ -45,8 +47,11 @@ export class LoginPage implements OnInit {
                 this.loginForm.value.password
             ).subscribe(
                 () => { },
-                err => console.log(err),
+                err => {
+                    throw err;
+                },
                 () => {
+                    this.toastService.presentSuccessToast('Login effettuato con successo!');
                     this.router.navigateByUrl('/home');
                 });
         }

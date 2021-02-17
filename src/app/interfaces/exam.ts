@@ -7,5 +7,6 @@ export interface Exam {
     grade: number | null,
     maxGrade: boolean,
     passedDate: Date,
-    passed: boolean
+    passed: boolean,
+    isExam: boolean
 };

@@ -34,7 +34,8 @@ export class TranscriptService {
                     grade: exam.esito.voto,
                     maxGrade: Boolean(exam.esito.lodeFlg),
                     passedDate: this.toDate(exam.esito.dataEsa),
-                    passed: exam.stato.value === 'S'
+                    passed: exam.stato.value === 'S',
+                    isExam: this.isExam(exam)
                 } as Exam;
             });
         }));
@@ -92,5 +93,10 @@ export class TranscriptService {
     private toDate(dateTime: string): Date {
         const date = dateTime.split(' ')[0];
         return new Date(date.split('/').reverse().join('/'));
+    }
+
+    private isExam(exam: any) {
+        return exam.esito.modValCod.value !== 'G' &&
+            exam.adDes !== 'PROVA FINALE';
     }
 }

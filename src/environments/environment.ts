@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    esse3Api: 'https://www.unisa.it/proxy-test/e3rest/api',
+    esse3Api: 'https://www.unisa.it/proxy-test/e3rest/api'
 };
 
 /*

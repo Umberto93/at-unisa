@@ -28,6 +28,9 @@
 /* Montserrat - Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
 
+/* Spartan - Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Spartan:wght@600&display=swap");
+
 /* Font Awesome 5 */
 @import "./scss/fontawesome.scss";
 @import "./scss/solid.scss";
@@ -112,6 +115,33 @@
     --ion-color-tint: var(--ion-color-unisa-success-green-tint);
 }
 
+.ion-color-unisa-success-dark-green {
+    --ion-color-base: var(--ion-color-unisa-success-dark-green);
+    --ion-color-base-rgb: var(--ion-color-unisa-success-dark-green-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-success-dark-green-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-success-dark-green-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-success-dark-green-shade);
+    --ion-color-tint: var(--ion-color-unisa-success-dark-green-tint);
+}
+
+.ion-color-unisa-warning-yellow {
+    --ion-color-base: var(--ion-color-unisa-warning-yellow);
+    --ion-color-base-rgb: var(--ion-color-unisa-warning-yellow-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-warning-yellow-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-warning-yellow-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-warning-yellow-shade);
+    --ion-color-tint: var(--ion-color-unisa-warning-yellow-tint);
+}
+
+.ion-color-unisa-info-blue {
+    --ion-color-base: var(--ion-color-unisa-info-blue);
+    --ion-color-base-rgb: var(--ion-color-unisa-info-blue-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-info-blue-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-info-blue-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-info-blue-shade);
+    --ion-color-tint: var(--ion-color-unisa-info-blue-tint);
+}
+
 .ion-color-unisa-danger-red {
     --ion-color-base: var(--ion-color-unisa-danger-red);
     --ion-color-base-rgb: var(--ion-color-unisa-danger-red-rgb);
@@ -119,6 +149,15 @@
     --ion-color-contrast-rgb: var(--ion-color-unisa-danger-red-contrast-rgb);
     --ion-color-shade: var(--ion-color-unisa-danger-red-shade);
     --ion-color-tint: var(--ion-color-unisa-danger-red-tint);
+}
+
+.ion-color-unisa-danger-dark-red {
+    --ion-color-base: var(--ion-color-unisa-danger-dark-red);
+    --ion-color-base-rgb: var(--ion-color-unisa-danger-dark-red-rgb);
+    --ion-color-contrast: var(--ion-color-unisa-danger-dark-red-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-unisa-danger-dark-red-contrast-rgb);
+    --ion-color-shade: var(--ion-color-unisa-danger-dark-red-shade);
+    --ion-color-tint: var(--ion-color-unisa-danger-dark-red-tint);
 }
 
 app-modal {
@@ -252,6 +291,10 @@ ion-toggle {
     box-sizing: border-box;
 }
 
+.app-loading {
+    color: var(--ion-color-unisa-blue);
+}
+
 .app-content {
     --padding-bottom: var(--ion-app-padding);
     --padding-end: var(--ion-app-padding);
@@ -341,6 +384,14 @@ ion-toggle {
     margin-left: 10px;
 }
 
+.app-toast {
+    --border-radius: 5px;
+    --button-color: white;
+
+    color: white;
+    font-weight: 400;
+}
+
 .page-title {
     color: var(--ion-color-unisa-blue);
     font-size: 24px;
@@ -387,4 +438,50 @@ ion-toggle {
 
 .form-submit {
     --background: var(--ion-color-unisa-orange);
+}
+
+@keyframes unisa-animation {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.75);
+        opacity: 0.5;
+    }
+}
+
+.unisa {
+    color: #2f577f;
+    font-family: "Spartan", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+
+    .unisa-letter {
+        display: inline-block;
+        animation-name: unisa-animation;
+        animation-duration: 1500ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+
+        &:nth-child(1) {
+            animation-delay: 0;
+        }
+
+        &:nth-child(2) {
+            animation-delay: 250ms;
+        }
+
+        &:nth-child(3) {
+            animation-delay: 500ms;
+        }
+
+        &:nth-child(4) {
+            animation-delay: 750ms;
+        }
+
+        &:nth-child(5) {
+            animation-delay: 1000ms;
+        }
+    }
 }

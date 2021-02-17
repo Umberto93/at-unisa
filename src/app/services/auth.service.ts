@@ -23,7 +23,7 @@ export class AuthService {
 
         return this.http.get(`${environment.esse3Api}/login`, {
             headers: new HttpHeaders({
-                'Authorization': `Basic ${credentials}}`
+                'Authorization': `Basic ${credentials}`
             })
         }).pipe(map(res => {
             if (res) {
