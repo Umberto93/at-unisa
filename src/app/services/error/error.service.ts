@@ -29,6 +29,6 @@ export class ErrorService implements ErrorHandler {
     }
 
     handleError50X() {
-        this.toastService.presentFailureToast('Non è possibile comunicare con il server.');
+        this.toastService.presentFailureToast('Non è stato possibile recuperare i dati.');
     }
 }

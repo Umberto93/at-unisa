@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Network } from '@capacitor/core';
+import { Network, NetworkStatus } from '@capacitor/core';
+//import { Network } from '@ionic-native/network/ngx';
 import { Storage } from '@ionic/storage';
 
 import { Platform, isPlatform, MenuController } from '@ionic/angular';
@@ -8,6 +9,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { NavigationEnd, Router } from '@angular/router';
 import { Account } from './interfaces/account';
+import { ToastService } from './services/toast/toast.service';
 
 
 @Component({
@@ -44,22 +46,26 @@ export class AppComponent implements OnInit {
     private account: Account;
     private activeItem: string;
     private activeSubItem: string;
+    private networkType: string;
     private subMenuOpened: boolean;
 
     constructor(
-        private router: Router,
+        private menuController: MenuController,
+        //private network: Network,
         private platform: Platform,
+        private router: Router,
         private statusBar: StatusBar,
         private splashScreen: SplashScreen,
         private screenOrientation: ScreenOrientation,
         private storage: Storage,
-        private menuController: MenuController
+        private toastService: ToastService
     ) {
         this.initializeApp();
         this.isLoginPage = false;
         this.account = {} as Account;
         this.activeItem = '';
         this.activeSubItem = '';
+        this.networkType = '';
         this.subMenuOpened = false;
     }
 
@@ -72,6 +78,41 @@ export class AppComponent implements OnInit {
             }
         });
 
+        Network.addListener('networkStatusChange', (status: NetworkStatus) => {
+            if (!status.connected) {
+                this.toastService.presentWarningToast('Applicazione offline.');
+            } else {   
+                if (status.connectionType === 'cellular') {
+                    this.toastService.presentWarningToast('Stai utilizzando i dati mobili.');
+                } else {
+                    this.toastService.presentSuccessToast('Applicazione online.');
+                }
+            }
+        });
+
+        /*
+        this.network.onDisconnect().subscribe(() => {
+            this.toastService.presentWarningToast('Applicazione offline.');
+            this.networkType = this.network.type;
+        });
+
+        this.network.onConnect().subscribe(() => {
+            if (this.networkType === this.network.Connection.NONE) {
+                this.toastService.presentSuccessToast('Applicazione online.');
+            }
+        });
+
+
+        this.network.onChange().subscribe(() => {
+            switch (this.network.type) {
+                case this.network.Connection.CELL:
+                case this.network.Connection.CELL_2G:
+                case this.network.Connection.CELL_3G:
+                case this.network.Connection.CELL_4G:
+                    this.toastService.presentWarningToast('Stai utilizzando i dati mobili.');
+                    break;
+            }
+        })*/
     }
 
     async initializeApp() {
