@@ -7,6 +7,7 @@ import { TranscriptSortModalComponent } from '../components/transcript-sort-moda
 import { TranscriptStatsModalComponent } from '../components/transcript-stats-modal/transcript-stats-modal.component';
 import { TranscriptExamModalComponent } from '../components/transcript-exam-modal/transcript-exam-modal.component';
 import { TranscriptPrevisionModalComponent } from '../components/transcript-prevision-modal/transcript-prevision-modal.component';
+import { RefresherComponent } from '../components/refresher/refresher.component';
 
 
 
@@ -17,7 +18,8 @@ import { TranscriptPrevisionModalComponent } from '../components/transcript-prev
         TranscriptSortModalComponent,
         TranscriptStatsModalComponent,
         TranscriptExamModalComponent,
-        TranscriptPrevisionModalComponent
+        TranscriptPrevisionModalComponent,
+        RefresherComponent
     ],
     imports: [
         CommonModule
@@ -28,7 +30,8 @@ import { TranscriptPrevisionModalComponent } from '../components/transcript-prev
         TranscriptSortModalComponent,
         TranscriptStatsModalComponent,
         TranscriptExamModalComponent,
-        TranscriptPrevisionModalComponent
+        TranscriptPrevisionModalComponent,
+        RefresherComponent
     ]
 })
 export class UtilityModule { }

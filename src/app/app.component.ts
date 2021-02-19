@@ -27,6 +27,9 @@ export class AppComponent implements OnInit {
             name: 'Carriera',
             icon: 'fa-user-graduate',
             routes: {
+                'profile': {
+                    name: 'Profilo'
+                },
                 'transcript': {
                     name: 'Libretto'
                 },
@@ -86,12 +89,18 @@ export class AppComponent implements OnInit {
                 this.network.type === this.network.Connection.CELL_4G
             ) {
                 this.wasOffline = false;
-                this.toastService.presentWarningToast('Stai usando i dati mobili');
+                this.toastService.presentWarningToast({
+                    header: 'Online',
+                    message: 'È attiva la connessione dati.'
+                });
             }
 
             if (this.wasOffline) {
                 this.wasOffline = false;
-                this.toastService.presentSuccessToast('Ti sei riconnesso!');
+                this.toastService.presentSuccessToast({
+                    header: 'Online',
+                    message: 'Di nuovo online.'
+                });
             }
         });
 
@@ -99,7 +108,10 @@ export class AppComponent implements OnInit {
             setTimeout(() => {
                 if (this.network.type === this.network.Connection.NONE) {
                     this.wasOffline = true;
-                    this.toastService.presentFailureToast('Sei offline');
+                    this.toastService.presentToastWithIcon('cloud-offline', {
+                        header: 'Offline',
+                        message: 'Nessuna connessione Internet.'
+                    });
                 }
             }, 3000);
         });

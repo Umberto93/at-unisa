@@ -1,92 +1,97 @@
-<app-header>
-    <ion-toolbar>
-        <ion-title class="page-title">Libretto</ion-title>
-        <ion-buttons slot="end">
-            <ion-button
-                class="ion-no-margin"
-                (click)="presentSortingModal()"
+<ion-content class="page-content">
+    <app-refresher [refreshCallback]="getExams"></app-refresher>
+    <div class="flex flex-direction-column">
+        <app-header>
+            <ion-toolbar>
+                <ion-title class="page-title">Libretto</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button
+                        class="ion-no-margin"
+                        (click)="presentSortingModal()"
+                    >
+                        <i class="fas fa-sort app-icon"></i>
+                    </ion-button>
+                    <ion-button
+                        class="ion-no-margin"
+                        (click)="presentStatsModal()"
+                    >
+                        <i class="fas fa-chart-area app-icon"></i>
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+            <ion-toolbar class="segment-toolbar">
+                <ion-segment
+                    [value]="activeIndex"
+                    (ionChange)="slideTo($event)"
+                    swipeGesture="false"
+                >
+                    <ion-segment-button
+                        *ngFor="let label of labels; index as i"
+                        [value]="i"
+                    >
+                        <ion-label>{{label}}</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+            </ion-toolbar>
+        </app-header>
+        <div class="page-main">
+            <ion-slides
+                *ngIf="isReady"
+                (ionSlideWillChange)="setActiveIndex()"
+                [options]="slideOpts"
             >
-                <i class="fas fa-sort app-icon"></i>
-            </ion-button>
-            <ion-button
-                class="ion-no-margin"
-                (click)="presentStatsModal()"
-            >
-                <i class="fas fa-chart-area app-icon"></i>
-            </ion-button>
-        </ion-buttons>
-    </ion-toolbar>
-    <ion-toolbar class="segment-toolbar">
-        <ion-segment
-            [value]="activeIndex"
-            (ionChange)="slideTo($event)"
-            swipeGesture="false"
-        >
-            <ion-segment-button
-                *ngFor="let label of labels; index as i"
-                [value]="i"
-            >
-                <ion-label>{{label}}</ion-label>
-            </ion-segment-button>
-        </ion-segment>
-    </ion-toolbar>
-</app-header>
-<ion-content class="app-content">
-    <ion-slides
-        *ngIf="isReady"
-        (ionSlideWillChange)="setActiveIndex()"
-        [options]="slideOpts"
-    >
-        <ion-slide>
-            <ion-list class="app-list">
-                <ion-item *ngFor="let exam of examsList[0]">
-                    <ion-label>
-                        <h3>{{exam.name}}</h3>
-                        <div>
-                            <i class="far fa-calendar"></i>
-                            <span>
-                                {{exam.passedDate | date: 'dd/MM/yyyy'}}
-                            </span>
-                        </div>
-                        <div>
-                            <i class="fas fa-coins"></i>
-                            <span>{{exam.credits}} CFU</span>
-                        </div>
-                    </ion-label>
-                    <ion-note [class.max]="exam.maxGrade">{{getGrade(exam)}}</ion-note>
-                </ion-item>
-                <ion-item *ngIf="examsList[0].length === 0">Nessun elemento da mostrare.</ion-item>
-            </ion-list>
-        </ion-slide>
-        <ion-slide>
-            <ion-list class="app-list">
-                <ion-item *ngFor="let exam of examsList[1]">
-                    <ion-label>
-                        <h3>{{exam.name}}</h3>
-                        <div>
-                            <i class="fas fa-coins"></i>
-                            <span>{{exam.credits}} CFU</span>
-                        </div>
-                        <div
-                            *ngIf="exam.isExam"
-                            class="app-item-footer"
-                        >
-                            <ion-buttons>
-                                <ion-button (click)="presentDetailsModal(exam.id)">
-                                    <i class="fas fa-info-circle app-icon"></i>
-                                </ion-button>
-                                <ion-button (click)="presentPrevisionModal(exam)">
-                                    <i class="fas fa-balance-scale app-icon"></i>
-                                </ion-button>
-                            </ion-buttons>
-                            <ion-chip outline="true">
-                                <ion-label>Appelli</ion-label>
-                                <i class="fas fa-clipboard-list"></i>
-                            </ion-chip>
-                        </div>
-                    </ion-label>
-                </ion-item>
-            </ion-list>
-        </ion-slide>
-    </ion-slides>
+                <ion-slide>
+                    <ion-list class="app-list">
+                        <ion-item *ngFor="let exam of examsList[0]">
+                            <ion-label>
+                                <h3>{{exam.name}}</h3>
+                                <div>
+                                    <i class="far fa-calendar"></i>
+                                    <span>
+                                        {{exam.passedDate | date: 'dd/MM/yyyy'}}
+                                    </span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-coins"></i>
+                                    <span>{{exam.credits}} CFU</span>
+                                </div>
+                            </ion-label>
+                            <ion-note [class.max]="exam.maxGrade">{{getGrade(exam)}}</ion-note>
+                        </ion-item>
+                        <ion-item *ngIf="examsList[0].length === 0">Nessun elemento da mostrare.</ion-item>
+                    </ion-list>
+                </ion-slide>
+                <ion-slide>
+                    <ion-list class="app-list">
+                        <ion-item *ngFor="let exam of examsList[1]">
+                            <ion-label>
+                                <h3>{{exam.name}}</h3>
+                                <div>
+                                    <i class="fas fa-coins"></i>
+                                    <span>{{exam.credits}} CFU</span>
+                                </div>
+                                <div
+                                    *ngIf="exam.isExam"
+                                    class="app-item-footer"
+                                >
+                                    <ion-buttons>
+                                        <ion-button (click)="presentDetailsModal(exam.id)">
+                                            <i class="fas fa-info-circle app-icon"></i>
+                                        </ion-button>
+                                        <ion-button (click)="presentPrevisionModal(exam)">
+                                            <i class="fas fa-balance-scale app-icon"></i>
+                                        </ion-button>
+                                    </ion-buttons>
+                                    <ion-chip outline="true">
+                                        <ion-label>Appelli</ion-label>
+                                        <i class="fas fa-clipboard-list"></i>
+                                    </ion-chip>
+                                </div>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                </ion-slide>
+            </ion-slides>
+        </div>
+    </div>
 </ion-content>

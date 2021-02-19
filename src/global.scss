@@ -305,78 +305,78 @@ ion-toggle {
     overflow: hidden;
     width: calc(100% - 30px);
     border-top-right-radius: 25px;
+}
 
-    .app-list {
-        width: 100%;
+.app-list {
+    width: 100%;
+    padding: 0;
+    background: none;
+
+    ion-list-header {
         padding: 0;
-        background: none;
+        margin-bottom: 20px;
 
-        ion-list-header {
-            padding: 0;
-            margin-bottom: 20px;
+        ion-label {
+            color: var(--ion-color-unisa-blue);
+            font-size: 20px;
+            font-weight: var(--ion-font-weight-semibold);
+            text-align: left;
+        }
+    }
 
-            ion-label {
+    ion-item {
+        --background: white;
+        --padding-bottom: 20px;
+        --padding-end: 20px;
+        --padding-start: 20px;
+        --padding-top: 20px;
+
+        margin-bottom: 20px;
+        border-radius: 15px;
+        box-sizing: border-box;
+        cursor: pointer;
+        box-shadow: 0 5px 40px -20px rgb(0, 0, 0, 0.2);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        ion-label {
+            h3 {
+                padding-right: 20px;
+                margin-bottom: 8px;
                 color: var(--ion-color-unisa-blue);
-                font-size: 20px;
+                font-size: 16px;
                 font-weight: var(--ion-font-weight-semibold);
-                text-align: left;
+                text-transform: lowercase;
+
+                &:first-letter {
+                    text-transform: capitalize;
+                }
+            }
+
+            div {
+                margin-bottom: 8px;
+                font-size: 14px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                span {
+                    margin-left: 8px;
+                }
             }
         }
 
-        ion-item {
-            --background: white;
-            --padding-bottom: 20px;
-            --padding-end: 20px;
-            --padding-start: 20px;
-            --padding-top: 20px;
+        ion-note {
+            align-self: center;
+            color: var(--ion-color-unisa-blue);
+            font-size: 20px;
+            font-weight: var(--ion-font-weight-semibold);
 
-            margin-bottom: 20px;
-            border-radius: 15px;
-            box-sizing: border-box;
-            cursor: pointer;
-            box-shadow: 0 5px 40px -20px rgb(0, 0, 0, 0.2);
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-
-            ion-label {
-                h3 {
-                    padding-right: 20px;
-                    margin-bottom: 8px;
-                    color: var(--ion-color-unisa-blue);
-                    font-size: 16px;
-                    font-weight: var(--ion-font-weight-semibold);
-                    text-transform: lowercase;
-
-                    &:first-letter {
-                        text-transform: capitalize;
-                    }
-                }
-
-                div {
-                    margin-bottom: 8px;
-                    font-size: 14px;
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-
-                    span {
-                        margin-left: 8px;
-                    }
-                }
-            }
-
-            ion-note {
-                align-self: center;
-                color: var(--ion-color-unisa-blue);
-                font-size: 20px;
-                font-weight: var(--ion-font-weight-semibold);
-
-                &.max:after {
-                    content: "L";
-                }
+            &.max:after {
+                content: "L";
             }
         }
     }

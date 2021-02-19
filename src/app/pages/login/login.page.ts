@@ -51,7 +51,9 @@ export class LoginPage implements OnInit {
                     throw err;
                 },
                 () => {
-                    this.toastService.presentSuccessToast('Login effettuato con successo!');
+                    this.toastService.presentSuccessToast({
+                        message: 'Login effettuato con successo!'
+                    });
                     this.router.navigateByUrl('/home');
                 });
         }

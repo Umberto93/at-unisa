@@ -36,9 +36,29 @@ export class HomePage {
             ]
         });*/
 
-        this.toastService.presentSuccessToast('Login effettuato con successo!');
-        //this.toastService.presentFailureToast('Login effettuato con successo!');
-        //this.toastService.presentInfoToast('Login effettuato con successo!');
-        //this.toastService.presentWarningToast('Login effettuato con successo!');
+        /*const t = this.toastController.create({
+            header: 'ciao',
+            message: 'miao',
+            buttons: [
+                {
+                    icon: 'cloud-offline',
+                    side: 'start',
+                    role: 'image'
+                }
+            ]
+        }).then(t => {
+            t.present();
+        });*/
+
+        this.toastService.presentSuccessToast({
+            duration: 2000,
+            header: 'Online',
+            message: 'Sei di nuovo online.'
+        });
+
+        /*this.toastService.presentToastWithIcon('cloud-offline', {
+            header: 'Offline',
+            message: 'Nessuna connessione ad Internet.'
+        });*/
     }
 }

@@ -29,7 +29,8 @@ export class InterceptorService implements HttpInterceptor {
     private async prepareRequest(req: HttpRequest<any>, next: HttpHandler): Promise<any> {
         await this.presentLoading();
         const credentials = await this.storage.get('credentials');
-        console.log(credentials);
+
+        console.log(req);
 
         if (credentials) {
             req = req.clone({

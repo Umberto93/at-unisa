@@ -41,6 +41,7 @@ export class TranscriptPage implements OnInit {
             spaceBetween: 20
         }
 
+        this.getExams = this.getExams.bind(this);
         this.sortingCallback = this.sortingCallback.bind(this);
     }
 
@@ -49,7 +50,11 @@ export class TranscriptPage implements OnInit {
 
         this.matId = user.user.trattiCarriera[0].matId;
 
-        this.transcripts.getExams(this.matId)
+        this.getExams();
+    }
+
+    private getExams() {
+        return this.transcripts.getExams(this.matId)
             .subscribe((exams: Exam[]) => {
                 exams.forEach(exam => {
                     const index = exam.passed ? 0 : 1;

@@ -25,10 +25,14 @@ export class ErrorService implements ErrorHandler {
     }
 
     handleError401() {
-        this.toastService.presentFailureToast('Utente e/o password non corretti.');
+        this.toastService.presentFailureToast({
+            message: 'Utente e/o password non corretti.'
+        });
     }
 
     handleError50X() {
-        this.toastService.presentFailureToast('Non è stato possibile recuperare i dati.');
+        this.toastService.presentFailureToast({
+            message: 'Non è stato possibile recuperare i dati.'
+        });
     }
 }

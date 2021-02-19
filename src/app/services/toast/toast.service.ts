@@ -11,11 +11,7 @@ interface ToastBtn {
 
 interface ToastProps {
     buttons?: ToastBtn[],
-    color?: 'unisa-success-dark-green' |
-    'unisa-danger-dark-red' |
-    'unisa-info-blue' |
-    'unisa-warning-yellow' |
-    undefined,
+    color?: String | undefined,
     cssClass?: String | String[],
     duration?: number,
     header?: String,
@@ -30,6 +26,7 @@ interface ToastProps {
 export class ToastService {
 
     private readonly toastProps = {
+        color: 'dark',
         cssClass: 'app-toast',
         duration: 2000,
         mode: 'ios'
@@ -41,6 +38,7 @@ export class ToastService {
     }
 
     async presentToast(props?: ToastProps) {
+        console.log(props);
         const toast = await this.toastController.create({
             ...this.toastProps,
             ...props,
@@ -51,59 +49,45 @@ export class ToastService {
         await toast.present();
     }
 
-    presentSuccessToast(message: string) {
+    presentToastWithIcon(icon: String, props?: ToastProps) {
         this.presentToast({
+            ...props,
             buttons: [
                 {
                     handler: () => false,
-                    icon: 'checkmark-circle',
+                    icon: icon,
                     side: 'start'
                 }
             ],
-            color: 'unisa-success-dark-green',
-            message: message
+            message: props.message
         });
     }
 
-    presentFailureToast(message: string) {
-        this.presentToast({
-            buttons: [
-                {
-                    handler: () => false,
-                    icon: 'close-circle',
-                    side: 'start'
-                }
-            ],
-            color: 'unisa-danger-dark-red',
-            message: message
+    presentSuccessToast(props?: ToastProps) {
+        this.presentToastWithIcon('checkmark-circle', {
+            ...props,
+            color: 'unisa-success-dark-green'
         });
     }
 
-    presentInfoToast(message: string) {
-        this.presentToast({
-            buttons: [
-                {
-                    handler: () => false,
-                    icon: 'information-circle',
-                    side: 'start'
-                }
-            ],
-            color: 'unisa-info-blue',
-            message: message
+    presentFailureToast(props?: ToastProps) {
+        this.presentToastWithIcon('close-circle', {
+            ...props,
+            color: 'unisa-danger-dark-red'
         });
     }
 
-    presentWarningToast(message: string) {
-        this.presentToast({
-            buttons: [
-                {
-                    handler: () => false,
-                    icon: 'alert-circle',
-                    side: 'start'
-                }
-            ],
-            color: 'unisa-warning-yellow',
-            message: message
+    presentInfoToast(props?: ToastProps) {
+        this.presentToastWithIcon('information-circle', {
+            ...props,
+            color: 'unisa-info-blue'
+        });
+    }
+
+    presentWarningToast(props?: ToastProps) {
+        this.presentToastWithIcon('alert-circle', {
+            ...props,
+            color: 'unisa-warning-yellow'
         });
     }
 }
