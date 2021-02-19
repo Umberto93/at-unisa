@@ -1,0 +1,61 @@
+<app-header>
+    <ion-toolbar>
+        <ion-title class="page-title">Profilo</ion-title>
+    </ion-toolbar>
+    <ion-toolbar class="segment-toolbar">
+        <ion-segment
+            [value]="activeIndex"
+            (ionChange)="slideTo($event)"
+            swipeGesture="false"
+        >
+            <ion-segment-button
+                *ngFor="let label of labels; index as i"
+                [value]="i"
+            >
+                <ion-label>{{label}}</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</app-header>
+<ion-content class="app-content">
+    <ion-slides
+        *ngIf="isReady"
+        (ionSlideWillChange)="setActiveIndex()"
+        [options]="slideOpts"
+    >
+        <ion-slide>
+            <ion-list class="app-list">
+                <ion-item *ngFor="let item of detailsTranslation | keyvalue: noSort">
+                    <ion-label>
+                        <h3>{{item.value}}</h3>
+                        <div>{{profile.details[item.key]}}</div>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-slide>
+        <ion-slide>
+            <ion-list class="app-list">
+                <ion-list-header>
+                    <ion-label>Residenza</ion-label>
+                </ion-list-header>
+                <ion-item *ngFor="let item of homeTranslation | keyvalue: noSort">
+                    <ion-label>
+                        <h3>{{item.value}}</h3>
+                        <div>{{profile.residence[item.key]}}</div>
+                    </ion-label>
+                </ion-item>
+                <div *ngIf="!profile.isResEqualDom">
+                    <ion-list-header>
+                        <ion-label>Domicilio</ion-label>
+                    </ion-list-header>
+                    <ion-item *ngFor="let item of homeTranslation | keyvalue: noSort">
+                        <ion-label>
+                            <h3>{{item.value}}</h3>
+                            <div>{{profile.domicile[item.key]}}</div>
+                        </ion-label>
+                    </ion-item>
+                </div>
+            </ion-list>
+        </ion-slide>
+    </ion-slides>
+</ion-content>

@@ -20,6 +20,10 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
     },
     {
+        path: 'esse3/profile',
+        loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
+    },
+    {
         path: 'esse3/transcript',
         loadChildren: () => import('./pages/transcript/transcript.module').then(m => m.TranscriptPageModule),
         canActivate: [AuthGuardService]
@@ -33,7 +37,6 @@ const routes: Routes = [
         path: '**',
         loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundPageModule)
     }
-
 ];
 
 @NgModule({
