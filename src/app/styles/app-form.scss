@@ -1,0 +1,41 @@
+.form-control {
+    $form-control-height: 50px;
+
+    --padding-start: 20px;
+    --inner-padding-end: 20px;
+    height: $form-control-height;
+    border: 1px solid var(--ion-color-unisa-soft-gray);
+    border-radius: $form-control-height / 2;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.form-control--text {
+    transition: border-color var(--ion-transition-fast);
+
+    .form-control__icon:first-of-type {
+        transition: color var(--ion-transition-fast);
+    }
+
+    &.ion-dirty.ion-invalid {
+        border-color: var(--ion-color-unisa-danger-red);
+
+        .form-control__icon:first-of-type {
+            color: var(--ion-color-unisa-danger-red);
+        }
+    }
+
+    &.ion-valid {
+        border-color: var(--ion-color-unisa-success-green);
+
+        .form-control__icon:first-of-type {
+            color: var(--ion-color-unisa-success-green);
+        }
+    }
+}
+
+.form-submit {
+    --background: var(--ion-color-unisa-orange);
+}

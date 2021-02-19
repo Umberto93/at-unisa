@@ -24,7 +24,7 @@ export class ProfileService {
 
                 const details: ProfileDetails = {
                     birthCountry: res.naziNascDes,
-                    birthDate: res.dataNascita,
+                    birthDate: this.getDate(res.dataNascita),
                     birthDistrict: res.comuNascDes,
                     birthProvince: res.provNascDes,
                     citizenship: res.desCittadinanza,
@@ -33,7 +33,7 @@ export class ProfileService {
                     fiscalCode: res.codFis,
                     lastname: res.cognome,
                 };
-                
+
                 const residence: ProfileResidence = {
                     address: res.viaRes,
                     district: res.comuResDes,
@@ -43,7 +43,7 @@ export class ProfileService {
                     streetNumber: res.numCivRes,
                     zipCode: res.capRes
                 };
-                
+
                 const domicile: ProfileResidence = {
                     address: res.viaDom,
                     district: res.comuDomDes,
@@ -53,17 +53,21 @@ export class ProfileService {
                     streetNumber: res.numCivDom,
                     zipCode: res.capDom
                 }
-                
+
                 const isResEqualDom: boolean = this.isEqual(residence, domicile);
-                
+
 
                 return {
                     details: details,
                     residence: residence,
                     isResEqualDom: isResEqualDom,
-                    ...(!isResEqualDom && {domicile: domicile})
+                    ...(!isResEqualDom && { domicile: domicile })
                 } as Profile;
             }));
+    }
+
+    private getDate(dateTime: string): String {
+        return dateTime.split(' ')[0];
     }
 
     /**

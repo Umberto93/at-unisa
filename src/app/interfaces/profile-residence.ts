@@ -1,9 +1,9 @@
 export interface ProfileResidence {
-    address: string,
-    district: string,
-    nation: string,
-    province: string,
-    phone: string,
+    address: String,
+    district: String,
+    nation: String,
+    province: String,
+    phone: String,
     streetNumber: number,
     zipCode: number
 }

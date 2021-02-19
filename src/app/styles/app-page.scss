@@ -1,0 +1,22 @@
+.page-content {
+    --overflow: hidden;
+}
+
+.page-main {
+    overflow-y: auto;
+    flex-grow: 1;
+    width: calc(100% - 30px);
+    padding: var(--ion-app-padding);
+    background: var(--ion-color-unisa-soft-blue);
+    border-top-right-radius: 25px;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.page-title {
+    color: var(--ion-color-unisa-blue);
+    font-size: 24px;
+    font-weight: var(--ion-font-weight-bold);
+}

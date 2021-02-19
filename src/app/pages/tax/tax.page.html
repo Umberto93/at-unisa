@@ -1,39 +1,50 @@
-<app-header>
-  <ion-toolbar>
-    <ion-title class="page-title">Tasse</ion-title>
-    <ion-buttons slot="end">
-      <ion-button class="ion-no-margin">
-        <i class="fas fa-sort app-icon"></i>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  <ion-toolbar class="segment-toolbar">
-    <ion-segment [value]="activeIndex" (ionChange)="slideTo($event)">
-      <ion-segment-button *ngFor="let label of labels; index as i" [value]="i">
-        <ion-label>{{label}}</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
-</app-header>
-<ion-content class="app-content">
-  <ion-slides *ngIf="isReady" (ionSlideWillChange)="setActiveIndex()" [options]="slideOpts">
-    <ion-slide *ngFor="let taxs of taxsList">
-      <ion-list class="app-list">
-        <ion-item *ngFor="let tax of taxs">
-          <ion-label>
-            <h3>{{tax.name}}</h3>
-            <div>
-              <i class="far fa-calendar"></i>
-              <span>{{getDate(tax)}}</span>
-            </div>
-            <div>
-              <i class="fas fa-money-bill"></i>
-              <span>{{tax.amount}} €</span>
-            </div>
-          </ion-label>
-        </ion-item>
-        <ion-item *ngIf="taxs.length === 0">Nessun elemento da mostrare.</ion-item>
-      </ion-list>
-    </ion-slide>
-  </ion-slides>
+<ion-content class="page-content">
+    <app-refresher [refreshCallback]="getTax"></app-refresher>
+    <div class="flex flex-direction-column">
+        <app-header>
+            <ion-toolbar>
+                <ion-title class="page-title">Tasse</ion-title>
+            </ion-toolbar>
+            <ion-toolbar class="segment-toolbar">
+                <ion-segment
+                    [value]="activeIndex"
+                    (ionChange)="slideTo($event)"
+                    swipeGesture="false"
+                >
+                    <ion-segment-button
+                        *ngFor="let label of labels; index as i"
+                        [value]="i"
+                    >
+                        <ion-label>{{label}}</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+            </ion-toolbar>
+        </app-header>
+        <div class="page-main">
+            <ion-slides
+                *ngIf="isReady"
+                (ionSlideWillChange)="setActiveIndex()"
+                [options]="slideOpts"
+            >
+                <ion-slide *ngFor="let taxs of taxsList">
+                    <ion-list class="app-list">
+                        <ion-item *ngFor="let tax of taxs">
+                            <ion-label>
+                                <h3>{{tax.name}}</h3>
+                                <div>
+                                    <i class="far fa-calendar"></i>
+                                    <span>{{getDate(tax)}}</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-money-bill"></i>
+                                    <span>{{tax.amount}} €</span>
+                                </div>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item *ngIf="taxs.length === 0">Nessun elemento da mostrare.</ion-item>
+                    </ion-list>
+                </ion-slide>
+            </ion-slides>
+        </div>
+    </div>
 </ion-content>

@@ -1,5 +1,5 @@
 import { Storage } from '@ionic/storage';
-import { IonSlides } from '@ionic/angular';
+import { IonSegment, IonSlides } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Tax } from 'src/app/interfaces/tax';
 import { TaxService } from 'src/app/services/esse3/tax/tax.service';
@@ -12,7 +12,9 @@ import { TaxService } from 'src/app/services/esse3/tax/tax.service';
 export class TaxPage implements OnInit {
 
     @ViewChild(IonSlides) slides: IonSlides;
+    @ViewChild(IonSegment) segment: IonSegment;
 
+    private persId: number;
     private isReady: boolean;
     private activeIndex: number;
     private labels: String[];
@@ -31,23 +33,28 @@ export class TaxPage implements OnInit {
             autoHeight: true,
             spaceBetween: 20
         }
+
+        this.getTax = this.getTax.bind(this);
     }
 
-    ngOnInit() {
-        this.storage.get('user').then(user => {
-            const persId = user.user.persId;
-            this.taxService.getTax(persId)
-                .subscribe((taxs: Tax[]) => {
-                    taxs.forEach(tax => {
-                        const index = tax.payed ? 0 : 1;
-                        this.taxsList[index].push(tax);
-                    });
-                    this.isReady = true;
+    async ngOnInit() {
+        const user = await this.storage.get('user');
+        this.persId = user.user.persId;
+        this.getTax();
+    }
+
+    private getTax() {
+        return this.taxService.getTax(this.persId)
+            .subscribe((taxs: Tax[]) => {
+                taxs.forEach(tax => {
+                    const index = tax.payed ? 0 : 1;
+                    this.taxsList[index].push(tax);
                 });
-        });
+                this.isReady = true;
+            });
     }
 
-    getDate(tax: Tax): string {
+    private getDate(tax: Tax): string {
         if (tax.payed) {
             return tax.paymentDate.split(' ')[0];
         }
@@ -55,16 +62,21 @@ export class TaxPage implements OnInit {
         return tax.expirationDate.split(' ')[0];
     }
 
-    slideTo(event: any) {
-        this.slides.slideTo(event.target.value).then(() => {
-            this.activeIndex = event.target.value;
-        });
+    private async slideTo(event: CustomEvent) {
+        const target = event.target as HTMLIonSegmentButtonElement;
+        const value = parseInt(target.value);
+
+        await this.slides.slideTo(value);
+        this.activeIndex = value;
     }
 
-    setActiveIndex() {
-        this.slides.getActiveIndex().then(index => {
-            this.activeIndex = index;
-        });
+    private async setActiveIndex() {
+        const index = await this.slides.getActiveIndex();
+
+        if (index !== this.activeIndex) {
+            const button = this.segment['el'].children[index] as HTMLElement;
+            button.click();
+        }
     }
 
 }

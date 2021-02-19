@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSegment, IonSlides } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Profile } from 'src/app/interfaces/profile';
+import { ProfileDetails } from 'src/app/interfaces/profile-details';
 import { ProfileService } from 'src/app/services/esse3/profile/profile.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class ProfilePage implements OnInit {
     @ViewChild(IonSlides) slides: IonSlides;
     @ViewChild(IonSegment) segment: IonSegment;
 
+    private persId: number;
     private isReady: boolean;
     private activeIndex: number;
     private labels: String[];
@@ -35,7 +37,7 @@ export class ProfilePage implements OnInit {
         this.detailsTranslation = {
             firstname: 'nome',
             lastname: 'cognome',
-            gender: 'sex',
+            gender: 'sesso',
             birthDate: 'data di nascita',
             citizenship: 'cittadinanza',
             birthCountry: 'nazione di nascita',
@@ -52,12 +54,18 @@ export class ProfilePage implements OnInit {
             streetNumber: 'n° civico',
             phone: 'telefono'
         };
+
+        this.getProfile = this.getProfile.bind(this);
     }
 
     async ngOnInit() {
         const user = await this.storage.get('user');
-        const persId = user.user.persId;
-        this.profileService.getProfile(persId)
+        this.persId = user.user.persId;
+        this.getProfile();
+    }
+
+    private getProfile() {
+        return this.profileService.getProfile(this.persId)
             .subscribe((profile: Profile) => {
                 this.isReady = true;
                 this.profile = profile;
