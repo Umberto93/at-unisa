@@ -1,14 +1,24 @@
-.app-list {
-    ion-item::part(native) {
-        align-items: flex-start;
-        flex-direction: column;
+ion-slide {
+    &:first-child {
+        ion-item::part(native) {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        ion-label {
+            transform: scale(1);
+            font-size: 16px;
+            font-weight: var(--ion-font-weight-semibold);
+        }
     }
 
-    ion-label {
-        transform: scale(1);
-        font-size: 16px;
-        font-weight: var(--ion-font-weight-semibold);
+    form {
+        width: 100%;
     }
+}
+
+.app-list {
+    margin-bottom: 30px;
 
     ion-select {
         padding: 0;

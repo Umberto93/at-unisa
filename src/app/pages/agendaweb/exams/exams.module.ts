@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ExamsPage } from './exams.page';
 import { UtilityModule } from '../../utility/utility.module';
 import { ExamsPageRoutingModule } from './exams-routing.module';
-import { SearchModalComponent } from './components/search-modal/search-modal.component';
+import { ExamModalComponent } from './components/exam-modal/exam-modal.component';
 
 
 @NgModule({
@@ -20,10 +20,10 @@ import { SearchModalComponent } from './components/search-modal/search-modal.com
     ],
     declarations: [
         ExamsPage,
-        SearchModalComponent
+        ExamModalComponent
     ],
     exports: [
-        SearchModalComponent
+        ExamModalComponent
     ]
 })
 export class ExamsPageModule { }

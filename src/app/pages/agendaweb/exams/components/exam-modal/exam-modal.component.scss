@@ -1,0 +1,56 @@
+ion-item {
+    margin-bottom: 30px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &.name ion-thumbnail {
+        background: #eaf7ff;
+    }
+
+    &.prof ion-thumbnail {
+        background: #FFF4F4;
+    }
+    
+    &.date ion-thumbnail {
+        background: #FAF8E9;
+    }
+
+    &.notes ion-thumbnail {
+        background: #CEF5F8;
+    }
+    
+    &.room ion-thumbnail {
+        background: #FFF1FF;
+    }
+    
+    &.type ion-thumbnail {
+        background: #FDF7D7;
+    }
+    
+    &.course ion-thumbnail {
+        background: #E4F6E5;
+    }
+
+    ion-thumbnail {
+        margin-right: 15px;
+        border-radius: 15px;
+
+        i {
+            color: rgba(0, 0, 0, 0.2);
+            mix-blend-mode: color-burn;
+        }
+    }
+
+    ion-label {
+        h3 {
+            font-size: 15px;
+            font-weight: var(--ion-font-weight-medium);
+        }
+
+        p {
+            color: var(--ion-color-unisa-base);
+        }
+    }
+}

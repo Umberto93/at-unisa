@@ -5,7 +5,7 @@
             <ion-toolbar>
                 <ion-title class="page-title">Appelli</ion-title>
             </ion-toolbar>
-            <!-- <ion-toolbar class="segment-toolbar">
+            <ion-toolbar class="segment-toolbar">
                 <ion-segment
                     [value]="activeIndex"
                     (ionChange)="slideTo($event)"
@@ -18,95 +18,134 @@
                         <ion-label>{{label}}</ion-label>
                     </ion-segment-button>
                 </ion-segment>
-            </ion-toolbar> -->
+            </ion-toolbar>
         </app-header>
         <div class="page-main">
-            <form
+            <ion-slides
                 *ngIf="isReady"
-                [formGroup]="examsForm"
+                (ionSlideWillChange)="setActiveIndex()"
+                [options]="slideOpts"
             >
-                <ion-list class="app-list">
-                    <ion-item>
-                        <ion-label>
-                            <h3>Anno accademico</h3>
-                        </ion-label>
-                        <ion-select
-                            cancelText="Cancella"
-                            formControlName="year"
-                            interface="action-sheet"
-                            placeholder="Seleziona"
-                            [interfaceOptions]="customActionSheetOptions"
-                            (ionChange)="setYearIndex($event)"
+                <ion-slide>
+                    <form
+                        [formGroup]="examsForm"
+                        (submit)="getSessions()"
+                    >
+                        <ion-list class="app-list">
+                            <ion-item>
+                                <ion-label>
+                                    <h3>Anno accademico</h3>
+                                </ion-label>
+                                <ion-select
+                                    cancelText="Cancella"
+                                    formControlName="year"
+                                    interface="action-sheet"
+                                    placeholder="Seleziona"
+                                    [interfaceOptions]="customActionSheetOptions"
+                                    (ionChange)="setYearIndex($event)"
+                                >
+                                    <ion-select-option
+                                        *ngFor="let param of searchParams; index as i"
+                                        [value]="{index: i, value: param.valore}"
+                                    >
+                                        {{param.label}}
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                            <ion-item [disabled]="yearIndex === -1">
+                                <ion-label>
+                                    <h3>Corso di studio</h3>
+                                </ion-label>
+                                <ion-select
+                                    cancelText="Cancella"
+                                    formControlName="course"
+                                    placeholder="Seleziona"
+                                    interface="action-sheet"
+                                    [interfaceOptions]="customActionSheetOptions"
+                                    (ionChange)="setCourseIndex($event)"
+                                >
+                                    <ion-select-option
+                                        *ngFor="let course of getCourses(); index as i"
+                                        [value]="{index: i, value: course.valore}"
+                                    >
+                                        [{{course.valore}}] - {{course.label}}
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                            <ion-item [disabled]="courseIndex === -1">
+                                <ion-label>
+                                    <h3>Anno di studio</h3>
+                                </ion-label>
+                                <ion-select
+                                    cancelText="Cancella"
+                                    formControlName="courseYear"
+                                    placeholder="Seleziona"
+                                    interface="action-sheet"
+                                    [interfaceOptions]="customActionSheetOptions"
+                                    (ionChange)="setCourseYearIndex($event)"
+                                >
+                                    <ion-select-option
+                                        *ngFor="let year of getCourseYears(); index as i"
+                                        [value]="{index: i, value: year.valore}"
+                                    >
+                                        {{year.label}}
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                            <ion-item [disabled]="courseYearIndex === -1">
+                                <ion-label>
+                                    <h3>Sessione</h3>
+                                </ion-label>
+                                <ion-select
+                                    cancelText="Cancella"
+                                    formControlName="term"
+                                    placeholder="Seleziona"
+                                    interface="action-sheet"
+                                    [interfaceOptions]="customActionSheetOptions"
+                                >
+                                    <ion-select-option
+                                        *ngFor="let term of getTerms(); index as i"
+                                        [value]="{index: i, value: term.valore}"
+                                    >
+                                        {{term.label}}
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-list>
+                        <ion-button
+                            class="form-submit form-submit--button"
+                            type="submit"
+                            [disabled]="!examsForm.valid"
                         >
-                            <ion-select-option
-                                *ngFor="let param of searchParams; index as i"
-                                [value]="{index: i, value: param.valore}"
-                            >
-                                {{param.label}}
-                            </ion-select-option>
-                        </ion-select>
-                    </ion-item>
-                    <ion-item [disabled]="yearIndex === -1">
-                        <ion-label>
-                            <h3>Corso di studio</h3>
-                        </ion-label>
-                        <ion-select
-                            cancelText="Cancella"
-                            formControlName="course"
-                            placeholder="Seleziona"
-                            interface="action-sheet"
-                            [interfaceOptions]="customActionSheetOptions"
-                            (ionChange)="setCourseIndex($event)"
+                            Cerca
+                        </ion-button>
+                    </form>
+                </ion-slide>
+                <ion-slide>
+                    <ion-list class="app-list">
+                        <ion-item
+                            *ngFor="let session of sessions"
+                            class="session"
+                            (click)="getSessionDetails(session)"
                         >
-                            <ion-select-option
-                                *ngFor="let course of getCourses(); index as i"
-                                [value]="{index: i, value: course.valore}"
-                            >
-                                [{{course.valore}}] - {{course.label}}
-                            </ion-select-option>
-                        </ion-select>
-                    </ion-item>
-                    <ion-item [disabled]="courseIndex === -1">
-                        <ion-label>
-                            <h3>Anno di studio</h3>
-                        </ion-label>
-                        <ion-select
-                            cancelText="Cancella"
-                            formControlName="courseYear"
-                            placeholder="Seleziona"
-                            interface="action-sheet"
-                            [interfaceOptions]="customActionSheetOptions"
-                            (ionChange)="setCourseYearIndex($event)"
-                        >
-                            <ion-select-option
-                                *ngFor="let year of getCourseYears(); index as i"
-                                [value]="{index: i, value: year.valore}"
-                            >
-                                {{year.label}}
-                            </ion-select-option>
-                        </ion-select>
-                    </ion-item>
-                    <ion-item [disabled]="courseYearIndex === -1">
-                        <ion-label>
-                            <h3>Sessione</h3>
-                        </ion-label>
-                        <ion-select
-                            cancelText="Cancella"
-                            formControlName="term"
-                            placeholder="Seleziona"
-                            interface="action-sheet"
-                            [interfaceOptions]="customActionSheetOptions"
-                        >
-                            <ion-select-option
-                                *ngFor="let term of getTerms(); index as i"
-                                [value]="{index: i, value: term.valore}"
-                            >
-                                {{term.label}}
-                            </ion-select-option>
-                        </ion-select>
-                    </ion-item>
-                </ion-list>
-            </form>
+                            <ion-label>
+                                <h3>{{session.name}}</h3>
+                                <div>
+                                    <i class="far fa-calendar"></i>
+                                    <span>
+                                        {{session.dateStart | date: 'dd/MM/yyyy'}}
+                                    </span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-map"></i>
+                                    <span>{{session.room}}</span>
+                                </div>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item *ngIf="sessions.length === 0">Nessun elemento da mostrare.</ion-item>
+                    </ion-list>
+                </ion-slide>
+            </ion-slides>
         </div>
     </div>
 </ion-content>

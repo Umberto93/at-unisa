@@ -40,6 +40,16 @@
     --background: var(--ion-color-unisa-orange);
 }
 
+.form-submit--button {
+    --border-radius: 25px;
+
+    height: 50px;
+    width: 100%;
+    font-size: 15px;
+    font-weight: var(--ion-font-weight-semibold);
+    text-transform: capitalize;
+}
+
 .form-select-action-sheet {
     --button-color: var(--ion-color-unisa-base);
     --button-background-activated-opacity: 0;
