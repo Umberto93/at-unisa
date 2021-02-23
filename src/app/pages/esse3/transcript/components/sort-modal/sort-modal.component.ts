@@ -1,15 +1,13 @@
-import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { NavParams } from '@ionic/angular';
-import { Exam } from 'src/app/interfaces/exam';
 import { TranscriptSortingService } from 'src/app/services/transcript-sorting.service';
 
 @Component({
     selector: 'app-sort-modal',
-    templateUrl: './transcript-sort-modal.component.html',
-    styleUrls: ['./transcript-sort-modal.component.scss'],
+    templateUrl: './sort-modal.component.html',
+    styleUrls: ['./sort-modal.component.scss'],
 })
-export class TranscriptSortModalComponent implements OnInit {
+export class SortModalComponent implements OnInit {
 
     private activeSorting: number;
     private ascSorting: boolean;

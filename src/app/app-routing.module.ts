@@ -20,22 +20,14 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
     },
     {
-        path: 'esse3/profile',
-        loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
-    },
-    {
-        path: 'esse3/transcript',
-        loadChildren: () => import('./pages/transcript/transcript.module').then(m => m.TranscriptPageModule),
-        canActivate: [AuthGuardService]
-    },
-    {
-        path: 'esse3/tax',
-        loadChildren: () => import('./pages/tax/tax.module').then(m => m.TaxPageModule),
+        path: 'esse3',
+        loadChildren: () => import('./pages/esse3/esse3.module').then(m => m.Esse3PageModule),
         canActivate: [AuthGuardService]
     },
     {
         path: 'agendaweb',
-        loadChildren: () => import('./pages/agendaweb/agendaweb.module').then(m => m.AgendawebPageModule)
+        loadChildren: () => import('./pages/agendaweb/agendaweb.module').then(m => m.AgendawebPageModule),
+        canActivate: [AuthGuardService]
     },
     {
         path: '**',

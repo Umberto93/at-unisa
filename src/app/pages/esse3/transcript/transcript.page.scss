@@ -35,15 +35,5 @@ ion-item {
             }
         }
     }
-
-    ion-chip {
-        --color: var(--ion-color-unisa-base);
-
-        border-color: var(--ion-color-unisa-soft-gray);
-
-        ion-label {
-            overflow: visible;
-            margin-right: 5px;
-        }
-    }
+    
 }

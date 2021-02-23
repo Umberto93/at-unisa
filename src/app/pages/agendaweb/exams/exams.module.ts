@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
-import { ExamsPageRoutingModule } from './exams-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ExamsPage } from './exams.page';
 import { UtilityModule } from '../../utility/utility.module';
+import { ExamsPageRoutingModule } from './exams-routing.module';
+import { SearchModalComponent } from './components/search-modal/search-modal.component';
+
 
 @NgModule({
     imports: [
@@ -18,6 +18,12 @@ import { UtilityModule } from '../../utility/utility.module';
         ExamsPageRoutingModule,
         UtilityModule
     ],
-    declarations: [ExamsPage]
+    declarations: [
+        ExamsPage,
+        SearchModalComponent
+    ],
+    exports: [
+        SearchModalComponent
+    ]
 })
 export class ExamsPageModule { }

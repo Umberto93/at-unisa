@@ -7,11 +7,11 @@ import { TranscriptStats } from 'src/app/interfaces/transcript-stats';
 import { TranscriptService } from 'src/app/services/esse3/transcript/transcript.service';
 
 @Component({
-    selector: 'app-transcript-stats-modal',
-    templateUrl: './transcript-stats-modal.component.html',
-    styleUrls: ['./transcript-stats-modal.component.scss'],
+    selector: 'app-stats-modal',
+    templateUrl: './stats-modal.component.html',
+    styleUrls: ['./stats-modal.component.scss'],
 })
-export class TranscriptStatsModalComponent implements OnInit {
+export class StatsModalComponent implements OnInit {
 
     @ViewChild('ctx') ctx: ElementRef;
 

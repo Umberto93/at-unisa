@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TranscriptExamModalComponent } from './transcript-exam-modal.component';
+import { PrevisionModalComponent } from './prevision-modal.component';
 
-describe('TranscriptExamModalComponent', () => {
-  let component: TranscriptExamModalComponent;
-  let fixture: ComponentFixture<TranscriptExamModalComponent>;
+describe('TranscriptPrevisionModalComponent', () => {
+  let component: PrevisionModalComponent;
+  let fixture: ComponentFixture<PrevisionModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TranscriptExamModalComponent ],
+      declarations: [ PrevisionModalComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TranscriptExamModalComponent);
+    fixture = TestBed.createComponent(PrevisionModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

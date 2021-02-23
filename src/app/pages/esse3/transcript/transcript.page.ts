@@ -3,11 +3,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSegment, IonSlides, ModalController } from '@ionic/angular';
 import { Exam } from 'src/app/interfaces/exam';
 import { TranscriptService } from 'src/app/services/esse3/transcript/transcript.service';
-import { TranscriptSortModalComponent } from '../components/transcript-sort-modal/transcript-sort-modal.component';
+import { SortModalComponent } from './components/sort-modal/sort-modal.component';
 import { TranscriptSortingService } from 'src/app/services/transcript-sorting.service';
-import { TranscriptStatsModalComponent } from '../components/transcript-stats-modal/transcript-stats-modal.component';
-import { TranscriptExamModalComponent } from '../components/transcript-exam-modal/transcript-exam-modal.component';
-import { TranscriptPrevisionModalComponent } from '../components/transcript-prevision-modal/transcript-prevision-modal.component';
+import { StatsModalComponent } from './components/stats-modal/stats-modal.component';
+import { ExamModalComponent } from './components/exam-modal/exam-modal.component';
+import { PrevisionModalComponent } from './components/prevision-modal/prevision-modal.component';
 
 @Component({
     selector: 'app-transcript',
@@ -79,7 +79,7 @@ export class TranscriptPage implements OnInit {
 
     private async presentSortingModal() {
         const modal = await this.modalController.create({
-            component: TranscriptSortModalComponent,
+            component: SortModalComponent,
             componentProps: {
                 'confirmCallback': this.sortingCallback
             },
@@ -91,7 +91,7 @@ export class TranscriptPage implements OnInit {
 
     private async presentStatsModal() {
         const modal = await this.modalController.create({
-            component: TranscriptStatsModalComponent,
+            component: StatsModalComponent,
             componentProps: {
                 'matId': this.matId,
                 'exams': this.examsList[0]
@@ -105,7 +105,7 @@ export class TranscriptPage implements OnInit {
 
     private async presentDetailsModal(examId: number) {
         const modal = await this.modalController.create({
-            component: TranscriptExamModalComponent,
+            component: ExamModalComponent,
             componentProps: {
                 'matId': this.matId,
                 'examId': examId
@@ -118,7 +118,7 @@ export class TranscriptPage implements OnInit {
 
     private async presentPrevisionModal(exam: Exam) {
         const modal = await this.modalController.create({
-            component: TranscriptPrevisionModalComponent,
+            component: PrevisionModalComponent,
             componentProps: {
                 'matId': this.matId,
                 'exam': exam

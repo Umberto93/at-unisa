@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TranscriptStatsModalComponent } from './transcript-stats-modal.component';
+import { SortModalComponent } from './sort-modal.component';
 
-describe('TranscriptStatsModalComponent', () => {
-  let component: TranscriptStatsModalComponent;
-  let fixture: ComponentFixture<TranscriptStatsModalComponent>;
+describe('SortModalComponent', () => {
+  let component: SortModalComponent;
+  let fixture: ComponentFixture<SortModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TranscriptStatsModalComponent ],
+      declarations: [ SortModalComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TranscriptStatsModalComponent);
+    fixture = TestBed.createComponent(SortModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

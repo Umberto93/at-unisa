@@ -5,11 +5,11 @@ import { TranscriptStats } from 'src/app/interfaces/transcript-stats';
 import { TranscriptService } from 'src/app/services/esse3/transcript/transcript.service';
 
 @Component({
-    selector: 'app-transcript-prevision-modal',
-    templateUrl: './transcript-prevision-modal.component.html',
-    styleUrls: ['./transcript-prevision-modal.component.scss'],
+    selector: 'app-prevision-modal',
+    templateUrl: './prevision-modal.component.html',
+    styleUrls: ['./prevision-modal.component.scss'],
 })
-export class TranscriptPrevisionModalComponent implements OnInit {
+export class PrevisionModalComponent implements OnInit {
 
     private matId: number;
     private exam: Exam;

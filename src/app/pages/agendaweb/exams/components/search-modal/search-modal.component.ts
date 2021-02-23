@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { ExamsService } from 'src/app/services/agendaweb/exams/exams.service';
 
 @Component({
-    selector: 'app-exams-search-modal',
-    templateUrl: './exams-search-modal.component.html',
-    styleUrls: ['./exams-search-modal.component.scss'],
+    selector: 'app-search-modal',
+    templateUrl: './search-modal.component.html',
+    styleUrls: ['./search-modal.component.scss'],
 })
-export class ExamsSearchModalComponent implements OnInit {
+export class SearchModalComponent implements OnInit {
 
     private readonly customAlertOptions = {
         cssClass: 'form-select-alert',

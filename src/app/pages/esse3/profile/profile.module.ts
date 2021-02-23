@@ -4,19 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TaxPageRoutingModule } from './tax-routing.module';
+import { ProfilePageRoutingModule } from './profile-routing.module';
 
-import { TaxPage } from './tax.page';
-import { UtilityModule } from '../utility/utility.module';
+import { ProfilePage } from './profile.page';
+import { UtilityModule } from '../../utility/utility.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TaxPageRoutingModule,
+    ProfilePageRoutingModule,
     UtilityModule
   ],
-  declarations: [TaxPage]
+  declarations: [ProfilePage]
 })
-export class TaxPageModule { }
+export class ProfilePageModule {}

@@ -4,11 +4,11 @@ import { ExamDetails } from 'src/app/interfaces/exam-details';
 import { TranscriptService } from 'src/app/services/esse3/transcript/transcript.service';
 
 @Component({
-    selector: 'app-transcript-exam-modal',
-    templateUrl: './transcript-exam-modal.component.html',
-    styleUrls: ['./transcript-exam-modal.component.scss'],
+    selector: 'app-exam-modal',
+    templateUrl: './exam-modal.component.html',
+    styleUrls: ['./exam-modal.component.scss'],
 })
-export class TranscriptExamModalComponent implements OnInit {
+export class ExamModalComponent implements OnInit {
 
     private details: ExamDetails;
     private matId: number;

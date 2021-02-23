@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ExamsService } from 'src/app/services/agendaweb/exams/exams.service';
-import { ExamsSearchModalComponent } from '../components/exams-search-modal/exams-search-modal.component';
 
 @Component({
     selector: 'app-exams',
