@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
         this.initializeApp();
         this.isLoginPage = false;
         this.account = {} as Account;
-        this.activeItem = '';
+        this.activeItem = 'home';
         this.activeSubItem = '';
         this.subMenuOpened = false;
 
@@ -148,7 +148,7 @@ export class AppComponent implements OnInit {
 
         this.activeItem = pathParams[1];
 
-        if (pathParams.length > 2) {
+        if (pathParams.length > 3) {
             this.activeSubItem = pathParams[2];
             this.subMenuOpened = true;
         }

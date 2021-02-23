@@ -59,16 +59,5 @@
                 }
             }
         }
-
-        ion-note {
-            align-self: center;
-            color: var(--ion-color-unisa-blue);
-            font-size: 20px;
-            font-weight: var(--ion-font-weight-semibold);
-
-            &.max:after {
-                content: "L";
-            }
-        }
     }
 }

@@ -1,0 +1,41 @@
+<app-modal
+    title="Cerca per"
+    confirmButton="true"
+>
+    <form *ngIf="isReady">
+        <ion-list>
+            <ion-item class="form-item">
+                <ion-label position="stacked">Anno accademico</ion-label>
+                <ion-select
+                    class="form-control"
+                    placeholder="Seleziona"
+                    interface="action-sheet"
+                    [interfaceOptions]="customAlertOptions"
+                    (ionChange)="setYearIndex()"
+                >
+                    <ion-select-option
+                        *ngFor="let param of searchParams"
+                        [value]="param.valore"
+                    >
+                        {{param.label}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item class="form-item">
+                <ion-label position="stacked">Corso di studio</ion-label>
+                <ion-select
+                    class="form-control"
+                    placeholder="Seleziona"
+                    [interfaceOptions]="customAlertOptions"
+                >
+                    <ion-select-option
+                        *ngFor="let course of getCourses()"
+                        [value]="course.valore"
+                    >
+                        {{course.label}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
+    </form>
+</app-modal>

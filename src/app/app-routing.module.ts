@@ -34,6 +34,10 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
     },
     {
+        path: 'agendaweb',
+        loadChildren: () => import('./pages/agendaweb/agendaweb.module').then(m => m.AgendawebPageModule)
+    },
+    {
         path: '**',
         loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundPageModule)
     }

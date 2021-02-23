@@ -39,7 +39,7 @@ export class TranscriptPage implements OnInit {
         this.slideOpts = {
             autoHeight: true,
             spaceBetween: 20
-        }
+        };
 
         this.getExams = this.getExams.bind(this);
         this.sortingCallback = this.sortingCallback.bind(this);
