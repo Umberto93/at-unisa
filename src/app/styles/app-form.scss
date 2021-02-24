@@ -115,3 +115,21 @@
         }
     }
 }
+
+.form-picker {
+    color: var(--ion-color-unisa-base);
+
+    .picker-wrapper {
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+    }
+
+    .picker-button {
+        text-transform: capitalize !important;
+    }
+
+    .picker-opt-selected, .picker-button {
+        color: var(--ion-color-unisa-blue) !important;
+        font-weight: var(--ion-font-weight-semibold) !important;
+    }
+}

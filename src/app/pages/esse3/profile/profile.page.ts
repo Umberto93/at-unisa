@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSegment, IonSlides } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
 import { Profile } from 'src/app/interfaces/profile';
 import { ProfileDetails } from 'src/app/interfaces/profile-details';
 import { ProfileService } from 'src/app/services/esse3/profile/profile.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
     selector: 'app-profile',
@@ -24,7 +24,7 @@ export class ProfilePage implements OnInit {
     private homeTranslation: any;
 
     constructor(
-        private storage: Storage,
+        private userService: UserService,
         private profileService: ProfileService
     ) {
         this.labels = ['Anagrafica', 'Abitazione'];
@@ -34,6 +34,7 @@ export class ProfilePage implements OnInit {
             autoHeight: true,
             spaceBetween: 20
         };
+
         this.detailsTranslation = {
             firstname: 'nome',
             lastname: 'cognome',
@@ -45,6 +46,7 @@ export class ProfilePage implements OnInit {
             birthDistrict: 'comune/città di nascita',
             fiscalCode: 'codice fiscale'
         };
+
         this.homeTranslation = {
             nation: 'nazione',
             province: 'provincia',
@@ -59,8 +61,9 @@ export class ProfilePage implements OnInit {
     }
 
     async ngOnInit() {
-        const user = await this.storage.get('user');
-        this.persId = user.user.persId;
+        const profile = await this.userService.getUser();
+
+        this.persId = profile.user.persId;
         this.getProfile();
     }
 

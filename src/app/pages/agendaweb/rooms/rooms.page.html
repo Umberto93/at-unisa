@@ -1,0 +1,104 @@
+<ion-content class="page-content">
+    <app-refresher [refreshCallback]="getRoomsFilter"></app-refresher>
+    <div class="flex flex-direction-column">
+        <app-header>
+            <ion-toolbar>
+                <ion-title class="page-title">Aule</ion-title>
+            </ion-toolbar>
+            <ion-toolbar class="segment-toolbar">
+                <ion-segment
+                    [value]="activeIndex"
+                    (ionChange)="slideTo($event)"
+                    swipeGesture="false"
+                >
+                    <ion-segment-button
+                        *ngFor="let label of labels; index as i"
+                        [value]="i"
+                    >
+                        <ion-label>{{label}}</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+            </ion-toolbar>
+        </app-header>
+        <div class="page-main">
+            <ion-slides
+                *ngIf="isReady"
+                (ionSlideWillChange)="setActiveIndex()"
+                [options]="slideOpts"
+            >
+                <ion-slide>
+                    <form
+                        [formGroup]="roomsForm"
+                        (submit)="getRooms()"
+                    >
+                        <ion-list class="app-list">
+                            <ion-item>
+                                <ion-label>
+                                    <h3>Edificio</h3>
+                                </ion-label>
+                                <ion-select
+                                    cancelText="Cancella"
+                                    formControlName="building"
+                                    interface="action-sheet"
+                                    placeholder="Seleziona"
+                                    [interfaceOptions]="customActionSheetOptions"
+                                >
+                                    <ion-select-option
+                                        *ngFor="let building of buildings; index as i"
+                                        [value]="building.valore"
+                                    >
+                                        {{building.label}}
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h3>Data</h3>
+                                </ion-label>
+                                <ion-datetime
+                                    cancelText="Cancella"
+                                    displayFormat="DD-MM-YYYY"
+                                    doneText="Ok"
+                                    formControlName="date"
+                                    mode="md"
+                                    placeholder="Seleziona"
+                                    [pickerOptions]="pickerOptions"
+                                ></ion-datetime>
+                            </ion-item>
+                        </ion-list>
+                        <ion-button
+                            class="form-submit form-submit--button"
+                            type="submit"
+                            [disabled]="!roomsForm.valid"
+                        >
+                            Cerca
+                        </ion-button>
+                    </form>
+                </ion-slide>
+                <ion-slide>
+                    <ion-list class="app-list">
+                        <ion-item
+                            *ngFor="let room of rooms | keyvalue"
+                            (click)="getRoomEvents(room.value.events)"
+                        >
+                            <ion-label>
+                                <h3>Aula {{room.value.name}}</h3>
+                                <div>
+                                    <i class="fas fa-clock"></i>
+                                    <div>
+                                        <span *ngFor="let slot of room.value.timeSlots">
+                                            {{slot.from | date:'HH:mm'}} - {{slot.to  | date:'HH:mm'}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item *ngIf="roomsIsEmpty()">
+                            Nessun elemento da mostrare.
+                        </ion-item>
+                    </ion-list>
+                </ion-slide>
+            </ion-slides>
+        </div>
+    </div>
+</ion-content>

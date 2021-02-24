@@ -1,0 +1,34 @@
+ion-item {
+    margin-bottom: 30px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    ion-label {
+        h3 {
+            overflow: visible;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--ion-color-unisa-blue);
+            font-size: 16px;
+            font-weight: var(--ion-font-weight-semibold);
+            text-transform: lowercase;
+            text-overflow: initial;
+            white-space: initial;
+
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
+
+        div:not(:last-child) {
+            margin-bottom: 5px;
+        }
+
+        span {
+            margin-left: 10px;
+            font-size: 14px;
+        }
+    }
+}

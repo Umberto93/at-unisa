@@ -1,4 +1,3 @@
-import { Storage } from '@ionic/storage';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSegment, IonSlides, ModalController } from '@ionic/angular';
 import { Exam } from 'src/app/interfaces/exam';
@@ -8,6 +7,7 @@ import { TranscriptSortingService } from 'src/app/services/transcript-sorting.se
 import { StatsModalComponent } from './components/stats-modal/stats-modal.component';
 import { ExamModalComponent } from './components/exam-modal/exam-modal.component';
 import { PrevisionModalComponent } from './components/prevision-modal/prevision-modal.component';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
     selector: 'app-transcript',
@@ -27,7 +27,7 @@ export class TranscriptPage implements OnInit {
     private examsList: Exam[][];
 
     constructor(
-        private storage: Storage,
+        private userService: UserService,
         private transcripts: TranscriptService,
         private modalController: ModalController,
         private transcriptSortingService: TranscriptSortingService
@@ -45,21 +45,27 @@ export class TranscriptPage implements OnInit {
         this.sortingCallback = this.sortingCallback.bind(this);
     }
 
-    async ngOnInit() {
-        const user = await this.storage.get('user');
+    ngOnInit() { }
 
-        this.matId = user.user.trattiCarriera[0].matId;
+    async ionViewWillEnter() {
+        const user = await this.userService.getUser();
+        const activeCareer = await this.userService.getActiveCareer() || 0;
 
+        this.matId = user.user.trattiCarriera[activeCareer].matId;
         this.getExams();
     }
 
     private getExams() {
         return this.transcripts.getExams(this.matId)
             .subscribe((exams: Exam[]) => {
+                const examsList = [[], []];
+
                 exams.forEach(exam => {
                     const index = exam.passed ? 0 : 1;
-                    this.examsList[index].push(exam);
+                    examsList[index].push(exam);
                 });
+
+                this.examsList = examsList;
                 this.isReady = true;
                 this.sortingCallback();
             });

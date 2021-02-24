@@ -1,0 +1,19 @@
+<app-modal title="Eventi">
+    <ion-list>
+        <ion-item *ngFor="let event of events">
+            <ion-label>
+                <h3>{{event.name}}</h3>
+                <div>
+                    <i class="fas fa-tag"></i>
+                    <span>{{event.type}}</span>
+                </div>
+                <div>
+                    <i class="fas fa-clock"></i>
+                    <span>
+                        {{event.from | date:'HH:mm'}} - {{event.to  | date:'HH:mm'}}
+                    </span>
+                </div>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</app-modal>

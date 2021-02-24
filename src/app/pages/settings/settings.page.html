@@ -1,0 +1,28 @@
+<ion-content class="page-content">
+    <app-header>
+        <ion-toolbar>
+            <ion-title class="page-title">Impostazioni</ion-title>
+        </ion-toolbar>
+    </app-header>
+    <ion-list>
+        <ion-item>
+            <ion-label>
+                <h3>Carriera attiva</h3>
+            </ion-label>
+            <ion-select
+                cancelText="Cancella"
+                interface="action-sheet"
+                [value]="activeCareer"
+                [interfaceOptions]="customActionSheetOptions"
+                (ionChange)="setCareer($event)"
+            >
+                <ion-select-option
+                    *ngFor="let studentId of studentIds; index as i"
+                    [value]="i"
+                >
+                    {{studentId}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+</ion-content>

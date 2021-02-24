@@ -131,7 +131,7 @@ export class SessionsProfComponent implements OnInit {
                 setTimeout(() => {
                     this.activeIndex++;
                     this.slides.slideTo(this.activeIndex);
-                });
+                }, 300);
             }
         );
     }

@@ -156,7 +156,7 @@ export class SessionsCourseComponent implements OnInit {
                 setTimeout(() => {
                     this.activeIndex++;
                     this.slides.slideTo(this.activeIndex);
-                });
+                }, 300);
             }
         );
     }

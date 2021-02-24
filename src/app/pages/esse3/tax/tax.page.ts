@@ -1,8 +1,8 @@
-import { Storage } from '@ionic/storage';
 import { IonSegment, IonSlides } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Tax } from 'src/app/interfaces/tax';
 import { TaxService } from 'src/app/services/esse3/tax/tax.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
     selector: 'app-tax',
@@ -22,7 +22,7 @@ export class TaxPage implements OnInit {
     private taxsList: Tax[][];
 
     constructor(
-        private storage: Storage,
+        private userService: UserService,
         private taxService: TaxService
     ) {
         this.taxsList = [[], []];
@@ -38,8 +38,9 @@ export class TaxPage implements OnInit {
     }
 
     async ngOnInit() {
-        const user = await this.storage.get('user');
-        this.persId = user.user.persId;
+        const profile = await this.userService.getUser();
+        
+        this.persId = profile.user.persId;
         this.getTax();
     }
 
