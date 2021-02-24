@@ -61,15 +61,15 @@
                 <h3>{{session.type}}</h3>
             </ion-label>
         </ion-item>
-        <ion-item class="course">
+        <ion-item class="courses">
             <ion-thumbnail slot="start">
                 <i class="fas fa-graduation-cap"></i>
             </ion-thumbnail>
             <ion-label>
-                <h3>
-                    {{session.course.name}}
-                    {{session.course.year}}
-                    ({{session.course.type}})
+                <h3 *ngFor="let course of session.courses">
+                    {{course.name}}
+                    {{course.year}}
+                    ({{course.type}})
                 </h3>
             </ion-label>
         </ion-item>

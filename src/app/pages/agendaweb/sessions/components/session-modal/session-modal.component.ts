@@ -3,11 +3,11 @@ import { NavParams } from '@ionic/angular';
 import { Session } from 'src/app/interfaces/session';
 
 @Component({
-    selector: 'app-exam-modal',
-    templateUrl: './exam-modal.component.html',
-    styleUrls: ['./exam-modal.component.scss'],
+    selector: 'app-session-modal',
+    templateUrl: './session-modal.component.html',
+    styleUrls: ['./session-modal.component.scss'],
 })
-export class ExamModalComponent implements OnInit {
+export class SessionModalComponent implements OnInit {
 
     private readonly days = [
         'Domenica',

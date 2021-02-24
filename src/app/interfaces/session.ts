@@ -9,5 +9,5 @@ export interface Session {
     prof: SessionProf,
     notes: String,
     type: String,
-    course: SessionCourse
+    courses: SessionCourse[]
 }

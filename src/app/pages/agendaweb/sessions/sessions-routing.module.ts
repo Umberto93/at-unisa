@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { SessionsPage } from './sessions.page';
+
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'sessions'
-    },
-    {
-        path: 'sessions',
-        loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsPageModule),
+        component: SessionsPage
     }
 ];
 
@@ -16,4 +14,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class AgendawebPageRoutingModule { }
+export class SessionsPageRoutingModule { }
