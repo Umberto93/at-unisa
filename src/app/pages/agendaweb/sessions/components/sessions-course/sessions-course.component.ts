@@ -57,10 +57,16 @@ export class SessionsCourseComponent implements OnInit {
             courseYear: new FormControl('', Validators.required),
             term: new FormControl('', Validators.required)
         });
+
+        this.getSessionsFiltersByCourse = this.getSessionsFiltersByCourse.bind(this);
     }
 
     ngOnInit() {
-        this.sessionsService.getSessionsFiltersByCourse()
+        this.getSessionsFiltersByCourse();
+    }
+
+    private getSessionsFiltersByCourse() {
+        return this.sessionsService.getSessionsFiltersByCourse()
             .subscribe(res => {
                 this.isReady = true;
                 this.searchParams = res as any[];

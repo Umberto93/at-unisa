@@ -53,10 +53,16 @@ export class SessionsProfComponent implements OnInit {
             prof: new FormControl('', Validators.required),
             term: new FormControl('', Validators.required)
         });
+
+        this.getSessionsFiltersByProf = this.getSessionsFiltersByProf.bind(this);
     }
 
     ngOnInit() {
-        this.sessionsService.getSessionsFiltersByProf()
+        this.getSessionsFiltersByProf();
+    }
+
+    private getSessionsFiltersByProf() {
+        return this.sessionsService.getSessionsFiltersByProf()
             .subscribe(res => {
                 this.isReady = true;
                 this.searchParams = res as any[];
