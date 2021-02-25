@@ -6,16 +6,23 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { UtilityModule } from '../utility/utility.module';
+import { NewsModalComponent } from './components/news-modal/news-modal.component';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    HomePageRoutingModule,
-    UtilityModule
-  ],
-  declarations: [HomePage],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        HomePageRoutingModule,
+        UtilityModule
+    ],
+    declarations: [
+        HomePage,
+        NewsModalComponent
+    ],
+    exports: [
+        NewsModalComponent
+    ]
 })
-export class HomePageModule {}
+export class HomePageModule { }

@@ -39,7 +39,7 @@ export class TaxPage implements OnInit {
 
     async ngOnInit() {
         const profile = await this.userService.getUser();
-        
+
         this.persId = profile.user.persId;
         this.getTax();
     }
@@ -55,12 +55,12 @@ export class TaxPage implements OnInit {
             });
     }
 
-    private getDate(tax: Tax): string {
+    private getDate(tax: Tax): Date {
         if (tax.payed) {
-            return tax.paymentDate.split(' ')[0];
+            return tax.paymentDate;
         }
 
-        return tax.expirationDate.split(' ')[0];
+        return tax.expirationDate;
     }
 
     private async slideTo(event: CustomEvent) {

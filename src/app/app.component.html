@@ -59,9 +59,8 @@
                         *ngFor="let item of menuItems[activeItem].routes | keyvalue: noSort"
                         class="subitem"
                         [class.active]="item.key === activeSubItem"
-                        [routerLink]="[activeItem, item.key]"
                     >
-                        <ion-label (click)="closeMenu()">{{item.value.name}}</ion-label>
+                        <ion-label (click)="navigateTo(item.key)">{{item.value.name}}</ion-label>
                     </ion-item>
                 </ion-list>
             </ion-content>

@@ -38,6 +38,21 @@ export class AppComponent implements OnInit {
                 }
             }
         },
+        'agendaweb': {
+            name: 'Agenda Web',
+            icon: 'fa-calendar-check',
+            routes: {
+                'sessions?searchBy=course': {
+                    name: 'Appelli (Ins)'
+                },
+                'sessions?searchBy=prof': {
+                    name: 'Appelli (Doc)'
+                },
+                'rooms': {
+                    name: 'Aule'
+                }
+            }
+        },
         'settings': {
             name: 'Impostazioni',
             icon: 'fa-cog'
@@ -148,7 +163,7 @@ export class AppComponent implements OnInit {
 
         this.activeItem = pathParams[1];
 
-        if (pathParams.length > 3) {
+        if (pathParams.length > 2) {
             this.activeSubItem = pathParams[2];
             this.subMenuOpened = true;
         }
@@ -175,6 +190,11 @@ export class AppComponent implements OnInit {
 
     private navigateBack() {
         this.toggleSubMenu();
+    }
+
+    private navigateTo(path: string) {
+        this.closeMenu();
+        this.router.navigateByUrl(`${this.activeItem}/${path}`);
     }
 
     private logout() {

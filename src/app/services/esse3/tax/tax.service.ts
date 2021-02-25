@@ -16,6 +16,10 @@ export class TaxService {
         private http: HttpClient
     ) { }
 
+    private toDate(str: string): Date {
+        return new Date(str.split('/').reverse().join('-'));
+    }
+
     getTax(persId: number): Observable<Tax[]> {
         return this.http.get<Tax[]>(`${this.base}/lista-fatture`, {
             params: new HttpParams()
@@ -27,8 +31,8 @@ export class TaxService {
                 el.importoFattura > 0 && taxs.push({
                     name: el.desMav1,
                     amount: el.importoFattura,
-                    paymentDate: el.dataPagamento,
-                    expirationDate: el.scadFattura,
+                    paymentDate: this.toDate(el.dataPagamento.split(' ')[0]),
+                    expirationDate: this.toDate(el.scadFattura.split(' ')[0]),
                     payed: Boolean(el.pagatoFlg)
                 } as Tax);
             });

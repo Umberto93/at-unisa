@@ -1,24 +1,66 @@
-<ion-content>
+<ion-content class="page-content">
     <app-refresher></app-refresher>
-    <ion-list>
-        <ion-item>
-            <ion-label>ciaoo</ion-label>
-
-
-
-        </ion-item>
-        <ion-item>
-            <ion-button>Show Modal</ion-button>
-        </ion-item>
-        <!-- Added testing button ----------------- -->
-        <ion-item>
-            <ion-button
-                size="large"
-                (click)="testMethod()"
+    <div class="flex flex-direction-column">
+        <app-header>
+            <ion-toolbar>
+                <ion-title class="page-title">
+                    Ciao,
+                    <span *ngIf="profile">{{profile.user.firstName}}</span>
+                </ion-title>
+            </ion-toolbar>
+        </app-header>
+        <div class="page-main">
+            <h2 class="page-subtitle">Scadenze</h2>
+            <ion-slides
+                *ngIf="taxes.length"
+                [options]="slideOpts"
             >
-                Test
-            </ion-button>
-        </ion-item>
-        <!-- --------------------------------------- -->
-    </ion-list>
+                <ion-slide *ngFor="let tax of taxes">
+                    <ion-item
+                        class="tax"
+                        [class.expired]="taxIsExpired(tax)"
+                    >
+                        <ion-label>
+                            <div class="tax-subtitle">Scadenza</div>
+                            <div
+                                *ngIf="taxIsExpired(tax)"
+                                class="tax-expiration"
+                            >
+                                Scadute
+                            </div>
+                            <div
+                                *ngIf="!taxIsExpired(tax)"
+                                class="tax-expiration"
+                            >
+                                {{getTimeLeft(tax)}} giorni rimasti
+                            </div>
+                            <h3 class="tax-title">{{tax.name}}</h3>
+                        </ion-label>
+                    </ion-item>
+                </ion-slide>
+                <ion-slide
+                    *ngIf="!taxes.length"
+                    class="empty"
+                >
+                    Nessun elemento da mostrare.
+                </ion-slide>
+            </ion-slides>
+            <h2 class="page-subtitle">News</h2>
+            <ion-list class="app-list">
+                <ion-item
+                    *ngFor="let newsItem of news"
+                    (click)="presentNewsModal(newsItem)"
+                >
+                    <ion-note>
+                        <div>{{getNewsDate(newsItem).date}}</div>
+                        <div>{{getNewsDate(newsItem).month}}</div>
+                    </ion-note>
+                    <ion-label>
+                        <h3>{{newsItem.title}}</h3>
+                        <p>{{newsItem.content}}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </div>
 </ion-content>
