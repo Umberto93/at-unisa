@@ -21,11 +21,17 @@ export class ModalComponent implements OnInit {
 
     ngOnInit() { }
 
+    /**
+     * Richiama la callback passata al modale alla presione del tasto conferma.
+     */
     async handleConfirm() {
         this.confirmCallback();
         await this.dismiss();
     }
 
+    /**
+     * Rimuove il modale.
+     */
     async dismiss() {
         await this.modalController.dismiss();
     }

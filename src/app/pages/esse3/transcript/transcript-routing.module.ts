@@ -4,14 +4,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { TranscriptPage } from './transcript.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: TranscriptPage
-  }
+    {
+        path: '',
+        component: TranscriptPage
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class TranscriptPageRoutingModule {}
+export class TranscriptPageRoutingModule { }

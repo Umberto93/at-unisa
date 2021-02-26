@@ -17,7 +17,13 @@ export class ProfileService {
     constructor(
         private http: HttpClient
     ) { }
-
+    
+    /**
+     * Preleva le informazioni relative all'anagrafica dell'utente.
+     * 
+     * @param persId L'id relativo alla specifica persona che viene restituito all'utente dopo 
+     * aver effettuato l'autenticazione.
+     */
     getProfile(persId: number): Observable<Profile> {
         return this.http.get<Profile>(`${this.base}/persone/${persId}`)
             .pipe(map((res: any) => {
@@ -66,14 +72,21 @@ export class ProfileService {
             }));
     }
 
+    /**
+     * Manipola la data restituita dal server, prelevando solo la porzione di interesse, eliminando
+     * l'orario.
+     * 
+     * @param dateTime La data restituita in risposta dal server.
+     */
     private getDate(dateTime: string): String {
         return dateTime.split(' ')[0];
     }
 
     /**
-     * This method return true if residence and domicile objects are equals, otherwise false .
-     * @param resObj residence object to compare
-     * @param domObj domicile object to compare
+     * Il metodo ritorna true se la residenza e il domicilio coincidono.
+     * 
+     * @param resObj L'oggetto residenza.
+     * @param domObj L'oggetto domicilio.
      */
     private isEqual(resObj: ProfileResidence, domObj: ProfileResidence): boolean {
         const keysRes = Object.keys(resObj);

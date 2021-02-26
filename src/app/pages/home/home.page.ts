@@ -58,6 +58,9 @@ export class HomePage {
         this.getTaxes();
     }
 
+    /**
+     * Preleva le news di ateneo.
+     */
     private async getNews() {
         this.newsService.getNews()
             .subscribe((res: News[]) => {
@@ -65,6 +68,9 @@ export class HomePage {
             });
     }
 
+    /**
+     * Preleva le tasse da pagare.
+     */
     private async getTaxes() {
         this.taxService.getTax(this.profile.user.persId)
             .subscribe((res: Tax[]) => {
@@ -75,6 +81,11 @@ export class HomePage {
             });
     }
 
+    /**
+     * Restituisce la data della notizia specificando il giorno e il mese in italiano.
+     * 
+     * @param news La notizia.
+     */
     private getNewsDate(news: News): { date: string, month: string } {
         return {
             date: `0${news.date.getDate().toString()}`.slice(-2),
@@ -82,10 +93,20 @@ export class HomePage {
         }
     }
 
+    /**
+     * Verifica se una tassa è scaduta.
+     * 
+     * @param tax La tassa da analizzare.
+     */
     private taxIsExpired(tax: Tax) {
         return new Date() > tax.expirationDate;
     }
 
+    /**
+     * Restituisce i giorni rimanenti per il pagamento della specifica tassa.
+     * 
+     * @param tax La tassa da analizzare.
+     */
     private getTimeLeft(tax: Tax): number {
         const now = new Date();
         const expirationDate = tax.expirationDate;
@@ -93,6 +114,11 @@ export class HomePage {
         return expirationDate.getDate() - now.getDate();
     }
 
+    /**
+     * Mostra i dettagli di una specifica news.
+     * 
+     * @param news News.
+     */
     private async presentNewsModal(news: News) {
         const modal = await this.modalController.create({
             component: NewsModalComponent,

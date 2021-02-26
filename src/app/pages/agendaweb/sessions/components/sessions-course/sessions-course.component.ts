@@ -65,6 +65,9 @@ export class SessionsCourseComponent implements OnInit {
         this.getSessionsFiltersByCourse();
     }
 
+    /**
+     * Recupera le combo di filtraggio.
+     */
     private getSessionsFiltersByCourse() {
         return this.sessionsService.getSessionsFiltersByCourse()
             .subscribe(res => {
@@ -73,6 +76,11 @@ export class SessionsCourseComponent implements OnInit {
             });
     }
 
+    /**
+     * Aggiorna la slide alla pressione in base allo specifico Segment Button.
+     * 
+     * @param event L'evento associato al Segment Button.
+     */
     private async slideTo(event: CustomEvent) {
         const target = event.target as HTMLIonSegmentButtonElement;
         const value = parseInt(target.value);
@@ -81,6 +89,9 @@ export class SessionsCourseComponent implements OnInit {
         this.activeIndex = value;
     }
 
+    /**
+     * Aggiorna il Segment Button sulla base dell'indice corrente della slide.
+     */
     private async setActiveIndex() {
         const index = await this.slides.getActiveIndex();
 
@@ -90,6 +101,11 @@ export class SessionsCourseComponent implements OnInit {
         }
     }
 
+    /**
+     * Aggiorna l'indice dell'anno corrente.
+     * 
+     * @param event L'evento associato allo Ion Select.
+     */
     private setYearIndex(event: CustomEvent) {
         if (this.yearIndex !== -1) {
             this.sessionsForm.controls.course.reset();
@@ -102,6 +118,11 @@ export class SessionsCourseComponent implements OnInit {
         this.yearIndex = event.detail.value.index;
     }
 
+    /**
+     * Aggiorna l'indice del corso di laurea.
+     * 
+     * @param event L'evento associato allo Ion Select.
+     */
     private setCourseIndex(event: CustomEvent) {
         if (this.courseIndex !== -1) {
             this.sessionsForm.controls.courseYear.reset();
@@ -112,6 +133,11 @@ export class SessionsCourseComponent implements OnInit {
         this.courseIndex = event.detail.value.index;
     }
 
+    /**
+     * Aggiorna l'indice dell'anno del corso di laurea.
+     * 
+     * @param event L'evento associato allo Ion Select.
+     */
     private setCourseYearIndex(event: CustomEvent) {
         if (this.courseYearIndex !== -1) {
             this.sessionsForm.controls.term.reset();
@@ -120,6 +146,9 @@ export class SessionsCourseComponent implements OnInit {
         this.courseYearIndex = event.detail.value.index;
     }
 
+    /**
+     * Recupera l'elenco dei corsi di laurea in base all'anno.
+     */
     private getCourses(): any {
         if (this.yearIndex === -1) {
             return [];
@@ -128,6 +157,9 @@ export class SessionsCourseComponent implements OnInit {
         return this.searchParams[this.yearIndex].elenco;
     }
 
+    /**
+     * Recupera l'elenco degli anni relativi allo specifico corsoo di laurea.
+     */
     private getCourseYears(): any {
         if (this.courseIndex === -1) {
             return [];
@@ -136,6 +168,9 @@ export class SessionsCourseComponent implements OnInit {
         return this.getCourses()[this.courseIndex].elenco_anni;
     }
 
+    /**
+     * Recupera le sessioni attive sulla base dell'anno di corso selezionato.
+     */
     private getTerms(): any {
         if (this.courseYearIndex === -1) {
             return [];
@@ -144,6 +179,9 @@ export class SessionsCourseComponent implements OnInit {
         return this.getCourseYears()[this.courseYearIndex].elenco_sessioni;
     }
 
+    /**
+     * Recupera la lista degli appelli sulla base dei filtri selezionati dallo studente.
+     */
     private getSessions() {
         this.sessionsService.getSessionsByCourse(
             this.sessionsForm.value.year.value,
@@ -161,6 +199,11 @@ export class SessionsCourseComponent implements OnInit {
         );
     }
 
+    /**
+     * Mostra un modale contenete i dettagli di uno specifico appello.
+     * 
+     * @param session Lo specifico appello.
+     */
     private async getSessionDetails(session: Session) {
         const modal = await this.modalController.create({
             component: SessionModalComponent,

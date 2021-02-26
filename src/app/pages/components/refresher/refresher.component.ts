@@ -14,6 +14,11 @@ export class RefresherComponent implements OnInit {
 
     ngOnInit() { }
 
+    /**
+     * Chiama una callback al refresh della pagina.
+     * 
+     * @param event L'evento associato allo Ion Refresher.
+     */
     refresh(event: any) {
         this.refreshCallback().add(() => {
             event.target.complete();

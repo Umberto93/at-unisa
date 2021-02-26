@@ -37,14 +37,25 @@ export class SortModalComponent implements OnInit {
         }
     }
 
+    /**
+     * Imposta la tipologia di ordinamento (nome | voto | crediti | data).
+     * 
+     * @param event L'evento associato allo Ion Radio.
+     */
     setActiveSorting(event: CustomEvent) {
         this.activeSorting = event.detail.value;
     }
 
+    /**
+     * Imposta la tipologia di ordinamento (crescente | decrescente).
+     */
     setAscSorting() {
         this.ascSorting = !this.ascSorting;
     }
 
+    /**
+     * Effettua l'ordinamento del libretto in base all'opzione selezionata.
+     */
     async sort() {
         await this.transcriptSortingService.savePreferences(
             this.activeSorting,

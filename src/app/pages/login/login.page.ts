@@ -40,6 +40,10 @@ export class LoginPage implements OnInit {
         this.loginSubscription.unsubscribe();
     }
 
+    /**
+     * Effettua il login se e solo se i dati inseriti rispettano le condizioni imposte dai
+     * Validators.
+     */
     private login() {
         if (this.loginForm.valid) {
             this.loginSubscription = this.auth.loginWithCredentials(
@@ -59,6 +63,10 @@ export class LoginPage implements OnInit {
         }
     }
 
+    /**
+     * Cambia l'input da password a testuale o viceversa permettendo all'utente di poter vedere la
+     * propria password durante la digitazione.
+     */
     private togglePassword() {
         this.showPassword = !this.showPassword;
     }

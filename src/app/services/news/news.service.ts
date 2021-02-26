@@ -14,13 +14,23 @@ export class NewsService {
     constructor(
         private http: HttpClient
     ) { }
-
+    
+    /**
+     * Effettua il parsinga di una stringa HTML.
+     * 
+     * @param html La stringa HTML da parsare.
+     */
     private parseHTML(html: string): string {
         const div = document.createElement('DIV');
         div.innerHTML = html;
         return div.textContent.trim();
     }
 
+    /**
+     * Preleva le news di ateneo sfruttando il servizio RSS messo a disposizione dall'Università.
+     * La risposta restituita è in formato XML, quindi si vede necessario manipolarla opportunamente
+     * al fine di restituire i dati di interesse in maniera pulita.
+     */
     getNews(): Observable<News[]> {
         return this.http.get(this.base, {
             responseType: 'text'

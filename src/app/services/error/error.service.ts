@@ -11,6 +11,11 @@ export class ErrorService implements ErrorHandler {
         private toastService: ToastService
     ) { }
 
+    /**
+     * Riconosce il tipo di errore che si è verificato e chiama l'opportuno handler per la gestione.
+     * 
+     * @param error L'errore che si è verificato.
+     */
     handleError(error: HttpErrorResponse) {
         switch (true) {
             case (error.status === 401):
@@ -24,12 +29,18 @@ export class ErrorService implements ErrorHandler {
         console.log(error);
     }
 
+    /**
+     * Handler per la gestione di errori 401 (Unauthorized).
+     */
     handleError401() {
         this.toastService.presentFailureToast({
             message: 'Utente e/o password non corretti.'
         });
     }
 
+    /**
+     * Handler per la gestione di errori lato server.
+     */
     handleError50X() {
         this.toastService.presentFailureToast({
             message: 'Non è stato possibile recuperare i dati.'

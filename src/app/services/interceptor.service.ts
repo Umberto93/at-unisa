@@ -22,6 +22,14 @@ export class InterceptorService implements HttpInterceptor {
         this.requests = 0;
     }
 
+    /**
+     * Intercetta le richieste inviate dal client concatenando automaticamente l'header di
+     * autenticazione se i dati dell'utente sono presenti nello Ionic Storage. All'inizio viene
+     * presentato un loading in attesa di ricevere la risposta da parte del server.
+     * 
+     * @param req La richiesta da inviare.
+     * @param next L'handler per far andare avanti la richiesta.
+     */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return from(this.prepareRequest(req, next));
     }
@@ -29,8 +37,6 @@ export class InterceptorService implements HttpInterceptor {
     private async prepareRequest(req: HttpRequest<any>, next: HttpHandler): Promise<any> {
         await this.presentLoading();
         const credentials = await this.storage.get('credentials');
-
-        console.log(req);
 
         if (credentials) {
             req = req.clone({
@@ -47,6 +53,9 @@ export class InterceptorService implements HttpInterceptor {
         ).toPromise();
     }
 
+    /**
+     * Inserisce l'icona di caricamento.
+     */
     private async presentLoading() {
         if (++this.requests === 1) {
             const loading = await this.loadingController.create({
@@ -59,6 +68,9 @@ export class InterceptorService implements HttpInterceptor {
         }
     }
 
+    /**
+     * Rimuove l'icona di caricamento.
+     */
     private async dismissLoading() {
         if (--this.requests === 0) {
             await this.loadingController.dismiss();

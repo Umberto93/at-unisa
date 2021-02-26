@@ -18,6 +18,12 @@ export class TranscriptService {
         private http: HttpClient
     ) { }
 
+    /**
+     * Recupera le informazioni sul libretto universitario dello studente.
+     * 
+     * @param matId L'id relativo alla matricola dello studente che viene restituito all'utente
+     * dopo aver effettuato l'autenticazione.
+     */
     getExams(matId: number): Observable<Exam[]> {
         return this.http.get<Exam[]>(`${this.base}/${matId}/righe/`, {
             params: new HttpParams()
@@ -41,15 +47,37 @@ export class TranscriptService {
         }));
     }
 
+    /**
+     * Recupera le informazioni di media e stima del voto di laurea.
+     * 
+     * @param matId L'id relativo alla matricola dello studente che viene restituito all'utente
+     * dopo aver effettuato l'autenticazione.
+     */
     getAverage(matId: number) {
         return this.http.get(`${this.base}/${matId}/medie/`)
-            .pipe(map((res: any) => res.filter(el => el.tipoMediaCod.value === 'P')));
+            .pipe(map((res: any) => res.filter((el: any) => el.tipoMediaCod.value === 'P')));
     }
 
+    /**
+     * Recupera le statistiche sui dati carriera conseguiti dallo studenti (es. cfu conseguiti).
+     * 
+     * @param matId L'id relativo alla matricola dello studente che viene restituito all'utente
+     * dopo aver effettuato l'autenticazione.
+     */
     getStats(matId: number) {
         return this.http.get(`${this.base}/${matId}/stats/`);
     }
 
+    /**
+     * Combina le due richieste precedenti al fine di restituire un'unica risposta che contenga:
+     * 
+     * 1. Media ponderata degli esami;
+     * 2. Stima del voto di laurea;
+     * 3. Numero di cfu conseguiti fino a quel momento.
+     * 
+     * @param matId L'id relativo alla matricola dello studente che viene restituito all'utente
+     * dopo aver effettuato l'autenticazione.
+     */
     getCareerStats(matId: number): Observable<TranscriptStats> {
         return combineLatest([
             this.getAverage(matId),
@@ -75,6 +103,13 @@ export class TranscriptService {
         }));
     }
 
+    /**
+     * Recupera le informazioni sul singolo esame.
+     * 
+     * @param matId L'id relativo alla matricola dello studente che viene restituito all'utente
+     * dopo aver effettuato l'autenticazione.
+     * @param examId L'id dello specifico esame.
+     */
     getExamDetails(matId: number, examId: number): Observable<ExamDetails> {
         return this.http.get(`${this.base}/${matId}/righe/${examId}/syllabus/AD`)
             .pipe(map((res: any) => {
@@ -90,11 +125,28 @@ export class TranscriptService {
             }));
     }
 
+    /**
+     * Manipola la data restituita dal server creando un oggetto Date.
+     * 
+     * @param dateTime La data in formato stringa.
+     */
     private toDate(dateTime: string): Date {
         const date = dateTime.split(' ')[0];
         return new Date(date.split('/').reverse().join('/'));
     }
 
+    /**
+     * Verifica se l'esame passato come parametro è un'idoneità oppure un esame a tutti gli effetti.
+     * Vengono considerate idoneità attività di orientamento al lavoro, conoscenza della lingua 
+     * inglese, ecc.
+     * 
+     * NB: La prova finale in alcuni casi viene vista come un esame, sebbebe sia un'idoneità a tutti
+     * gli effetti. Di conseguenza il suo modValCod è diverso da 'G'. Ecco perché viene fatto un 
+     * controllo sul nome dell'esame. È bene precisare che tale controllo potrebbe fallire nel caso
+     * di altri dipartimenti per cui la prova finale non viene chiamata allo stesso modo.
+     * 
+     * @param exam L'esame da verificare.
+     */
     private isExam(exam: any) {
         return exam.esito.modValCod.value !== 'G' &&
             exam.adDes !== 'PROVA FINALE';

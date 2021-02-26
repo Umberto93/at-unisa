@@ -55,6 +55,9 @@ export class TranscriptPage implements OnInit {
         this.getExams();
     }
 
+    /**
+     * Recupera il libretto dello studente.
+     */
     private getExams() {
         return this.transcripts.getExams(this.matId)
             .subscribe((exams: Exam[]) => {
@@ -71,6 +74,9 @@ export class TranscriptPage implements OnInit {
             });
     }
 
+    /**
+     * La callback che viene invocata alla pressione del tasto conferma.
+     */
     private async sortingCallback() {
         const activeSorting = await this.transcriptSortingService.loadPreferences();
 
@@ -83,6 +89,9 @@ export class TranscriptPage implements OnInit {
         }
     }
 
+    /**
+     * Mostra il modale per l'ordinamento degli esami.
+     */
     private async presentSortingModal() {
         const modal = await this.modalController.create({
             component: SortModalComponent,
@@ -95,6 +104,9 @@ export class TranscriptPage implements OnInit {
         return await modal.present();
     }
 
+    /**
+     * Mostra il modale contenente le statistiche del libretto.
+     */
     private async presentStatsModal() {
         const modal = await this.modalController.create({
             component: StatsModalComponent,
@@ -109,6 +121,11 @@ export class TranscriptPage implements OnInit {
 
     }
 
+    /**
+     * Mostra il modale contenente i dettagli relativi allo specifico esame.
+     * 
+     * @param examId L'id dell'esame.
+     */
     private async presentDetailsModal(examId: number) {
         const modal = await this.modalController.create({
             component: ExamModalComponent,
@@ -122,6 +139,11 @@ export class TranscriptPage implements OnInit {
         await modal.present();
     }
 
+    /**
+     * Mostra il modale per la previsione della media.
+     * 
+     * @param exam Lo specifico esame.
+     */
     private async presentPrevisionModal(exam: Exam) {
         const modal = await this.modalController.create({
             component: PrevisionModalComponent,
@@ -135,6 +157,12 @@ export class TranscriptPage implements OnInit {
         await modal.present();
     }
 
+    /**
+     * Restituisce il voto dell'esame se presente oppure una stringa ad indicare un'idoneità
+     * oppure una stringa ad indicare che per quell'attività non esiste ancora un giudizio. 
+     *
+     * @param exam Lo specifico esame.
+     */
     private getGrade(exam: Exam): number | string {
         if (exam.passed) {
             return exam.grade || 'IDO';
@@ -143,6 +171,11 @@ export class TranscriptPage implements OnInit {
         return '--';
     }
 
+    /**
+     * Aggiorna la slide alla pressione in base allo specifico Segment Button.
+     * 
+     * @param event L'evento associato al Segment Button.
+     */
     private async slideTo(event: CustomEvent) {
         const target = event.target as HTMLIonSegmentButtonElement;
         const value = parseInt(target.value);
@@ -151,6 +184,9 @@ export class TranscriptPage implements OnInit {
         this.activeIndex = value;
     }
 
+    /**
+     * Aggiorna il Segment Button sulla base dell'indice corrente della slide.
+     */
     private async setActiveIndex() {
         const index = await this.slides.getActiveIndex();
 

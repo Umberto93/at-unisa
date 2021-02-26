@@ -44,6 +44,9 @@ export class TaxPage implements OnInit {
         this.getTax();
     }
 
+    /**
+     * Recupera le tasse dello studente.
+     */
     private getTax() {
         return this.taxService.getTax(this.persId)
             .subscribe((taxs: Tax[]) => {
@@ -55,6 +58,11 @@ export class TaxPage implements OnInit {
             });
     }
 
+    /**
+     * Restituisce la data della tase in base a se la tassa è stata pagata o meno.
+     * 
+     * @param tax la specifica tassa.
+     */
     private getDate(tax: Tax): Date {
         if (tax.payed) {
             return tax.paymentDate;
@@ -63,6 +71,11 @@ export class TaxPage implements OnInit {
         return tax.expirationDate;
     }
 
+    /**
+     * Aggiorna la slide alla pressione in base allo specifico Segment Button.
+     * 
+     * @param event L'evento associato al Segment Button.
+     */
     private async slideTo(event: CustomEvent) {
         const target = event.target as HTMLIonSegmentButtonElement;
         const value = parseInt(target.value);
@@ -71,6 +84,9 @@ export class TaxPage implements OnInit {
         this.activeIndex = value;
     }
 
+    /**
+     * Aggiorna il Segment Button sulla base dell'indice corrente della slide.
+     */
     private async setActiveIndex() {
         const index = await this.slides.getActiveIndex();
 

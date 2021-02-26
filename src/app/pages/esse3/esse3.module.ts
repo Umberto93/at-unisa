@@ -7,11 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { Esse3PageRoutingModule } from './esse3-routing.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    Esse3PageRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        Esse3PageRoutingModule
+    ]
 })
 export class Esse3PageModule { }

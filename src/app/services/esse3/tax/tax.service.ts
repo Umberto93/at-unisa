@@ -15,11 +15,22 @@ export class TaxService {
     constructor(
         private http: HttpClient
     ) { }
-
+    
+    /**
+     * Manipola la data restituita dal server creando un oggetto Date.
+     * 
+     * @param str La data in formato stringa.
+     */
     private toDate(str: string): Date {
         return new Date(str.split('/').reverse().join('-'));
     }
 
+    /**
+     * Recupera le informazioni sulle tasse pagate e da pagare relative allo specifico utente.
+     * 
+     * @param persId L'id relativo alla specifica persona che viene restituito all'utente dopo 
+     * aver effettuato l'autenticazione.
+     */
     getTax(persId: number): Observable<Tax[]> {
         return this.http.get<Tax[]>(`${this.base}/lista-fatture`, {
             params: new HttpParams()

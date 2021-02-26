@@ -67,6 +67,9 @@ export class ProfilePage implements OnInit {
         this.getProfile();
     }
 
+    /**
+     * Recupera i dati dell'utenti relativi all'anagrafica e alla residenza / domicilio.
+     */
     private getProfile() {
         return this.profileService.getProfile(this.persId)
             .subscribe((profile: Profile) => {
@@ -75,10 +78,18 @@ export class ProfilePage implements OnInit {
             })
     }
 
+    /**
+     * Non imposta alcun tipo di ordinamento sull'oggetto.
+     */
     private noSort() {
         return 0;
     }
 
+    /**
+     * Aggiorna la slide alla pressione in base allo specifico Segment Button.
+     * 
+     * @param event L'evento associato al Segment Button.
+     */
     private async slideTo(event: CustomEvent) {
         const target = event.target as HTMLIonSegmentButtonElement;
         const value = parseInt(target.value);
@@ -87,6 +98,9 @@ export class ProfilePage implements OnInit {
         this.activeIndex = value;
     }
 
+    /**
+     * Aggiorna il Segment Button sulla base dell'indice corrente della slide.
+     */
     private async setActiveIndex() {
         const index = await this.slides.getActiveIndex();
 

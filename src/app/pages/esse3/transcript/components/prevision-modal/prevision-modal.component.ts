@@ -35,6 +35,11 @@ export class PrevisionModalComponent implements OnInit {
             });
     }
 
+    /**
+     * Calcola la previsione sull'andamento della media in base al voto scelto dall'utente.
+     * 
+     * @param event L'evento associato allo Ion Range.
+     */
     private calcExpectedAvg(event: CustomEvent) {
         this.avg = parseFloat((((this.stats.avg * this.stats.validatedCredits) +
             (event.detail.value * this.exam.credits)) /

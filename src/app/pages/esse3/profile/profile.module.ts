@@ -10,13 +10,13 @@ import { ProfilePage } from './profile.page';
 import { UtilityModule } from '../../utility/utility.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ProfilePageRoutingModule,
-    UtilityModule
-  ],
-  declarations: [ProfilePage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ProfilePageRoutingModule,
+        UtilityModule
+    ],
+    declarations: [ProfilePage]
 })
-export class ProfilePageModule {}
+export class ProfilePageModule { }

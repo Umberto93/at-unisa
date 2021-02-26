@@ -37,6 +37,11 @@ export class ToastService {
     ) {
     }
 
+    /**
+     * Inserisce un nuovo toast.
+     * 
+     * @param props Le proprietà del toast.
+     */
     async presentToast(props?: ToastProps) {
         console.log(props);
         const toast = await this.toastController.create({
@@ -49,6 +54,12 @@ export class ToastService {
         await toast.present();
     }
 
+    /**
+     * Inserisce un nuovo toast con icona laterale sul lato sinistro.
+     * 
+     * @param icon L'icona da inserire (vedi IonIcons).
+     * @param props Le proprietà del toast.
+     */
     presentToastWithIcon(icon: String, props?: ToastProps) {
         this.presentToast({
             ...props,
@@ -63,6 +74,11 @@ export class ToastService {
         });
     }
 
+    /**
+     * Inserisce un toast in seguito ad un'azione andata a buon fine.
+     * 
+     * @param props Le proprietà del toast.
+     */
     presentSuccessToast(props?: ToastProps) {
         this.presentToastWithIcon('checkmark-circle', {
             ...props,
@@ -70,6 +86,11 @@ export class ToastService {
         });
     }
 
+    /**
+     * Inserisce un toast in seguito ad un'azione non andata a buon fine.
+     * 
+     * @param props Le proprietà del toast.
+     */
     presentFailureToast(props?: ToastProps) {
         this.presentToastWithIcon('close-circle', {
             ...props,
@@ -77,6 +98,11 @@ export class ToastService {
         });
     }
 
+    /**
+     * Inserisce un toast informativo.
+     * 
+     * @param props Le proprietà del toast.
+     */
     presentInfoToast(props?: ToastProps) {
         this.presentToastWithIcon('information-circle', {
             ...props,
@@ -84,6 +110,11 @@ export class ToastService {
         });
     }
 
+    /**
+     * Inserisce un toast di avvertimento.
+     * 
+     * @param props Le proprietà del toast.
+     */
     presentWarningToast(props?: ToastProps) {
         this.presentToastWithIcon('alert-circle', {
             ...props,

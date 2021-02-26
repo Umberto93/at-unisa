@@ -23,10 +23,19 @@ export class TranscriptSortingService {
         private storage: Storage
     ) { }
 
+    /**
+     * Carica le preferenze dell'utente.
+     */
     loadPreferences(): Promise<Sorting | null> {
         return this.storage.get(this.storageKey);
     }
 
+    /**
+     * Salva le preferenze dell'utente.
+     * 
+     * @param activeSorting Tipo di ordinamento degli esami nel libretto.
+     * @param ascSorting Tipo di ordinamento (crescente | decrescente).
+     */
     savePreferences(activeSorting: number, ascSorting: boolean): Promise<any> {
         return this.storage.set(this.storageKey, {
             value: activeSorting,
@@ -34,6 +43,13 @@ export class TranscriptSortingService {
         });
     }
 
+    /**
+     * Ordina gli esami nella pagina del libretto in relazione alle preferenze dell'utente.
+     * 
+     * @param examsList La lista degli esami da ordinare.
+     * @param sorting Il tipo di ordinamento (nome | data | voto | crediti).
+     * @param asc Il tipo di ordinamento (crescente | decrescente).
+     */
     sort(examsList: Exam[][], sorting: number, asc: boolean) {
         switch (sorting) {
             case this.SORT_BY_NAME:
@@ -49,6 +65,12 @@ export class TranscriptSortingService {
         }
     }
 
+    /**
+     * Effettua un ordinamento per data.
+     * 
+     * @param examsList La lista degli esami da ordinare.
+     * @param asc Il tipo di ordinamento (crescente | decrescente).
+     */
     private sortByDate(examsList: Exam[][], asc: boolean = true) {
         examsList.forEach(exams => {
             exams.sort((e1: Exam, e2: Exam) => {
@@ -59,6 +81,12 @@ export class TranscriptSortingService {
         });
     }
 
+    /**
+     * Effettua un ordinamento per voto.
+     * 
+     * @param examsList La lista degli esami da ordinare.
+     * @param asc Il tipo di ordinamento (crescente | decrescente).
+     */
     private sortByGrade(examsList: Exam[][], asc: boolean = true) {
         examsList.forEach(exams => {
             exams.sort((e1: Exam, e2: Exam) => {
@@ -70,6 +98,12 @@ export class TranscriptSortingService {
         });
     }
 
+    /**
+     * Effettua un ordinamento per crediti.
+     * 
+     * @param examsList La lista degli esami da ordinare.
+     * @param asc Il tipo di ordinamento (crescente | decrescente).
+     */
     private sortByCredits(examsList: Exam[][], asc: boolean = true) {
         examsList.forEach(exams => {
             exams.sort((e1: Exam, e2: Exam) => {
@@ -78,6 +112,12 @@ export class TranscriptSortingService {
         });
     }
 
+    /**
+     * Effettua un ordinamento per nome.
+     * 
+     * @param examsList La lista degli esami da ordinare.
+     * @param asc Il tipo di ordinamento (crescente | decrescente).
+     */
     private sortByName(examsList: Exam[][], asc: boolean = true) {
         examsList.forEach(exams => {
             exams.sort((e1: Exam, e2: Exam) => {

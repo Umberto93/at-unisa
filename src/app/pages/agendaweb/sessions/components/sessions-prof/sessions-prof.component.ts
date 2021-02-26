@@ -61,6 +61,9 @@ export class SessionsProfComponent implements OnInit {
         this.getSessionsFiltersByProf();
     }
 
+    /**
+     * Recupera le combo di filtraggio.
+     */
     private getSessionsFiltersByProf() {
         return this.sessionsService.getSessionsFiltersByProf()
             .subscribe(res => {
@@ -69,6 +72,11 @@ export class SessionsProfComponent implements OnInit {
             });
     }
 
+    /**
+     * Aggiorna la slide alla pressione in base allo specifico Segment Button.
+     * 
+     * @param event L'evento associato al Segment Button.
+     */
     private async slideTo(event: CustomEvent) {
         const target = event.target as HTMLIonSegmentButtonElement;
         const value = parseInt(target.value);
@@ -77,6 +85,9 @@ export class SessionsProfComponent implements OnInit {
         this.activeIndex = value;
     }
 
+    /**
+     * Aggiorna il Segment Button sulla base dell'indice corrente della slide.
+     */
     private async setActiveIndex() {
         const index = await this.slides.getActiveIndex();
 
@@ -86,6 +97,11 @@ export class SessionsProfComponent implements OnInit {
         }
     }
 
+    /**
+     * Imposta l'anno corrente.
+     * 
+     * @param event L'evento associato allo Ion Select.
+     */
     private setYearIndex(event: CustomEvent) {
         if (this.yearIndex !== -1) {
             this.sessionsForm.controls.prof.reset();
@@ -96,6 +112,11 @@ export class SessionsProfComponent implements OnInit {
         this.yearIndex = event.detail.value.index;
     }
 
+    /**
+     * Imposta l'indice del professore selezionato.
+     * 
+     * @param event L'evento associato allo Ion Select.
+     */
     private setProfIndex(event: CustomEvent) {
         if (this.profIndex !== -1) {
             this.sessionsForm.controls.term.reset();
@@ -104,6 +125,9 @@ export class SessionsProfComponent implements OnInit {
         this.profIndex = event.detail.value.index;
     }
 
+    /**
+     * Recupera l'elenco dei docenti sulla base dell'anno selezionato.
+     */
     private getProfs(): any {
         if (this.yearIndex === -1) {
             return [];
@@ -112,6 +136,9 @@ export class SessionsProfComponent implements OnInit {
         return this.searchParams[this.yearIndex].elenco;
     }
 
+    /**
+     * Recupera l'elenco delle sessioni attive sulla base dello specifico docente.
+     */
     private getTerms(): any {
         if (this.profIndex === -1) {
             return [];
@@ -120,6 +147,9 @@ export class SessionsProfComponent implements OnInit {
         return this.getProfs()[this.profIndex].elenco;
     }
 
+    /**
+     * Recupera il calendario degli appelli relativo allo specifico docente.
+     */
     private getSessions() {
         this.sessionsService.getSessionsByProf(
             this.sessionsForm.value.year.value,
@@ -136,6 +166,11 @@ export class SessionsProfComponent implements OnInit {
         );
     }
 
+    /**
+     * Mostra un modale contenente i dati relativi allo specifico appello d'esame.
+     * 
+     * @param session Lo specifico appello d'esame.
+     */
     private async getSessionDetails(session: Session) {
         const modal = await this.modalController.create({
             component: SessionModalComponent,

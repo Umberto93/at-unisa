@@ -19,6 +19,9 @@ export class RoomsService {
         return JSON.parse(res.split(';')[0].split('=')[1]);
     }
 
+    /**
+     * Preleva le combo di filtraggio per la selezione delle aule.
+     */
     getRoomsFilter(): Observable<any> {
         return this.http.get(`${this.base}/combo_call_new.php`, {
             params: new HttpParams()
@@ -31,6 +34,12 @@ export class RoomsService {
         );
     }
 
+    /**
+     * Preleva l'elenco delle aule con le relative attività durante la specifica giornata.
+     * 
+     * @param building Il codice dell'edificio.
+     * @param date La data.
+     */
     getRooms(building: string, date: string): Observable<{ [id: string]: Room }> {
         return this.http.get(`${this.base}/rooms_call_new.php`, {
             params: new HttpParams()

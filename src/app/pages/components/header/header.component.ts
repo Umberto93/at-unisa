@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
     selector: 'app-header',
@@ -9,13 +8,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
 })
 export class HeaderComponent implements OnInit {
 
-    constructor(
-        private navigationService: NavigationService
-    ) { }
+    constructor() { }
 
     ngOnInit() { }
-
-    goBack() {
-        this.navigationService.back();
-    }
 }

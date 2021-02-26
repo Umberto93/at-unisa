@@ -15,16 +15,33 @@ export class SessionsService {
         private http: HttpClient
     ) { }
 
+    /**
+     * Effettua il parsing della risposta restituendo i dati in formato JSON.
+     * 
+     * @param res La risposta da parsare.
+     */
     private parseResponse(res: String): String {
         return JSON.parse(res.replace(';', '').split('=')[1]);
     }
 
+    /**
+     * Converte la data da stringa al tipo Date.
+     * 
+     * @param date La data in formato testuale.
+     * @param time L'orario in formato testuale.
+     */
     private toDateTime(date: string, time: string): Date {
         return new Date(
             `${date.split('-').reverse().join('-')}T${time}`
         );
     }
 
+    /**
+     * Ordina gli appelli in base al nome.
+     * 
+     * @param s1 Appello 1.
+     * @param s2 Appello 2.
+     */
     private sortSessions(s1: Session, s2: Session): number {
         if (s1.name < s2.name) {
             return -1;
@@ -37,6 +54,11 @@ export class SessionsService {
         return 0;
     }
 
+    /**
+     * Manipola la risposta ottenuta al fine di ottenere i dati in un certo formato.
+     * 
+     * @param res La risposta ottenuta dal server.
+     */
     private getSessions(res: any) {
         const sessionsList = [] as Array<Session>;
         const teachings = res.Insegnamenti;
@@ -73,6 +95,9 @@ export class SessionsService {
         return sessionsList.sort(this.sortSessions);
     }
 
+    /**
+     * Recupera le combo di filtraggio relative alla pagina dei corsi.
+     */
     getSessionsFiltersByCourse(): Observable<any> {
         return this.http.get(`${this.base}/combo_call_new.php`, {
             params: new HttpParams()
@@ -81,6 +106,9 @@ export class SessionsService {
         });
     }
 
+    /**
+     * Recupera le combo di filtraggio relative alla pagina dei docenti.
+     */
     getSessionsFiltersByProf(): Observable<any> {
         return this.http.get(`${this.base}/combo_call_new.php`, {
             params: new HttpParams()
@@ -89,6 +117,14 @@ export class SessionsService {
         });
     }
 
+    /**
+     * Recupera il calendario degli appelli per insegnamento.
+     * 
+     * @param year L'anno.
+     * @param course Il codice del corso di laurea.
+     * @param courseYear L'anno di corso.
+     * @param term La sessione.
+     */
     getSessionsByCourse(
         year: string,
         course: string,
@@ -110,6 +146,13 @@ export class SessionsService {
         );
     }
 
+    /**
+     * Recupera il calendario degli appelli di un determinato docente.
+     * 
+     * @param year L'anno.
+     * @param prof Il codice del docente.
+     * @param term La sessione.
+     */
     getSessionsByProf(
         year: string,
         prof: string,

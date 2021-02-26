@@ -10,13 +10,13 @@ import { TaxPage } from './tax.page';
 import { UtilityModule } from '../../utility/utility.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    TaxPageRoutingModule,
-    UtilityModule
-  ],
-  declarations: [TaxPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        TaxPageRoutingModule,
+        UtilityModule
+    ],
+    declarations: [TaxPage]
 })
 export class TaxPageModule { }

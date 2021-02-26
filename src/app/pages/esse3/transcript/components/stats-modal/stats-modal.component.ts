@@ -38,6 +38,11 @@ export class StatsModalComponent implements OnInit {
             });
     }
 
+    /**
+     * Restituisce l'elenco dei voti.
+     * 
+     * @param exams Gli esami da cui prelevare i voti.
+     */
     private getGrades(exams: Exam[]) {
         return exams.reduce((grades: number[], exam: Exam) => {
             exam.grade !== null && grades.push(exam.grade);
@@ -45,6 +50,11 @@ export class StatsModalComponent implements OnInit {
         }, []);
     }
 
+    /**
+     * Calcola la distribuzione dei voti.
+     * 
+     * @param grades I voti degli esami.
+     */
     private getGradesDist(grades: number[]) {
         return grades.reduce((dist: any, grade: number) => {
             dist[grade] = dist[grade] + 1 || 1;
@@ -52,6 +62,9 @@ export class StatsModalComponent implements OnInit {
         }, {});
     }
 
+    /**
+     * Crea il grafico in base alla distribuzione dei voti.
+     */
     private createStatsChart() {
         const grades = this.getGrades(this.exams);
         const gradesDist = this.getGradesDist(grades);
