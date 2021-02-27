@@ -35,9 +35,9 @@ export class LoginPage implements OnInit {
     ngOnInit() {
     }
 
-    ionViewDidLeave() {
+    ionViewWillEnter() {
         this.loginForm.reset();
-        this.loginSubscription.unsubscribe();
+        //this.loginSubscription.unsubscribe();
     }
 
     /**

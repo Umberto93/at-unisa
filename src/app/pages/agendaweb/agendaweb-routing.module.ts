@@ -4,7 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'sessions'
+        redirectTo: 'lessions'
+    },
+    {
+        path: 'lessons',
+        loadChildren: () => import('./lessons/lessons.module').then(m => m.LessonsPageModule),
     },
     {
         path: 'sessions',

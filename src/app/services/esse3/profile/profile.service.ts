@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProfileService {
 
-    readonly base = `${environment.esse3Api}/anagrafica-service-v2`;
+    private readonly base = `${environment.esse3Api}/anagrafica-service-v2`;
 
     constructor(
         private http: HttpClient

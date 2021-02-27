@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { NavigationEnd, Router } from '@angular/router';
 import { Account } from './interfaces/account';
 import { ToastService } from './services/toast/toast.service';
+import { UserService } from './services/user/user.service';
 
 
 @Component({
@@ -42,6 +43,12 @@ export class AppComponent implements OnInit {
             name: 'Agenda Web',
             icon: 'fa-calendar-check',
             routes: {
+                'lessons?searchBy=course': {
+                    name: 'Lezioni (Ins)'
+                },
+                'lessons?searchBy=prof': {
+                    name: 'Lezioni (Doc)'
+                },
                 'sessions?searchBy=course': {
                     name: 'Appelli (Ins)'
                 },
@@ -76,7 +83,8 @@ export class AppComponent implements OnInit {
         private splashScreen: SplashScreen,
         private screenOrientation: ScreenOrientation,
         private storage: Storage,
-        private toastService: ToastService
+        private toastService: ToastService,
+        private userService: UserService
     ) {
         this.initializeApp();
         this.isLoginPage = false;
@@ -130,6 +138,11 @@ export class AppComponent implements OnInit {
                 }
             }, 3000);
         });
+
+        this.userService.getUserSubject()
+            .subscribe((value: { activeCareer: number }) => {
+                this.getAccount(value.activeCareer);
+            })
     }
 
     async initializeApp() {
@@ -142,11 +155,12 @@ export class AppComponent implements OnInit {
         }
     }
 
-    private async getAccount() {
-        const user = await this.storage.get('user');
+    private async getAccount(career?: number) {
+        const activeCareer = career !== undefined ? career : await this.userService.getActiveCareer();
+        const user = await this.userService.getUser();
 
         if (user) {
-            this.account.id = user.user.trattiCarriera[0].matricola;
+            this.account.id = user.user.trattiCarriera[activeCareer].matricola;
             this.account.firstname = user.user.firstName.toLowerCase();
             this.account.lastname = user.user.lastName.toLowerCase();
             this.account.email = `${user.user.userId.toLowerCase()}@studenti.unisa.it`;

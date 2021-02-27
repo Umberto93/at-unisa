@@ -1,0 +1,15 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "at-unisa",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false,
+      "splashFullScreen": true,
+      "backgroundColor": "#3a559b"
+    }
+  },
+  "cordova": {}
+}

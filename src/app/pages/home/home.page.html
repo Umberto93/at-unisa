@@ -1,5 +1,5 @@
 <ion-content class="page-content">
-    <app-refresher></app-refresher>
+    <app-refresher [refreshCallback]="initOperations"></app-refresher>
     <div class="flex flex-direction-column">
         <app-header>
             <ion-toolbar>
@@ -38,12 +38,12 @@
                         </ion-label>
                     </ion-item>
                 </ion-slide>
-                <ion-slide
-                    *ngIf="!taxes.length"
-                    class="empty"
-                >
-                    Nessun elemento da mostrare.
-                </ion-slide>
+            </ion-slides>
+            <ion-slides
+                *ngIf="!taxes.length"
+                [options]="slideOpts"
+            >
+                <ion-slide class="empty">Nessun elemento da mostrare.</ion-slide>
             </ion-slides>
             <h2 class="page-subtitle">News</h2>
             <ion-list class="app-list">

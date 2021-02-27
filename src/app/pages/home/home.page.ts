@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { combineLatest } from 'rxjs';
 import { News } from 'src/app/interfaces/news';
 import { Tax } from 'src/app/interfaces/tax';
 import { TaxService } from 'src/app/services/esse3/tax/tax.service';
@@ -50,35 +51,51 @@ export class HomePage {
     ) {
         this.profile = null;
         this.taxes = [];
+
+        this.initOperations = this.initOperations.bind(this);
     }
 
     async ngOnInit() {
         this.profile = await this.userService.getUser();
-        this.getNews();
-        this.getTaxes();
+        this.initOperations();
     }
 
     /**
-     * Preleva le news di ateneo.
+     * Permette di inizializzare il componente ottenendo le ultime news 
+     * dell'ateneo e le tasse da pagare.
      */
-    private async getNews() {
-        this.newsService.getNews()
-            .subscribe((res: News[]) => {
-                this.news = res.slice(0, this.NEWS_TO_SHOW);
+    private initOperations() {
+        return combineLatest([
+            this.newsService.getNews(),
+            this.taxService.getTax(this.profile.user.persId)])
+            .subscribe((results: any) => {
+                const news = results[0] as News[];
+                const taxes = results[1] as Tax[];
+
+                this.news = this.getLatestNews(news);
+                this.taxes = this.getDueTax(taxes);
             });
+    }
+
+    /**
+     * Preleva le ultime news di ateneo.
+     * 
+     * @param news L'array di news dell'atenero.
+     */
+    private getLatestNews(news: News[]) {
+        return news.slice(0, this.NEWS_TO_SHOW);
     }
 
     /**
      * Preleva le tasse da pagare.
+     * 
+     * @param tax L'array di tasse. 
      */
-    private async getTaxes() {
-        this.taxService.getTax(this.profile.user.persId)
-            .subscribe((res: Tax[]) => {
-                this.taxes = res.filter(tax => !tax.payed)
-                    .sort((t1: Tax, t2: Tax) => {
-                        return t1.expirationDate.getTime() - t2.expirationDate.getTime();
-                    })
-            });
+    private getDueTax(taxes: Tax[]) {
+        return taxes.filter(tax => !tax.payed)
+            .sort((t1: Tax, t2: Tax) => {
+                return t1.expirationDate.getTime() - t2.expirationDate.getTime();
+            })
     }
 
     /**
@@ -130,4 +147,5 @@ export class HomePage {
 
         await modal.present();
     }
+
 }

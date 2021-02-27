@@ -1,0 +1,144 @@
+<app-refresher [refreshCallback]="initOperations"></app-refresher>
+<div class="flex flex-direction-column">
+    <app-header>
+        <ion-toolbar>
+            <ion-title class="page-title">Lezioni (Docente)</ion-title>
+            <ion-buttons slot="end">
+                <ion-button
+                    class="ion-no-margin"
+                    [disabled]="!scheduler"
+                    (click)="presentCourseFilterModal()"
+                >
+                    <i class="fas fa-eye app-icon"></i>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar class="segment-toolbar">
+            <ion-segment
+                [value]="activeIndex"
+                (ionChange)="slideTo($event)"
+                swipeGesture="false"
+            >
+                <ion-segment-button
+                    *ngFor="let label of labels; index as i"
+                    [value]="i"
+                >
+                    <ion-label>{{label}}</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+        </ion-toolbar>
+    </app-header>
+    <div class="page-main">
+        <ion-slides
+            *ngIf="isReady"
+            (ionSlideWillChange)="setActiveIndex()"
+            [options]="slideOpts"
+        >
+            <ion-slide>
+                <form
+                    [formGroup]="lessonsForm"
+                    (submit)="getScheduler()"
+                >
+                    <ion-list class="app-list">
+                        <ion-item>
+                            <ion-label>
+                                <h3>Anno accademico</h3>
+                            </ion-label>
+                            <ion-select
+                                cancelText="Cancella"
+                                formControlName="year"
+                                interface="action-sheet"
+                                placeholder="Seleziona"
+                                [interfaceOptions]="customActionSheetOptions"
+                                (ionChange)="setYearIndex($event)"
+                            >
+                                <ion-select-option
+                                    *ngFor="let year of getYears() | keyvalue: descSort; index as i"
+                                    [value]="{index: i, value: year.value.valore}"
+                                >
+                                    {{year.value.label}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item [disabled]="yearIndex === -1">
+                            <ion-label>
+                                <h3>Docente</h3>
+                            </ion-label>
+                            <ion-select
+                                cancelText="Cancella"
+                                formControlName="prof"
+                                placeholder="Seleziona"
+                                interface="action-sheet"
+                                [interfaceOptions]="customActionSheetOptions"
+                                (ionChange)="setProfIndex($event)"
+                            >
+                                <ion-select-option
+                                    *ngFor="let prof of getProfs(); index as i"
+                                    [value]="{index: i, value: prof.valore}"
+                                >
+                                    {{prof.label}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item [disabled]="profIndex === -1">
+                            <ion-label>
+                                <h3>Periodo Didattico</h3>
+                            </ion-label>
+                            <ion-select
+                                cancelText="Cancella"
+                                formControlName="term"
+                                placeholder="Seleziona"
+                                interface="action-sheet"
+                                [interfaceOptions]="customActionSheetOptions"
+                            >
+                                <ion-select-option
+                                    *ngFor="let term of getTerms(); index as i"
+                                    [value]="{index: i, value: term.valore}"
+                                >
+                                    {{term.label}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
+                    <ion-button
+                        class="form-submit form-submit--button"
+                        type="submit"
+                        [disabled]="!lessonsForm.valid"
+                    >
+                        Cerca
+                    </ion-button>
+                </form>
+            </ion-slide>
+            <ion-slide>
+                <ion-list class="app-list">
+                    <ng-container *ngIf="scheduler">
+                        <ng-container *ngFor="let schedule of getSchedule() | keyvalue">
+                            <ion-list-header>
+                                <ion-label>{{getDay(schedule.key)}}</ion-label>
+                            </ion-list-header>
+                            <ion-item
+                                *ngFor="let lesson of getLessons(schedule.value)"
+                                (click)="presentLessonModal(lesson)"
+                            >
+                                <ion-label>
+                                    <h3>{{lesson.name}}</h3>
+                                    <div>
+                                        <i class="far fa-calendar"></i>
+                                        <span>
+                                            {{lesson.timeStart}} - {{lesson.timeEnd}}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-map"></i>
+                                        <span>{{lesson.room}}</span>
+                                    </div>
+                                </ion-label>
+                            </ion-item>
+                        </ng-container>
+                    </ng-container>
+                    <ion-item *ngIf="!scheduler">Nessun elemento da mostrare.</ion-item>
+                </ion-list>
+            </ion-slide>
+        </ion-slides>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<app-modal
+    title="Seleziona insegnamenti"
+    [confirmButton]="true"
+    [confirmCallback]="filterCallback"
+>
+    <ion-list>
+        <ion-item *ngFor="let course of courses | keyvalue: ascSort">
+            <ion-label>{{course.value}}</ion-label>
+            <ion-checkbox
+                slot="end"
+                [value]="course.key"
+                [checked]="isChecked(course.key)"
+                (ionChange)="handleChange($event)"
+            ></ion-checkbox>
+        </ion-item>
+    </ion-list>
+</app-modal>

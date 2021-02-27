@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Session } from 'src/app/interfaces/session';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SessionsService {
 
-    private readonly base = 'https://www.unisa.it/proxy-test/easycourse/AgendaStudenti/';
+    private readonly base = `${environment.easycourseApi}/AgendaStudenti/`;
 
     constructor(
         private http: HttpClient

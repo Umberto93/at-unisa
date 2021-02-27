@@ -1,0 +1,50 @@
+<app-modal title="Dettagli lezione">
+    <ion-list>
+        <ion-item class="name">
+            <ion-thumbnail slot="start">
+                <i class="fas fa-book"></i>
+            </ion-thumbnail>
+            <ion-label>
+                <h3>{{lesson.name}}</h3>
+            </ion-label>
+        </ion-item>
+        <ion-item class="profs">
+            <ion-thumbnail slot="start">
+                <i class="fas fa-user-tie"></i>
+            </ion-thumbnail>
+            <ion-label *ngFor="let prof of lesson.profs">
+                <h3>
+                    {{prof.firstname}} {{prof.lastname}}
+                </h3>
+                <p>{{prof.mail}}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item class="date">
+            <ion-thumbnail slot="start">
+                <i class="fas fa-calendar-alt"></i>
+            </ion-thumbnail>
+            <ion-label>
+                <h3>{{getDay()}}</h3>
+                <p>
+                    {{lesson.timeStart}} - {{lesson.timeEnd}}
+                </p>
+            </ion-label>
+        </ion-item>
+        <ion-item class="room">
+            <ion-thumbnail slot="start">
+                <i class="fas fa-map"></i>
+            </ion-thumbnail>
+            <ion-label>
+                <h3>{{lesson.room}}</h3>
+            </ion-label>
+        </ion-item>
+        <ion-item class="courses">
+            <ion-thumbnail slot="start">
+                <i class="fas fa-graduation-cap"></i>
+            </ion-thumbnail>
+            <ion-label>
+                <h3 *ngFor="let course of lesson.courses">{{course}}</h3>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</app-modal>

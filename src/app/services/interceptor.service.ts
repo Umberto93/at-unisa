@@ -1,24 +1,23 @@
-import { Observable, from, EMPTY } from 'rxjs';
-import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { catchError, finalize } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
-import { Network } from '@capacitor/core';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+
+import { Observable, from } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { UserService } from './user/user.service';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class InterceptorService implements HttpInterceptor {
 
-    private hasLoading: boolean;
     private requests: number;
 
     constructor(
-        private storage: Storage,
+        private userService: UserService,
         private loadingController: LoadingController
     ) {
-        this.hasLoading = false;
         this.requests = 0;
     }
 
@@ -36,7 +35,7 @@ export class InterceptorService implements HttpInterceptor {
 
     private async prepareRequest(req: HttpRequest<any>, next: HttpHandler): Promise<any> {
         await this.presentLoading();
-        const credentials = await this.storage.get('credentials');
+        const credentials = await this.userService.getCredentials();
 
         if (credentials) {
             req = req.clone({

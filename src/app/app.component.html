@@ -1,7 +1,7 @@
 <ion-app>
     <ion-split-pane contentId="main">
         <ion-menu
-            *ngIf="!isLoginPage"
+            [hidden]="isLoginPage"
             type="reveal"
             contentId="main"
         >

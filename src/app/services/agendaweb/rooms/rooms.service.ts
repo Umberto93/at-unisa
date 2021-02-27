@@ -3,20 +3,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Room } from 'src/app/interfaces/room';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RoomsService {
 
-    private readonly base = 'http://localhost/aw/';
+    private readonly base = `${environment.easycourseApi}/AgendaStudenti/`;
 
     constructor(
         private http: HttpClient
     ) { }
 
     private parseResponse(res: any): String {
-        return JSON.parse(res.split(';')[0].split('=')[1]);
+        return JSON.parse(res.split(';')[0]);
     }
 
     /**

@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { UserService } from './user/user.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class AuthService {
 
     constructor(
         private http: HttpClient,
-        private storage: Storage
+        private userService: UserService,
     ) { }
 
     /**
@@ -44,11 +45,12 @@ export class AuthService {
             headers: new HttpHeaders({
                 'Authorization': `Basic ${credentials}`
             })
-        }).pipe(map(res => {
-            if (res) {
-                this.storage.set('user', res);
-                this.storage.set('credentials', credentials);
-                return res;
+        }).pipe(map(user => {
+            if (user) {
+                this.userService.setUser(user);
+                this.userService.setCredentials(credentials);
+                this.userService.setActiveCareer(0);
+                return user;
             }
 
             return null;

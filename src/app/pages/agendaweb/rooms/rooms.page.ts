@@ -53,6 +53,8 @@ export class RoomsPage implements OnInit {
             building: new FormControl('', Validators.required),
             date: new FormControl('', Validators.required)
         });
+
+        this.getRoomsFilter = this.getRoomsFilter.bind(this);
     }
 
     ngOnInit() {
