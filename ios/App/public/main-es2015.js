@@ -519,8 +519,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/network/ngx */ "kwrG");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/storage */ "e8h1");
-/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "54vc");
 /* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "b6o4");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "VYYF");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/router */ "tyNb");
@@ -540,12 +540,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(menuController, network, platform, router, statusBar, screenOrientation, storage, toastService, userService) {
+    constructor(menuController, network, platform, router, statusBar, splashScreen, screenOrientation, storage, toastService, userService) {
         this.menuController = menuController;
         this.network = network;
         this.platform = platform;
         this.router = router;
         this.statusBar = statusBar;
+        this.splashScreen = splashScreen;
         this.screenOrientation = screenOrientation;
         this.storage = storage;
         this.toastService = toastService;
@@ -653,8 +654,8 @@ let AppComponent = class AppComponent {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             yield this.platform.ready();
             this.statusBar.styleDefault();
-            _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"].hide();
-            if (Object(_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["isPlatform"])('android') || Object(_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["isPlatform"])('ios')) {
+            this.splashScreen.hide();
+            if (Object(_ionic_angular__WEBPACK_IMPORTED_MODULE_6__["isPlatform"])('android') || Object(_ionic_angular__WEBPACK_IMPORTED_MODULE_6__["isPlatform"])('ios')) {
                 this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
             }
         });
@@ -710,11 +711,12 @@ let AppComponent = class AppComponent {
     }
 };
 AppComponent.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["MenuController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"] },
     { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_4__["Network"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_10__["Router"] },
     { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_9__["StatusBar"] },
+    { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__["SplashScreen"] },
     { type: _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__["ScreenOrientation"] },
     { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"] },
     { type: _services_toast_toast_service__WEBPACK_IMPORTED_MODULE_11__["ToastService"] },
@@ -741,7 +743,7 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\r\n    <ion-split-pane contentId=\"main\">\r\n        <ion-menu\r\n            [hidden]=\"isLoginPage\"\r\n            type=\"reveal\"\r\n            contentId=\"main\"\r\n        >\r\n            <ion-header class=\"ion-no-border\">\r\n                <ion-toolbar>\r\n                    <ion-buttons slot=\"end\">\r\n                        <ion-menu-toggle>\r\n                            <ion-button>\r\n                                <i class=\"fas fa-times app-icon\"></i>\r\n                            </ion-button>\r\n                        </ion-menu-toggle>\r\n                    </ion-buttons>\r\n                </ion-toolbar>\r\n                <ion-item>\r\n                    <ion-avatar slot=\"start\">{{account.avatar}}</ion-avatar>\r\n                    <ion-label>\r\n                        <h3>\r\n                            {{account.firstname}} {{account.lastname}}\r\n                        </h3>\r\n                        <p>{{account.email}}</p>\r\n                        <p>{{account.id}}</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n            </ion-header>\r\n            <ion-content>\r\n                <ion-list *ngIf=\"!subMenuOpened\">\r\n                    <ion-item\r\n                        *ngFor=\"let item of menuItems | keyvalue: noSort\"\r\n                        [class.active]=\"item.key === activeItem\"\r\n                    >\r\n                        <ion-label (click)=\"navigateForward(item.value, item.key)\">\r\n                            <i class=\"fas {{item.value.icon}} app-icon app-icon-left\"></i>\r\n                            {{item.value.name}}\r\n                        </ion-label>\r\n                    </ion-item>\r\n                    <ion-item (click)=\"logout()\">\r\n                        <ion-label>\r\n                            <i class=\"fas fa-power-off app-icon app-icon-left\"></i>\r\n                            Logout\r\n                        </ion-label>\r\n                    </ion-item>\r\n                </ion-list>\r\n                <ion-list *ngIf=\"subMenuOpened\">\r\n                    <ion-item\r\n                        class=\"active\"\r\n                        (click)=\"navigateBack()\"\r\n                    >\r\n                        <ion-label class=\"close\">\r\n                            <i class=\"fas {{menuItems[activeItem].icon}} app-icon app-icon-left\"></i>\r\n                            {{menuItems[activeItem].name}}\r\n                            <i class=\"fas fa-angle-left app-icon app-icon-right\"></i>\r\n                        </ion-label>\r\n                    </ion-item>\r\n                    <ion-item\r\n                        *ngFor=\"let item of menuItems[activeItem].routes | keyvalue: noSort\"\r\n                        class=\"subitem\"\r\n                        [class.active]=\"item.key === activeSubItem\"\r\n                    >\r\n                        <ion-label (click)=\"navigateTo(item.key)\">{{item.value.name}}</ion-label>\r\n                    </ion-item>\r\n                </ion-list>\r\n            </ion-content>\r\n        </ion-menu>\r\n        <ion-router-outlet id=\"main\"></ion-router-outlet>\r\n    </ion-split-pane>\r\n</ion-app>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\r\n    <ion-split-pane contentId=\"main\">\r\n        <ion-menu\r\n            [disabled]=\"isLoginPage\"\r\n            type=\"reveal\"\r\n            contentId=\"main\"\r\n        >\r\n            <ion-header class=\"ion-no-border\">\r\n                <ion-toolbar>\r\n                    <ion-buttons slot=\"end\">\r\n                        <ion-menu-toggle>\r\n                            <ion-button>\r\n                                <i class=\"fas fa-times app-icon\"></i>\r\n                            </ion-button>\r\n                        </ion-menu-toggle>\r\n                    </ion-buttons>\r\n                </ion-toolbar>\r\n                <ion-item>\r\n                    <ion-avatar slot=\"start\">{{account.avatar}}</ion-avatar>\r\n                    <ion-label>\r\n                        <h3>\r\n                            {{account.firstname}} {{account.lastname}}\r\n                        </h3>\r\n                        <p>{{account.email}}</p>\r\n                        <p>{{account.id}}</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n            </ion-header>\r\n            <ion-content>\r\n                <ion-list *ngIf=\"!subMenuOpened\">\r\n                    <ion-item\r\n                        *ngFor=\"let item of menuItems | keyvalue: noSort\"\r\n                        [class.active]=\"item.key === activeItem\"\r\n                    >\r\n                        <ion-label (click)=\"navigateForward(item.value, item.key)\">\r\n                            <i class=\"fas {{item.value.icon}} app-icon app-icon-left\"></i>\r\n                            {{item.value.name}}\r\n                        </ion-label>\r\n                    </ion-item>\r\n                    <ion-item (click)=\"logout()\">\r\n                        <ion-label>\r\n                            <i class=\"fas fa-power-off app-icon app-icon-left\"></i>\r\n                            Logout\r\n                        </ion-label>\r\n                    </ion-item>\r\n                </ion-list>\r\n                <ion-list *ngIf=\"subMenuOpened\">\r\n                    <ion-item\r\n                        class=\"active\"\r\n                        (click)=\"navigateBack()\"\r\n                    >\r\n                        <ion-label class=\"close\">\r\n                            <i class=\"fas {{menuItems[activeItem].icon}} app-icon app-icon-left\"></i>\r\n                            {{menuItems[activeItem].name}}\r\n                            <i class=\"fas fa-angle-left app-icon app-icon-right\"></i>\r\n                        </ion-label>\r\n                    </ion-item>\r\n                    <ion-item\r\n                        *ngFor=\"let item of menuItems[activeItem].routes | keyvalue: noSort\"\r\n                        class=\"subitem\"\r\n                        [class.active]=\"item.key === activeSubItem\"\r\n                    >\r\n                        <ion-label (click)=\"navigateTo(item.key)\">{{item.value.name}}</ion-label>\r\n                    </ion-item>\r\n                </ion-list>\r\n            </ion-content>\r\n        </ion-menu>\r\n        <ion-router-outlet id=\"main\"></ion-router-outlet>\r\n    </ion-split-pane>\r\n</ion-app>\r\n");
 
 /***/ }),
 

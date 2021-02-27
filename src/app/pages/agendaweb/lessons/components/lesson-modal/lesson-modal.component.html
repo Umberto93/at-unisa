@@ -12,12 +12,14 @@
             <ion-thumbnail slot="start">
                 <i class="fas fa-user-tie"></i>
             </ion-thumbnail>
-            <ion-label *ngFor="let prof of lesson.profs">
-                <h3>
-                    {{prof.firstname}} {{prof.lastname}}
-                </h3>
-                <p>{{prof.mail}}</p>
-            </ion-label>
+            <div class="flex flex-direction-column">
+                <ion-label *ngFor="let prof of lesson.profs">
+                    <h3>
+                        {{prof.firstname}} {{prof.lastname}}
+                    </h3>
+                    <p>{{prof.mail}}</p>
+                </ion-label>
+            </div>
         </ion-item>
         <ion-item class="date">
             <ion-thumbnail slot="start">
