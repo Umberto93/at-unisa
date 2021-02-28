@@ -15,8 +15,27 @@
     }
 }
 
+.page-title-icon {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+    height: 28px;
+    width: 28px;
+    color: #c4c4c4;
+    font-size: 16px;
+}
+
 .page-title {
+    padding-right: var(--ion-app-padding);
     color: var(--ion-color-unisa-blue);
     font-size: 24px;
     font-weight: var(--ion-font-weight-bold);
+}
+
+.page-subtitle {
+    padding-right: var(--ion-app-padding);
+    color: var(--ion-color-unisa-blue);
+    font-size: 18px;
+    font-weight: var(--ion-font-weight-semibold);
 }

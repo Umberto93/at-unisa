@@ -2,14 +2,17 @@
 <div class="flex flex-direction-column">
     <app-header>
         <ion-toolbar>
-            <ion-title class="page-title">Lezioni (Docente)</ion-title>
+            <div class="flex flex-direction-column">
+                <ion-title class="page-title">Lezioni</ion-title>
+                <ion-title class="page-subtitle">Docente</ion-title>
+            </div>
             <ion-buttons slot="end">
                 <ion-button
                     class="ion-no-margin"
                     [disabled]="!scheduler"
                     (click)="presentCourseFilterModal()"
                 >
-                    <i class="fas fa-eye app-icon"></i>
+                    <i class="fas fa-eye page-title-icon"></i>
                 </ion-button>
             </ion-buttons>
         </ion-toolbar>
@@ -110,14 +113,17 @@
                 </form>
             </ion-slide>
             <ion-slide>
-                <ion-list class="app-list">
-                    <ng-container *ngIf="scheduler">
-                        <ng-container *ngFor="let schedule of getSchedule() | keyvalue">
-                            <ion-list-header>
+                <ion-list
+                    class="app-list"
+                    *ngIf="scheduler"
+                >
+                    <ng-container *ngFor="let schedule of getSchedule() | keyvalue">
+                        <ng-container *ngIf="getLessons(schedule.value); let lessons">
+                            <ion-list-header *ngIf="lessons.length > 0">
                                 <ion-label>{{getDay(schedule.key)}}</ion-label>
                             </ion-list-header>
                             <ion-item
-                                *ngFor="let lesson of getLessons(schedule.value)"
+                                *ngFor="let lesson of lessons"
                                 (click)="presentLessonModal(lesson)"
                             >
                                 <ion-label>
@@ -136,7 +142,13 @@
                             </ion-item>
                         </ng-container>
                     </ng-container>
-                    <ion-item *ngIf="!scheduler">Nessun elemento da mostrare.</ion-item>
+                    <ion-item *ngIf="lessonsSet.size === 0">Nessun elemento da mostrare.</ion-item>
+                </ion-list>
+                <ion-list
+                    *ngIf="!scheduler"
+                    class="app-list"
+                >
+                    <ion-item>Nessun elemento da mostrare.</ion-item>
                 </ion-list>
             </ion-slide>
         </ion-slides>
