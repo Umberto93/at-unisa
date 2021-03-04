@@ -27,11 +27,11 @@ const routes: Routes = [
     {
         path: 'agendaweb',
         loadChildren: () => import('./pages/agendaweb/agendaweb.module').then(m => m.AgendawebPageModule),
-        canActivate: [AuthGuardService]
     },
     {
         path: 'settings',
-        loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsPageModule)
+        loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsPageModule),
+        canActivate: [AuthGuardService]
     },
     {
         path: '**',

@@ -1,7 +1,6 @@
 <ion-app>
     <ion-split-pane contentId="main">
         <ion-menu
-            [disabled]="isLoginPage"
             type="reveal"
             contentId="main"
         >
@@ -15,7 +14,7 @@
                         </ion-menu-toggle>
                     </ion-buttons>
                 </ion-toolbar>
-                <ion-item>
+                <ion-item *ngIf="isLogged">
                     <ion-avatar slot="start">{{account.avatar}}</ion-avatar>
                     <ion-label>
                         <h3>
@@ -30,6 +29,7 @@
                 <ion-list *ngIf="!subMenuOpened">
                     <ion-item
                         *ngFor="let item of menuItems | keyvalue: noSort"
+                        [hidden]="!item.value.active()"
                         [class.active]="item.key === activeItem"
                     >
                         <ion-label (click)="navigateForward(item.value, item.key)">
@@ -37,9 +37,12 @@
                             {{item.value.name}}
                         </ion-label>
                     </ion-item>
-                    <ion-item (click)="logout()">
+                    <ion-item
+                        *ngIf="isLogged"
+                        (click)="logout()"
+                    >
                         <ion-label>
-                            <i class="fas fa-power-off app-icon app-icon-left"></i>
+                            <i class="fas fa-sign-out-alt app-icon app-icon-left"></i>
                             Logout
                         </ion-label>
                     </ion-item>

@@ -20,9 +20,15 @@ import { UserService } from './services/user/user.service';
 export class AppComponent implements OnInit {
 
     private readonly menuItems = {
+        'login': {
+            name: 'Login',
+            icon: 'fa-sign-in-alt',
+            active: () => !this.isLogged
+        },
         'home': {
             name: 'Home',
-            icon: 'fa-home'
+            icon: 'fa-home',
+            active: () => this.isLogged
         },
         'esse3': {
             name: 'Carriera',
@@ -37,36 +43,42 @@ export class AppComponent implements OnInit {
                 'tax': {
                     name: 'Tasse'
                 }
-            }
+            },
+            active: () => this.isLogged
         },
         'agendaweb': {
             name: 'Agenda Web',
             icon: 'fa-calendar-check',
             routes: {
                 'lessons?searchBy=course': {
-                    name: 'Lezioni (Ins)'
+                    name: 'Lezioni (Insegnamento)'
                 },
                 'lessons?searchBy=prof': {
-                    name: 'Lezioni (Doc)'
+                    name: 'Lezioni (Docente)'
                 },
                 'sessions?searchBy=course': {
-                    name: 'Appelli (Ins)'
+                    name: 'Appelli (Insegnamento)'
                 },
                 'sessions?searchBy=prof': {
-                    name: 'Appelli (Doc)'
+                    name: 'Appelli (Docente)'
                 },
                 'rooms': {
                     name: 'Aule'
+                },
+                'freerooms': {
+                    name: 'Cerca aule libere'
                 }
-            }
+            },
+            active: () => true
         },
         'settings': {
             name: 'Impostazioni',
-            icon: 'fa-cog'
+            icon: 'fa-cog',
+            active: () => this.isLogged
         }
     };
 
-    private isLoginPage: boolean;
+    private isLogged: boolean;
     private account: Account;
     private activeItem: string;
     private activeSubItem: string;
@@ -87,7 +99,7 @@ export class AppComponent implements OnInit {
         private userService: UserService
     ) {
         this.initializeApp();
-        this.isLoginPage = false;
+        this.isLogged = false;
         this.account = {} as Account;
         this.activeItem = 'home';
         this.activeSubItem = '';
@@ -99,7 +111,6 @@ export class AppComponent implements OnInit {
     async ngOnInit() {
         this.router.events.subscribe((event: any) => {
             if (event instanceof NavigationEnd) {
-                this.isLoginPage = event.urlAfterRedirects === '/login';
                 this.getAccount();
                 this.setMenuInitailState();
             }
@@ -160,6 +171,7 @@ export class AppComponent implements OnInit {
         const user = await this.userService.getUser();
 
         if (user) {
+            this.isLogged = true;
             this.account.id = user.user.trattiCarriera[activeCareer].matricola;
             this.account.firstname = user.user.firstName.toLowerCase();
             this.account.lastname = user.user.lastName.toLowerCase();
@@ -212,6 +224,7 @@ export class AppComponent implements OnInit {
     }
 
     private logout() {
+        this.isLogged = false;
         this.storage.clear();
         this.router.navigateByUrl('/login');
     }

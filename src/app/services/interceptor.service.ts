@@ -5,6 +5,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Observable, from } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { UserService } from './user/user.service';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -35,14 +36,17 @@ export class InterceptorService implements HttpInterceptor {
 
     private async prepareRequest(req: HttpRequest<any>, next: HttpHandler): Promise<any> {
         await this.presentLoading();
+
         const credentials = await this.userService.getCredentials();
 
         if (credentials) {
-            req = req.clone({
-                setHeaders: {
-                    'Authorization': 'Basic ' + credentials
-                }
-            });
+            if (req.url.includes(environment.esse3Api)) {
+                req = req.clone({
+                    setHeaders: {
+                        'Authorization': 'Basic ' + credentials
+                    }
+                });
+            }
         }
 
         return next.handle(req).pipe(

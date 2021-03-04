@@ -100,4 +100,19 @@ export class RoomsService {
             })
         );
     }
+
+    /**
+     * Recupera l'elenco delle aule libere dell'ateneo.
+     * 
+     * @param datefrom Ora di inizio della ricerca.
+     * @param dateto Ora di fine della ricerca.
+     */
+    getFreeRooms(datefrom: Date, dateto: Date): Observable<any> {
+        return this.http.get('http://localhost:8000/rooms/', {
+            params: new HttpParams()
+                .set('datefrom', datefrom.toISOString())
+                .set('dateto', dateto.toISOString())
+        });
+    }
+
 }

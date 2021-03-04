@@ -17,7 +17,12 @@ const routes: Routes = [
     {
         path: 'rooms',
         loadChildren: () => import('./rooms/rooms.module').then(m => m.RoomsPageModule)
+    },
+    {
+        path: 'freerooms',
+        loadChildren: () => import('./free-rooms/free-rooms.module').then(m => m.FreeRoomsPageModule)
     }
+
 ];
 
 @NgModule({

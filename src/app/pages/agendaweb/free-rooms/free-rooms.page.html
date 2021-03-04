@@ -1,0 +1,97 @@
+<ion-content class="page-content">
+    <div class="flex flex-direction-column">
+        <app-header>
+            <ion-toolbar>
+                <ion-title class="page-title">Cerca aule libere</ion-title>
+            </ion-toolbar>
+            <ion-toolbar class="segment-toolbar">
+                <ion-segment
+                    [value]="activeIndex"
+                    (ionChange)="slideTo($event)"
+                    swipeGesture="false"
+                >
+                    <ion-segment-button
+                        *ngFor="let label of labels; index as i"
+                        [value]="i"
+                    >
+                        <ion-label>{{label}}</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+            </ion-toolbar>
+        </app-header>
+        <div class="page-main">
+            <ion-slides
+                (ionSlideWillChange)="setActiveIndex()"
+                [options]="slideOpts"
+            >
+                <ion-slide>
+                    <form
+                        [formGroup]="roomsForm"
+                        (submit)="getFreeRooms()"
+                    >
+                        <ion-list class="app-list">
+                            <ion-item>
+                                <ion-label>
+                                    <h3>Da</h3>
+                                </ion-label>
+                                <ion-datetime
+                                    cancelText="Cancella"
+                                    displayFormat="DD/MM/YYYY, HH:mm"
+                                    doneText="Ok"
+                                    formControlName="datefrom"
+                                    hourValues="08,09,10,11,12,13,14,15,16,17,18,19,20"
+                                    minuteValues="0,30"
+                                    mode="md"
+                                    placeholder="Seleziona"
+                                    [pickerOptions]="pickerOptions"
+                                ></ion-datetime>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h3>A</h3>
+                                </ion-label>
+                                <ion-datetime
+                                    cancelText="Cancella"
+                                    displayFormat="DD/MM/YYYY, HH:mm"
+                                    doneText="Ok"
+                                    formControlName="dateto"
+                                    hourValues="08,09,10,11,12,13,14,15,16,17,18,19,20"
+                                    minuteValues="0,30"
+                                    mode="md"
+                                    placeholder="Seleziona"
+                                    [pickerOptions]="pickerOptions"
+                                ></ion-datetime>
+                            </ion-item>
+                        </ion-list>
+                        <ion-button
+                            class="form-submit form-submit--button"
+                            type="submit"
+                            [disabled]="!roomsForm.valid"
+                        >
+                            Cerca
+                        </ion-button>
+                    </form>
+                </ion-slide>
+                <ion-slide>
+                    <ion-list
+                        *ngFor="let building of buildings | keyvalue"
+                        class="app-list"
+                    >
+                        <ng-container *ngIf="building.value.rooms.length > 0">
+                            <ion-list-header>{{building.value.name}}</ion-list-header>
+                            <ion-item *ngFor="let room of building.value.rooms">
+                                <ion-label>
+                                    <h3>{{room.name}}</h3>
+                                    <div>
+                                        <i class="fas fa-chair"></i>
+                                        <span>{{room.capacity}}</span>
+                                    </div>
+                                </ion-label>
+                            </ion-item>
+                        </ng-container>
+                    </ion-list>
+                </ion-slide>
+            </ion-slides>
+        </div>
+    </div>
+</ion-content>
