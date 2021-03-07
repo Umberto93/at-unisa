@@ -4,15 +4,15 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../components/header/header.component';
 import { ModalComponent } from '../components/modal/modal.component';
 import { RefresherComponent } from '../components/refresher/refresher.component';
-import { SlidesControllerComponent } from '../components/slides-controller/slides-controller.component';
+import { SearchModalComponent } from '../components/search-modal/search-modal.component';
 
 
 
 @NgModule({
     declarations: [
         HeaderComponent,
-        SlidesControllerComponent,
         ModalComponent,
+        SearchModalComponent,
         RefresherComponent
     ],
     imports: [
@@ -20,8 +20,8 @@ import { SlidesControllerComponent } from '../components/slides-controller/slide
     ],
     exports: [
         HeaderComponent,
-        SlidesControllerComponent,
         ModalComponent,
+        SearchModalComponent,
         RefresherComponent
     ]
 })

@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SlidesControllerComponent } from './slides-controller.component';
+import { SearchModalComponent } from './search-modal.component';
 
-describe('SlidesControllerComponent', () => {
-  let component: SlidesControllerComponent;
-  let fixture: ComponentFixture<SlidesControllerComponent>;
+describe('SearchModalComponent', () => {
+  let component: SearchModalComponent;
+  let fixture: ComponentFixture<SearchModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SlidesControllerComponent ],
+      declarations: [ SearchModalComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SlidesControllerComponent);
+    fixture = TestBed.createComponent(SearchModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

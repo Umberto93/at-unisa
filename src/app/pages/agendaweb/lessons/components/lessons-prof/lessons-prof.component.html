@@ -63,11 +63,18 @@
                                 </ion-select-option>
                             </ion-select>
                         </ion-item>
-                        <ion-item [disabled]="yearIndex === -1">
+                        <ion-item
+                            [disabled]="yearIndex === -1"
+                            (click)="presentProfSearchModal(profSelect)"
+                            (onChange)="prova($event)"
+                        >
                             <ion-label>
                                 <h3>Docente</h3>
                             </ion-label>
+                            <span>{{profSelect.value ? profOptions[profSelect.value.index].label : 'Seleziona'}}</span>
                             <ion-select
+                                #profSelect
+                                hidden="true"
                                 cancelText="Cancella"
                                 formControlName="prof"
                                 placeholder="Seleziona"
@@ -82,6 +89,7 @@
                                     {{prof.label}}
                                 </ion-select-option>
                             </ion-select>
+
                         </ion-item>
                         <ion-item [disabled]="profIndex === -1">
                             <ion-label>

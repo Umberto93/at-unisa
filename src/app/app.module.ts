@@ -32,7 +32,7 @@ import { Network } from '@ionic-native/network/ngx';
         Network,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
-        { provide: ErrorHandler, useClass: ErrorService}
+        { provide: ErrorHandler, useClass: ErrorService }
     ],
     bootstrap: [AppComponent]
 })

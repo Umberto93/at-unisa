@@ -20,6 +20,10 @@ ion-slide {
 .app-list {
     margin-bottom: 30px;
 
+    ion-item span {
+        font-size: 14px;
+    }
+
     ion-select {
         padding: 0;
         font-size: 14px;

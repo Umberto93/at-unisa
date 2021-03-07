@@ -1,0 +1,14 @@
+<app-modal [title]="title">
+    <ion-searchbar 
+        placeholder="Cerca..."
+        (ionInput)="search($event)"
+    ></ion-searchbar>
+    <ion-list>
+        <ion-radio-group (ionChange)="emitValue($event)">
+            <ion-item *ngFor="let res of results">
+                <ion-label>{{res.label}}</ion-label>
+                <ion-radio [value]="res.value"></ion-radio>
+            </ion-item>
+        </ion-radio-group>
+    </ion-list>
+</app-modal>
