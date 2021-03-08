@@ -78,7 +78,9 @@
                         class="app-list"
                     >
                         <ng-container *ngIf="building.value.rooms.length > 0">
-                            <ion-list-header>{{building.value.name}}</ion-list-header>
+                            <ion-list-header>
+                                <ion-label>{{building.value.name}}</ion-label>
+                            </ion-list-header>
                             <ion-item *ngFor="let room of building.value.rooms">
                                 <ion-label>
                                     <h3>{{room.name}}</h3>
@@ -89,6 +91,12 @@
                                 </ion-label>
                             </ion-item>
                         </ng-container>
+                    </ion-list>
+                    <ion-list
+                        *ngIf="isEmpty()"
+                        class="app-list"
+                    >
+                        <ion-item>Nessun elemento da mostrare.</ion-item>
                     </ion-list>
                 </ion-slide>
             </ion-slides>

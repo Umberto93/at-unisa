@@ -45,6 +45,13 @@ export class FreeRoomsPage implements OnInit {
     }
 
     /**
+     * Verifica se l'oggetto buildings è vuoto.
+     */
+    private isEmpty() {
+        return Object.keys(this.buildings).length === 0;
+    }
+
+    /**
      * Aggiorna la slide alla pressione in base allo specifico Segment Button.
      * 
      * @param event L'evento associato al Segment Button.

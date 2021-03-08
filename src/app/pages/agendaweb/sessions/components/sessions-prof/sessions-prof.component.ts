@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { IonSegment, IonSlides, ModalController } from '@ionic/angular';
+import { IonSegment, IonSelect, IonSlides, ModalController } from '@ionic/angular';
 import { Session } from 'src/app/interfaces/session';
+import { SearchModalComponent } from 'src/app/pages/components/search-modal/search-modal.component';
 import { SessionsService } from 'src/app/services/agendaweb/sessions/sessions.service';
 import { SessionModalComponent } from '../session-modal/session-modal.component';
 
@@ -181,6 +182,41 @@ export class SessionsProfComponent implements OnInit {
         });
 
         return await modal.present();
+    }
+
+    /**
+     * Mostra un modale per la selezione del docente.
+     * 
+     * @param select Lo IonSelect a cui assegnare il valore di ritorno del modale.
+     */
+    private async presentProfSearchModal(select: IonSelect) {
+        const modal = await this.modalController.create({
+            component: SearchModalComponent,
+            componentProps: {
+                options: this.getProfs().map((prof: any) => {
+                    return {
+                        label: prof.label,
+                        value: prof.valore
+                    };
+                }),
+                title: 'Seleziona'
+            },
+            cssClass: 'app-modal'
+        });
+
+        modal.onWillDismiss().then((modal: any) => {
+            if (modal.data) {
+                const value = modal.data;
+                const index = this.getProfs().findIndex((prof: any) => prof.valore === value);
+                
+                select.value = {
+                    index: index,
+                    value: value
+                };
+            }
+        });
+
+        await modal.present();
     }
 
 }

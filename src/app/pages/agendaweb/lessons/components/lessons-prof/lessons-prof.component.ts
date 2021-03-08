@@ -310,7 +310,7 @@ export class LessonsProfComponent implements OnInit {
                         value: prof.valore
                     };
                 }),
-                title: 'Docente'
+                title: 'Seleziona'
             },
             cssClass: 'app-modal'
         });

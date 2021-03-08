@@ -22,6 +22,21 @@
             --padding-start: var(--ion-app-padding);
         }
 
+        ion-searchbar {
+            --backround: transparent;
+            --box-shadow: none;
+            --color: var(--ion-color-unisa-base);
+            --icon-color: var(--ion-color-unisa-base);
+            --placeholder-color: var(--ion-color-unisa-base);
+            --placeholder-opacity: 1;
+
+            overflow: hidden;
+            height: 50px;
+            padding: 0;
+            border: 1px solid var(--ion-color-unisa-soft-gray);
+            border-radius: 25px;
+        }
+
         ion-footer {
             padding: var(--ion-app-padding);
 
