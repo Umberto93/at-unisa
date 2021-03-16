@@ -45,12 +45,14 @@ export class SortModalComponent implements OnInit {
     setActiveSorting(event: CustomEvent) {
         this.activeSorting = event.detail.value;
     }
-
+    
     /**
      * Imposta la tipologia di ordinamento (crescente | decrescente).
+     * 
+     * @param event L'evento associato allo Ion Toggle.
      */
-    setAscSorting() {
-        this.ascSorting = !this.ascSorting;
+    setAscSorting(event: CustomEvent) {
+        this.ascSorting = event.detail.checked;
     }
 
     /**
