@@ -114,7 +114,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | profile-profile-module */
-          [__webpack_require__.e("default~lessons-lessons-module~pages-home-home-module~pages-settings-settings-module~profile-profile~502ce0e3"), __webpack_require__.e("profile-profile-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("profile-profile-module")]).then(__webpack_require__.bind(null,
           /*! ./profile/profile.module */
           "8GCl")).then(function (m) {
             return m.ProfilePageModule;
@@ -125,7 +125,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | transcript-transcript-module */
-          [__webpack_require__.e("default~lessons-lessons-module~pages-home-home-module~pages-settings-settings-module~profile-profile~502ce0e3"), __webpack_require__.e("transcript-transcript-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("transcript-transcript-module")]).then(__webpack_require__.bind(null,
           /*! ./transcript/transcript.module */
           "TLbm")).then(function (m) {
             return m.TranscriptPageModule;
@@ -136,7 +136,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | tax-tax-module */
-          [__webpack_require__.e("default~lessons-lessons-module~pages-home-home-module~pages-settings-settings-module~profile-profile~502ce0e3"), __webpack_require__.e("common"), __webpack_require__.e("tax-tax-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("common"), __webpack_require__.e("tax-tax-module")]).then(__webpack_require__.bind(null,
           /*! ./tax/tax.module */
           "o5to")).then(function (m) {
             return m.TaxPageModule;

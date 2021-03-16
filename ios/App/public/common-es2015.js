@@ -503,6 +503,132 @@ TaxService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 
 
+/***/ }),
+
+/***/ "w1wo":
+/*!***********************************************************!*\
+  !*** ./src/app/services/agendaweb/rooms/rooms.service.ts ***!
+  \***********************************************************/
+/*! exports provided: RoomsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoomsService", function() { return RoomsService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+
+
+
+
+
+let RoomsService = class RoomsService {
+    constructor(http) {
+        this.http = http;
+        this.base = `${src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].easycourseApi}/AgendaStudenti/`;
+    }
+    parseResponse(res) {
+        return JSON.parse(res.split(';')[0]);
+    }
+    /**
+     * Preleva le combo di filtraggio per la selezione delle aule.
+     */
+    getRoomsFilter() {
+        return this.http.get(`${this.base}/combo_call_new.php`, {
+            params: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]()
+                .set('sw', 'rooms_'),
+            responseType: 'text'
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((res) => {
+            return this.parseResponse(res);
+        }));
+    }
+    /**
+     * Preleva l'elenco delle aule con le relative attività durante la specifica giornata.
+     *
+     * @param building Il codice dell'edificio.
+     * @param date La data.
+     */
+    getRooms(building, date) {
+        return this.http.get(`${this.base}/rooms_call_new.php`, {
+            params: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]()
+                .set('view', 'rooms')
+                .set('include', 'rooms')
+                .set('sede', building)
+                .set('date', date)
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((res) => {
+            const events = res.events;
+            const rooms = {};
+            events.forEach((event) => {
+                if (!(event.CodiceAula in rooms)) {
+                    const room = {};
+                    room.name = event.NomeAula;
+                    room.code = event.CodiceAula;
+                    room.timeSlots = [{
+                            from: new Date(event.timestamp_from * 1000),
+                            to: new Date(event.timestamp_to * 1000)
+                        }];
+                    room.events = [{
+                            name: event.nome.replace('<i class="fa fa-asterisk" aria-hidden title="*"></i>', '').trim(),
+                            type: event.tipo,
+                            profs: event.Utenti.map((user) => ({
+                                firstname: user.Nome,
+                                lastname: user.Cognome,
+                                mail: user.Mail
+                            })),
+                            from: new Date(event.timestamp_from * 1000),
+                            to: new Date(event.timestamp_to * 1000)
+                        }];
+                    rooms[event.CodiceAula] = room;
+                }
+                else {
+                    rooms[event.CodiceAula].timeSlots.push({
+                        from: new Date(event.timestamp_from * 1000),
+                        to: new Date(event.timestamp_to * 1000)
+                    });
+                    rooms[event.CodiceAula].events.push({
+                        name: event.nome.replace('<i class="fa fa-asterisk" aria-hidden title="*"></i>', '').trim(),
+                        type: event.tipo,
+                        profs: event.Utenti.map((user) => ({
+                            firstname: user.Nome,
+                            lastname: user.Cognome,
+                            mail: user.Mail
+                        })),
+                        from: new Date(event.timestamp_from * 1000),
+                        to: new Date(event.timestamp_to * 1000)
+                    });
+                }
+            });
+            return rooms;
+        }));
+    }
+    /**
+     * Recupera l'elenco delle aule libere dell'ateneo.
+     *
+     * @param datefrom Ora di inizio della ricerca.
+     * @param dateto Ora di fine della ricerca.
+     */
+    getFreeRooms(datefrom, dateto) {
+        return this.http.get('http://localhost:8000/rooms/', {
+            params: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]()
+                .set('datefrom', datefrom.toISOString())
+                .set('dateto', dateto.toISOString())
+        });
+    }
+};
+RoomsService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] }
+];
+RoomsService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+        providedIn: 'root'
+    })
+], RoomsService);
+
+
+
 /***/ })
 
 }]);

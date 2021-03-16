@@ -62,15 +62,19 @@ const routes = [
     },
     {
         path: 'lessons',
-        loadChildren: () => Promise.all(/*! import() | lessons-lessons-module */[__webpack_require__.e("default~lessons-lessons-module~pages-home-home-module~pages-settings-settings-module~profile-profile~502ce0e3"), __webpack_require__.e("lessons-lessons-module")]).then(__webpack_require__.bind(null, /*! ./lessons/lessons.module */ "uiw9")).then(m => m.LessonsPageModule),
+        loadChildren: () => Promise.all(/*! import() | lessons-lessons-module */[__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("lessons-lessons-module")]).then(__webpack_require__.bind(null, /*! ./lessons/lessons.module */ "uiw9")).then(m => m.LessonsPageModule),
     },
     {
         path: 'sessions',
-        loadChildren: () => Promise.all(/*! import() | sessions-sessions-module */[__webpack_require__.e("default~lessons-lessons-module~pages-home-home-module~pages-settings-settings-module~profile-profile~502ce0e3"), __webpack_require__.e("sessions-sessions-module")]).then(__webpack_require__.bind(null, /*! ./sessions/sessions.module */ "/pR7")).then(m => m.SessionsPageModule),
+        loadChildren: () => Promise.all(/*! import() | sessions-sessions-module */[__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("sessions-sessions-module")]).then(__webpack_require__.bind(null, /*! ./sessions/sessions.module */ "/pR7")).then(m => m.SessionsPageModule),
     },
     {
         path: 'rooms',
-        loadChildren: () => Promise.all(/*! import() | rooms-rooms-module */[__webpack_require__.e("default~lessons-lessons-module~pages-home-home-module~pages-settings-settings-module~profile-profile~502ce0e3"), __webpack_require__.e("rooms-rooms-module")]).then(__webpack_require__.bind(null, /*! ./rooms/rooms.module */ "WBLT")).then(m => m.RoomsPageModule)
+        loadChildren: () => Promise.all(/*! import() | rooms-rooms-module */[__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("common"), __webpack_require__.e("rooms-rooms-module")]).then(__webpack_require__.bind(null, /*! ./rooms/rooms.module */ "WBLT")).then(m => m.RoomsPageModule)
+    },
+    {
+        path: 'freerooms',
+        loadChildren: () => Promise.all(/*! import() | free-rooms-free-rooms-module */[__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("common"), __webpack_require__.e("free-rooms-free-rooms-module")]).then(__webpack_require__.bind(null, /*! ./free-rooms/free-rooms.module */ "4lm+")).then(m => m.FreeRoomsPageModule)
     }
 ];
 let AgendawebPageRoutingModule = class AgendawebPageRoutingModule {

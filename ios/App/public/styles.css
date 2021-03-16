@@ -69,12 +69,12 @@
 /** UNISA theme variables **/
 :root {
   /** UNISA base **/
-  --ion-color-unisa-base: #c4c4c4;
-  --ion-color-unisa-base-rgb: 196, 196, 196;
+  --ion-color-unisa-base: #a0a0a0;
+  --ion-color-unisa-base-rgb: 160, 160, 160;
   --ion-color-unisa-base-contrast: #000000;
   --ion-color-unisa-base-contrast-rgb: 0, 0, 0;
-  --ion-color-unisa-base-shade: #acacac;
-  --ion-color-unisa-base-tint: #cacaca;
+  --ion-color-unisa-base-shade: #8d8d8d;
+  --ion-color-unisa-base-tint: #aaaaaa;
   /** UNISA blue **/
   --ion-color-unisa-blue: #2f577f;
   --ion-color-unisa-blue-rgb: 47, 87, 127;
@@ -6453,8 +6453,24 @@ ion-toggle {
 .page-main::-webkit-scrollbar {
   display: none;
 }
+.page-title-icon {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  height: 36px;
+  width: 36px;
+  color: #c4c4c4;
+  line-height: 34px;
+  font-size: 16px;
+}
 .page-title {
+  padding-right: var(--ion-app-padding);
   color: var(--ion-color-unisa-blue);
   font-size: 24px;
   font-weight: var(--ion-font-weight-bold);
+}
+.page-subtitle {
+  padding-right: var(--ion-app-padding);
+  color: var(--ion-color-unisa-blue);
+  font-size: 18px;
+  font-weight: var(--ion-font-weight-semibold);
 }

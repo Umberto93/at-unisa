@@ -121,7 +121,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-      /*! C:\Users\linki\Documents\Progetti\at-unisa\src\main.ts */
+      /*! C:\Users\linki\Desktop\at-unisa\at-unisa\src\main.ts */
       "zUnb");
       /***/
     },
@@ -759,6 +759,12 @@
       var _user_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! ./user/user.service */
       "CFL1");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
 
       var InterceptorService = /*#__PURE__*/function () {
         function InterceptorService(userService, loadingController) {
@@ -805,11 +811,13 @@
                       credentials = _context5.sent;
 
                       if (credentials) {
-                        req = req.clone({
-                          setHeaders: {
-                            'Authorization': 'Basic ' + credentials
-                          }
-                        });
+                        if (req.url.includes(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].esse3Api)) {
+                          req = req.clone({
+                            setHeaders: {
+                              'Authorization': 'Basic ' + credentials
+                            }
+                          });
+                        }
                       }
 
                       return _context5.abrupt("return", next.handle(req).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["finalize"])(function () {
@@ -995,7 +1003,7 @@
 
       var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @ionic-native/screen-orientation/ngx */
-      "b6o4");
+      "0QAI");
       /* harmony import */
 
 
@@ -1023,6 +1031,8 @@
 
       var AppComponent = /*#__PURE__*/function () {
         function AppComponent(menuController, network, platform, router, statusBar, splashScreen, screenOrientation, storage, toastService, userService) {
+          var _this2 = this;
+
           _classCallCheck(this, AppComponent);
 
           this.menuController = menuController;
@@ -1036,9 +1046,19 @@
           this.toastService = toastService;
           this.userService = userService;
           this.menuItems = {
+            'login': {
+              name: 'Login',
+              icon: 'fa-sign-in-alt',
+              active: function active() {
+                return !_this2.isLogged;
+              }
+            },
             'home': {
               name: 'Home',
-              icon: 'fa-home'
+              icon: 'fa-home',
+              active: function active() {
+                return _this2.isLogged;
+              }
             },
             'esse3': {
               name: 'Carriera',
@@ -1053,6 +1073,9 @@
                 'tax': {
                   name: 'Tasse'
                 }
+              },
+              active: function active() {
+                return _this2.isLogged;
               }
             },
             'agendaweb': {
@@ -1060,29 +1083,38 @@
               icon: 'fa-calendar-check',
               routes: {
                 'lessons?searchBy=course': {
-                  name: 'Lezioni (Ins)'
+                  name: 'Lezioni (Insegnamento)'
                 },
                 'lessons?searchBy=prof': {
-                  name: 'Lezioni (Doc)'
+                  name: 'Lezioni (Docente)'
                 },
                 'sessions?searchBy=course': {
-                  name: 'Appelli (Ins)'
+                  name: 'Appelli (Insegnamento)'
                 },
                 'sessions?searchBy=prof': {
-                  name: 'Appelli (Doc)'
+                  name: 'Appelli (Docente)'
                 },
                 'rooms': {
                   name: 'Aule'
+                },
+                'freerooms': {
+                  name: 'Cerca aule libere'
                 }
+              },
+              active: function active() {
+                return true;
               }
             },
             'settings': {
               name: 'Impostazioni',
-              icon: 'fa-cog'
+              icon: 'fa-cog',
+              active: function active() {
+                return _this2.isLogged;
+              }
             }
           };
           this.initializeApp();
-          this.isLoginPage = false;
+          this.isLogged = false;
           this.account = {};
           this.activeItem = 'home';
           this.activeSubItem = '';
@@ -1094,7 +1126,7 @@
           key: "ngOnInit",
           value: function ngOnInit() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-              var _this2 = this;
+              var _this3 = this;
 
               return regeneratorRuntime.wrap(function _callee8$(_context8) {
                 while (1) {
@@ -1102,27 +1134,25 @@
                     case 0:
                       this.router.events.subscribe(function (event) {
                         if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_10__["NavigationEnd"]) {
-                          _this2.isLoginPage = event.urlAfterRedirects === '/login';
+                          _this3.getAccount();
 
-                          _this2.getAccount();
-
-                          _this2.setMenuInitailState();
+                          _this3.setMenuInitailState();
                         }
                       });
                       this.network.onConnect().subscribe(function () {
-                        if (_this2.network.type === _this2.network.Connection.CELL || _this2.network.type === _this2.network.Connection.CELL_2G || _this2.network.type === _this2.network.Connection.CELL_3G || _this2.network.type === _this2.network.Connection.CELL_4G) {
-                          _this2.wasOffline = false;
+                        if (_this3.network.type === _this3.network.Connection.CELL || _this3.network.type === _this3.network.Connection.CELL_2G || _this3.network.type === _this3.network.Connection.CELL_3G || _this3.network.type === _this3.network.Connection.CELL_4G) {
+                          _this3.wasOffline = false;
 
-                          _this2.toastService.presentWarningToast({
+                          _this3.toastService.presentWarningToast({
                             header: 'Online',
                             message: 'È attiva la connessione dati.'
                           });
                         }
 
-                        if (_this2.wasOffline) {
-                          _this2.wasOffline = false;
+                        if (_this3.wasOffline) {
+                          _this3.wasOffline = false;
 
-                          _this2.toastService.presentSuccessToast({
+                          _this3.toastService.presentSuccessToast({
                             header: 'Online',
                             message: 'Di nuovo online.'
                           });
@@ -1130,10 +1160,10 @@
                       });
                       this.network.onDisconnect().subscribe(function () {
                         setTimeout(function () {
-                          if (_this2.network.type === _this2.network.Connection.NONE) {
-                            _this2.wasOffline = true;
+                          if (_this3.network.type === _this3.network.Connection.NONE) {
+                            _this3.wasOffline = true;
 
-                            _this2.toastService.presentToastWithIcon('cloud-offline', {
+                            _this3.toastService.presentToastWithIcon('cloud-offline', {
                               header: 'Offline',
                               message: 'Nessuna connessione Internet.'
                             });
@@ -1141,7 +1171,7 @@
                         }, 3000);
                       });
                       this.userService.getUserSubject().subscribe(function (value) {
-                        _this2.getAccount(value.activeCareer);
+                        _this3.getAccount(value.activeCareer);
                       });
 
                     case 4:
@@ -1213,6 +1243,7 @@
                       user = _context10.sent;
 
                       if (user) {
+                        this.isLogged = true;
                         this.account.id = user.user.trattiCarriera[activeCareer].matricola;
                         this.account.firstname = user.user.firstName.toLowerCase();
                         this.account.lastname = user.user.lastName.toLowerCase();
@@ -1280,6 +1311,7 @@
         }, {
           key: "logout",
           value: function logout() {
+            this.isLogged = false;
             this.storage.clear();
             this.router.navigateByUrl('/login');
           }
@@ -1336,7 +1368,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-app>\r\n    <ion-split-pane contentId=\"main\">\r\n        <ion-menu\r\n            [disabled]=\"isLoginPage\"\r\n            type=\"reveal\"\r\n            contentId=\"main\"\r\n        >\r\n            <ion-header class=\"ion-no-border\">\r\n                <ion-toolbar>\r\n                    <ion-buttons slot=\"end\">\r\n                        <ion-menu-toggle>\r\n                            <ion-button>\r\n                                <i class=\"fas fa-times app-icon\"></i>\r\n                            </ion-button>\r\n                        </ion-menu-toggle>\r\n                    </ion-buttons>\r\n                </ion-toolbar>\r\n                <ion-item>\r\n                    <ion-avatar slot=\"start\">{{account.avatar}}</ion-avatar>\r\n                    <ion-label>\r\n                        <h3>\r\n                            {{account.firstname}} {{account.lastname}}\r\n                        </h3>\r\n                        <p>{{account.email}}</p>\r\n                        <p>{{account.id}}</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n            </ion-header>\r\n            <ion-content>\r\n                <ion-list *ngIf=\"!subMenuOpened\">\r\n                    <ion-item\r\n                        *ngFor=\"let item of menuItems | keyvalue: noSort\"\r\n                        [class.active]=\"item.key === activeItem\"\r\n                    >\r\n                        <ion-label (click)=\"navigateForward(item.value, item.key)\">\r\n                            <i class=\"fas {{item.value.icon}} app-icon app-icon-left\"></i>\r\n                            {{item.value.name}}\r\n                        </ion-label>\r\n                    </ion-item>\r\n                    <ion-item (click)=\"logout()\">\r\n                        <ion-label>\r\n                            <i class=\"fas fa-power-off app-icon app-icon-left\"></i>\r\n                            Logout\r\n                        </ion-label>\r\n                    </ion-item>\r\n                </ion-list>\r\n                <ion-list *ngIf=\"subMenuOpened\">\r\n                    <ion-item\r\n                        class=\"active\"\r\n                        (click)=\"navigateBack()\"\r\n                    >\r\n                        <ion-label class=\"close\">\r\n                            <i class=\"fas {{menuItems[activeItem].icon}} app-icon app-icon-left\"></i>\r\n                            {{menuItems[activeItem].name}}\r\n                            <i class=\"fas fa-angle-left app-icon app-icon-right\"></i>\r\n                        </ion-label>\r\n                    </ion-item>\r\n                    <ion-item\r\n                        *ngFor=\"let item of menuItems[activeItem].routes | keyvalue: noSort\"\r\n                        class=\"subitem\"\r\n                        [class.active]=\"item.key === activeSubItem\"\r\n                    >\r\n                        <ion-label (click)=\"navigateTo(item.key)\">{{item.value.name}}</ion-label>\r\n                    </ion-item>\r\n                </ion-list>\r\n            </ion-content>\r\n        </ion-menu>\r\n        <ion-router-outlet id=\"main\"></ion-router-outlet>\r\n    </ion-split-pane>\r\n</ion-app>\r\n";
+      __webpack_exports__["default"] = "<ion-app>\r\n    <ion-split-pane contentId=\"main\">\r\n        <ion-menu\r\n            type=\"reveal\"\r\n            contentId=\"main\"\r\n        >\r\n            <ion-header class=\"ion-no-border\">\r\n                <ion-toolbar>\r\n                    <ion-buttons slot=\"end\">\r\n                        <ion-menu-toggle>\r\n                            <ion-button>\r\n                                <i class=\"fas fa-times app-icon\"></i>\r\n                            </ion-button>\r\n                        </ion-menu-toggle>\r\n                    </ion-buttons>\r\n                </ion-toolbar>\r\n                <ion-item *ngIf=\"isLogged\">\r\n                    <ion-avatar slot=\"start\">{{account.avatar}}</ion-avatar>\r\n                    <ion-label>\r\n                        <h3>\r\n                            {{account.firstname}} {{account.lastname}}\r\n                        </h3>\r\n                        <p>{{account.email}}</p>\r\n                        <p>{{account.id}}</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n            </ion-header>\r\n            <ion-content>\r\n                <ion-list *ngIf=\"!subMenuOpened\">\r\n                    <ion-item\r\n                        *ngFor=\"let item of menuItems | keyvalue: noSort\"\r\n                        [hidden]=\"!item.value.active()\"\r\n                        [class.active]=\"item.key === activeItem\"\r\n                    >\r\n                        <ion-label (click)=\"navigateForward(item.value, item.key)\">\r\n                            <i class=\"fas {{item.value.icon}} app-icon app-icon-left\"></i>\r\n                            {{item.value.name}}\r\n                        </ion-label>\r\n                    </ion-item>\r\n                    <ion-item\r\n                        *ngIf=\"isLogged\"\r\n                        (click)=\"logout()\"\r\n                    >\r\n                        <ion-label>\r\n                            <i class=\"fas fa-sign-out-alt app-icon app-icon-left\"></i>\r\n                            Logout\r\n                        </ion-label>\r\n                    </ion-item>\r\n                </ion-list>\r\n                <ion-list *ngIf=\"subMenuOpened\">\r\n                    <ion-item\r\n                        class=\"active\"\r\n                        (click)=\"navigateBack()\"\r\n                    >\r\n                        <ion-label class=\"close\">\r\n                            <i class=\"fas {{menuItems[activeItem].icon}} app-icon app-icon-left\"></i>\r\n                            {{menuItems[activeItem].name}}\r\n                            <i class=\"fas fa-angle-left app-icon app-icon-right\"></i>\r\n                        </ion-label>\r\n                    </ion-item>\r\n                    <ion-item\r\n                        *ngFor=\"let item of menuItems[activeItem].routes | keyvalue: noSort\"\r\n                        class=\"subitem\"\r\n                        [class.active]=\"item.key === activeSubItem\"\r\n                    >\r\n                        <ion-label (click)=\"navigateTo(item.key)\">{{item.value.name}}</ion-label>\r\n                    </ion-item>\r\n                </ion-list>\r\n            </ion-content>\r\n        </ion-menu>\r\n        <ion-router-outlet id=\"main\"></ion-router-outlet>\r\n    </ion-split-pane>\r\n</ion-app>\r\n";
       /***/
     },
 
@@ -1412,7 +1444,7 @@
 
       var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @ionic-native/screen-orientation/ngx */
-      "b6o4");
+      "0QAI");
       /* harmony import */
 
 
@@ -1612,9 +1644,9 @@
       }, {
         path: 'login',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | pages-login-login-module */
-          "pages-login-login-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("pages-login-login-module")]).then(__webpack_require__.bind(null,
           /*! ./pages/login/login.module */
           "F4UR")).then(function (m) {
             return m.LoginPageModule;
@@ -1626,7 +1658,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | pages-home-home-module */
-          [__webpack_require__.e("default~lessons-lessons-module~pages-home-home-module~pages-settings-settings-module~profile-profile~502ce0e3"), __webpack_require__.e("common"), __webpack_require__.e("pages-home-home-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("common"), __webpack_require__.e("pages-home-home-module")]).then(__webpack_require__.bind(null,
           /*! ./pages/home/home.module */
           "99Un")).then(function (m) {
             return m.HomePageModule;
@@ -1655,19 +1687,19 @@
           "h8eA")).then(function (m) {
             return m.AgendawebPageModule;
           });
-        },
-        canActivate: [_services_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_3__["AuthGuardService"]]
+        }
       }, {
         path: 'settings',
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | pages-settings-settings-module */
-          [__webpack_require__.e("default~lessons-lessons-module~pages-home-home-module~pages-settings-settings-module~profile-profile~502ce0e3"), __webpack_require__.e("pages-settings-settings-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("pages-settings-settings-module")]).then(__webpack_require__.bind(null,
           /*! ./pages/settings/settings.module */
           "yPrK")).then(function (m) {
             return m.SettingsPageModule;
           });
-        }
+        },
+        canActivate: [_services_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_3__["AuthGuardService"]]
       }, {
         path: '**',
         loadChildren: function loadChildren() {
@@ -1710,7 +1742,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "ion-menu {\n  --background: var(--ion-color-unisa-cobalt-blue);\n}\nion-menu ion-content:after {\n  position: absolute;\n  left: -50%;\n  width: 100%;\n  height: 100%;\n  content: \"\";\n  background: url('unisa-lineart-inverse.png') no-repeat center;\n  background-size: contain;\n  mix-blend-mode: lighten;\n  opacity: 0.1;\n}\nion-menu ion-header {\n  padding: var(--ion-app-padding) var(--ion-app-padding) 0;\n  margin-bottom: var(--ion-app-margin);\n}\nion-menu ion-header ion-toolbar {\n  margin-bottom: var(--ion-app-margin);\n}\nion-menu ion-header .app-icon {\n  color: white;\n}\nion-menu ion-avatar {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 60px;\n  width: 60px;\n  background: white;\n  color: var(--ion-color-unisa-cobalt-blue);\n  font-size: 20px;\n  font-weight: var(--ion-font-weight-bold);\n  text-transform: uppercase;\n}\nion-menu ion-label {\n  color: white;\n}\nion-menu ion-label h3 {\n  margin-bottom: 5px;\n  font-size: 16px;\n  font-weight: var(--ion-font-weight-bold);\n  text-transform: capitalize;\n}\nion-menu ion-label p {\n  margin-bottom: 5px;\n  color: white;\n  font-size: 14px;\n  opacity: 0.5;\n}\nion-menu ion-label p:last-child {\n  margin-bottom: 0;\n}\nion-menu ion-content {\n  --background: none;\n}\nion-menu ion-content::part(scroll) {\n  z-index: 1;\n}\nion-menu ion-list {\n  z-index: 1;\n  padding: 0;\n  background: none;\n}\nion-menu ion-list ion-item {\n  --padding-end: var(--ion-app-padding);\n  padding: 20px 0;\n  margin-bottom: -20px;\n}\nion-menu ion-list ion-item:last-child {\n  margin-bottom: 0;\n}\nion-menu ion-list ion-item ion-label {\n  flex: initial;\n  padding: 15px 30px;\n  font-size: 15px;\n  font-weight: var(--ion-font-weight-semibold);\n  cursor: pointer;\n}\nion-menu ion-list ion-item ion-label .app-icon {\n  color: white;\n}\nion-menu ion-list ion-item ion-label .app-icon-left {\n  margin-right: 20px;\n}\nion-menu ion-list ion-item ion-label .app-icon-right {\n  margin-left: 20px;\n}\nion-menu ion-list ion-item.subitem {\n  padding: 10px 0;\n  opacity: 0.5;\n}\nion-menu ion-list ion-item.subitem.active {\n  opacity: 1;\n}\nion-menu ion-list ion-item.active:not(.subitem) {\n  background: url('menu-round-top.svg') no-repeat top left, url('menu-round-bottom.svg') no-repeat bottom left;\n}\nion-menu ion-list ion-item.active:not(.subitem) ion-label {\n  background: white;\n  border-top-right-radius: 25px;\n  border-bottom-right-radius: 25px;\n  color: var(--ion-color-unisa-cobalt-blue);\n}\nion-menu ion-list ion-item.active:not(.subitem) ion-label .app-icon {\n  color: var(--ion-color-unisa-cobalt-blue);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uXFwuLlxcYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0RBQUE7QUFDSjtBQUNJO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsNkRBQUE7RUFDQSx3QkFBQTtFQUNBLHVCQUFBO0VBQ0EsWUFBQTtBQUNSO0FBRUk7RUFDSSx3REFBQTtFQUNBLG9DQUFBO0FBQVI7QUFFUTtFQUNJLG9DQUFBO0FBQVo7QUFHUTtFQUNJLFlBQUE7QUFEWjtBQUtJO0VBQ0ksYUFBQTtFQUNBLHVCQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0VBQ0EseUNBQUE7RUFDQSxlQUFBO0VBQ0Esd0NBQUE7RUFDQSx5QkFBQTtBQUhSO0FBTUk7RUFDSSxZQUFBO0FBSlI7QUFNUTtFQUNJLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLHdDQUFBO0VBQ0EsMEJBQUE7QUFKWjtBQU9RO0VBQ0ksa0JBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7QUFMWjtBQU9ZO0VBQ0ksZ0JBQUE7QUFMaEI7QUFVSTtFQUNJLGtCQUFBO0FBUlI7QUFVUTtFQUNJLFVBQUE7QUFSWjtBQVlJO0VBQ0ksVUFBQTtFQUNBLFVBQUE7RUFDQSxnQkFBQTtBQVZSO0FBWVE7RUFDSSxxQ0FBQTtFQUVBLGVBQUE7RUFDQSxvQkFBQTtBQVhaO0FBYVk7RUFDSSxnQkFBQTtBQVhoQjtBQWNZO0VBQ0ksYUFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLDRDQUFBO0VBQ0EsZUFBQTtBQVpoQjtBQWNnQjtFQUNJLFlBQUE7QUFacEI7QUFlZ0I7RUFDSSxrQkFBQTtBQWJwQjtBQWdCZ0I7RUFDSSxpQkFBQTtBQWRwQjtBQW1CUTtFQUNJLGVBQUE7RUFDQSxZQUFBO0FBakJaO0FBbUJZO0VBQ0ksVUFBQTtBQWpCaEI7QUFzQlk7RUFDSSw0R0FBQTtBQXBCaEI7QUF1QmdCO0VBQ0ksaUJBQUE7RUFDQSw2QkFBQTtFQUNBLGdDQUFBO0VBQ0EseUNBQUE7QUFyQnBCO0FBdUJvQjtFQUNJLHlDQUFBO0FBckJ4QiIsImZpbGUiOiJhcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tbWVudSB7XHJcbiAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1jb2xvci11bmlzYS1jb2JhbHQtYmx1ZSk7XHJcblxyXG4gICAgaW9uLWNvbnRlbnQ6YWZ0ZXIge1xyXG4gICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgICBsZWZ0OiAtNTAlO1xyXG4gICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICAgIGhlaWdodDogMTAwJTtcclxuICAgICAgICBjb250ZW50OiBcIlwiO1xyXG4gICAgICAgIGJhY2tncm91bmQ6IHVybChcIi4uL2Fzc2V0cy9pbWFnZXMvdW5pc2EtbGluZWFydC1pbnZlcnNlLnBuZ1wiKSBuby1yZXBlYXQgY2VudGVyO1xyXG4gICAgICAgIGJhY2tncm91bmQtc2l6ZTogY29udGFpbjtcclxuICAgICAgICBtaXgtYmxlbmQtbW9kZTogbGlnaHRlbjtcclxuICAgICAgICBvcGFjaXR5OiAwLjE7XHJcbiAgICB9XHJcblxyXG4gICAgaW9uLWhlYWRlciB7XHJcbiAgICAgICAgcGFkZGluZzogdmFyKC0taW9uLWFwcC1wYWRkaW5nKSB2YXIoLS1pb24tYXBwLXBhZGRpbmcpIDA7XHJcbiAgICAgICAgbWFyZ2luLWJvdHRvbTogdmFyKC0taW9uLWFwcC1tYXJnaW4pO1xyXG5cclxuICAgICAgICBpb24tdG9vbGJhciB7XHJcbiAgICAgICAgICAgIG1hcmdpbi1ib3R0b206IHZhcigtLWlvbi1hcHAtbWFyZ2luKTtcclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIC5hcHAtaWNvbiB7XHJcbiAgICAgICAgICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcblxyXG4gICAgaW9uLWF2YXRhciB7XHJcbiAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgIGhlaWdodDogNjBweDtcclxuICAgICAgICB3aWR0aDogNjBweDtcclxuICAgICAgICBiYWNrZ3JvdW5kOiB3aGl0ZTtcclxuICAgICAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXVuaXNhLWNvYmFsdC1ibHVlKTtcclxuICAgICAgICBmb250LXNpemU6IDIwcHg7XHJcbiAgICAgICAgZm9udC13ZWlnaHQ6IHZhcigtLWlvbi1mb250LXdlaWdodC1ib2xkKTtcclxuICAgICAgICB0ZXh0LXRyYW5zZm9ybTogdXBwZXJjYXNlO1xyXG4gICAgfVxyXG5cclxuICAgIGlvbi1sYWJlbCB7XHJcbiAgICAgICAgY29sb3I6IHdoaXRlO1xyXG5cclxuICAgICAgICBoMyB7XHJcbiAgICAgICAgICAgIG1hcmdpbi1ib3R0b206IDVweDtcclxuICAgICAgICAgICAgZm9udC1zaXplOiAxNnB4O1xyXG4gICAgICAgICAgICBmb250LXdlaWdodDogdmFyKC0taW9uLWZvbnQtd2VpZ2h0LWJvbGQpO1xyXG4gICAgICAgICAgICB0ZXh0LXRyYW5zZm9ybTogY2FwaXRhbGl6ZTtcclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIHAge1xyXG4gICAgICAgICAgICBtYXJnaW4tYm90dG9tOiA1cHg7XHJcbiAgICAgICAgICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgICAgICAgICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgICAgICAgICBvcGFjaXR5OiAwLjU7XHJcblxyXG4gICAgICAgICAgICAmOmxhc3QtY2hpbGQge1xyXG4gICAgICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogMDtcclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgIH1cclxuXHJcbiAgICBpb24tY29udGVudCB7XHJcbiAgICAgICAgLS1iYWNrZ3JvdW5kOiBub25lO1xyXG5cclxuICAgICAgICAmOjpwYXJ0KHNjcm9sbCkge1xyXG4gICAgICAgICAgICB6LWluZGV4OiAxO1xyXG4gICAgICAgIH1cclxuICAgIH1cclxuXHJcbiAgICBpb24tbGlzdCB7XHJcbiAgICAgICAgei1pbmRleDogMTtcclxuICAgICAgICBwYWRkaW5nOiAwO1xyXG4gICAgICAgIGJhY2tncm91bmQ6IG5vbmU7XHJcblxyXG4gICAgICAgIGlvbi1pdGVtIHtcclxuICAgICAgICAgICAgLS1wYWRkaW5nLWVuZDogdmFyKC0taW9uLWFwcC1wYWRkaW5nKTtcclxuXHJcbiAgICAgICAgICAgIHBhZGRpbmc6IDIwcHggMDtcclxuICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogLTIwcHg7XHJcblxyXG4gICAgICAgICAgICAmOmxhc3QtY2hpbGQge1xyXG4gICAgICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogMDtcclxuICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgaW9uLWxhYmVsIHtcclxuICAgICAgICAgICAgICAgIGZsZXg6IGluaXRpYWw7XHJcbiAgICAgICAgICAgICAgICBwYWRkaW5nOiAxNXB4IDMwcHg7XHJcbiAgICAgICAgICAgICAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICAgICAgICAgICAgICBmb250LXdlaWdodDogdmFyKC0taW9uLWZvbnQtd2VpZ2h0LXNlbWlib2xkKTtcclxuICAgICAgICAgICAgICAgIGN1cnNvcjogcG9pbnRlcjtcclxuXHJcbiAgICAgICAgICAgICAgICAuYXBwLWljb24ge1xyXG4gICAgICAgICAgICAgICAgICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICAuYXBwLWljb24tbGVmdCB7XHJcbiAgICAgICAgICAgICAgICAgICAgbWFyZ2luLXJpZ2h0OiAyMHB4O1xyXG4gICAgICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgICAgIC5hcHAtaWNvbi1yaWdodCB7XHJcbiAgICAgICAgICAgICAgICAgICAgbWFyZ2luLWxlZnQ6IDIwcHg7XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIGlvbi1pdGVtLnN1Yml0ZW0ge1xyXG4gICAgICAgICAgICBwYWRkaW5nOiAxMHB4IDA7XHJcbiAgICAgICAgICAgIG9wYWNpdHk6IDAuNTtcclxuXHJcbiAgICAgICAgICAgICYuYWN0aXZlIHtcclxuICAgICAgICAgICAgICAgIG9wYWNpdHk6IDE7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIGlvbi1pdGVtLmFjdGl2ZSB7XHJcbiAgICAgICAgICAgICY6bm90KC5zdWJpdGVtKSB7XHJcbiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiB1cmwoXCIuLi9hc3NldHMvaW1hZ2VzL21lbnUtcm91bmQtdG9wLnN2Z1wiKSBuby1yZXBlYXQgdG9wIGxlZnQsXHJcbiAgICAgICAgICAgICAgICAgICAgdXJsKFwiLi4vYXNzZXRzL2ltYWdlcy9tZW51LXJvdW5kLWJvdHRvbS5zdmdcIikgbm8tcmVwZWF0IGJvdHRvbSBsZWZ0O1xyXG5cclxuICAgICAgICAgICAgICAgIGlvbi1sYWJlbCB7XHJcbiAgICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDogd2hpdGU7XHJcbiAgICAgICAgICAgICAgICAgICAgYm9yZGVyLXRvcC1yaWdodC1yYWRpdXM6IDI1cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgYm9yZGVyLWJvdHRvbS1yaWdodC1yYWRpdXM6IDI1cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgY29sb3I6IHZhcigtLWlvbi1jb2xvci11bmlzYS1jb2JhbHQtYmx1ZSk7XHJcblxyXG4gICAgICAgICAgICAgICAgICAgIC5hcHAtaWNvbiB7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItdW5pc2EtY29iYWx0LWJsdWUpO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgIH1cclxufVxyXG4iXX0= */";
+      __webpack_exports__["default"] = "ion-menu {\n  --background: var(--ion-color-unisa-cobalt-blue);\n}\nion-menu ion-content:after {\n  position: absolute;\n  left: -50%;\n  width: 100%;\n  height: 100%;\n  content: \"\";\n  background: url('unisa-lineart-inverse.png') no-repeat center;\n  background-size: contain;\n  mix-blend-mode: lighten;\n  opacity: 0.1;\n}\nion-menu ion-header {\n  padding: var(--ion-app-padding) var(--ion-app-padding) 0;\n  margin-bottom: var(--ion-app-margin);\n}\nion-menu ion-header ion-toolbar {\n  margin-bottom: var(--ion-app-margin);\n}\nion-menu ion-header .app-icon {\n  color: white;\n}\nion-menu ion-avatar {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 60px;\n  width: 60px;\n  background: white;\n  color: var(--ion-color-unisa-cobalt-blue);\n  font-size: 20px;\n  font-weight: var(--ion-font-weight-bold);\n  text-transform: uppercase;\n}\nion-menu ion-label {\n  color: white;\n}\nion-menu ion-label h3 {\n  margin-bottom: 5px;\n  font-size: 16px;\n  font-weight: var(--ion-font-weight-bold);\n  text-transform: capitalize;\n}\nion-menu ion-label p {\n  margin-bottom: 5px;\n  color: white;\n  font-size: 14px;\n  opacity: 0.5;\n}\nion-menu ion-label p:last-child {\n  margin-bottom: 0;\n}\nion-menu ion-content {\n  --background: none;\n}\nion-menu ion-content::part(scroll) {\n  z-index: 1;\n}\nion-menu ion-list {\n  z-index: 1;\n  padding-top: 0;\n  padding-bottom: 20px;\n  background: none;\n}\nion-menu ion-list ion-item {\n  --padding-end: var(--ion-app-padding);\n  padding: 20px 0;\n  margin-bottom: -20px;\n}\nion-menu ion-list ion-item:last-child {\n  margin-bottom: 0;\n}\nion-menu ion-list ion-item ion-label {\n  flex: initial;\n  padding: 15px 30px;\n  font-size: 15px;\n  font-weight: var(--ion-font-weight-semibold);\n  cursor: pointer;\n}\nion-menu ion-list ion-item ion-label .app-icon {\n  color: white;\n}\nion-menu ion-list ion-item ion-label .app-icon-left {\n  margin-right: 20px;\n}\nion-menu ion-list ion-item ion-label .app-icon-right {\n  margin-left: 20px;\n}\nion-menu ion-list ion-item.subitem {\n  padding: 10px 0;\n  opacity: 0.5;\n}\nion-menu ion-list ion-item.subitem.active {\n  opacity: 1;\n}\nion-menu ion-list ion-item.active:not(.subitem) {\n  background: url('menu-round-top.svg') no-repeat top left, url('menu-round-bottom.svg') no-repeat bottom left;\n}\nion-menu ion-list ion-item.active:not(.subitem) ion-label {\n  background: white;\n  border-top-right-radius: 25px;\n  border-bottom-right-radius: 25px;\n  color: var(--ion-color-unisa-cobalt-blue);\n}\nion-menu ion-list ion-item.active:not(.subitem) ion-label .app-icon {\n  color: var(--ion-color-unisa-cobalt-blue);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uXFwuLlxcYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0RBQUE7QUFDSjtBQUNJO0VBQ0ksa0JBQUE7RUFDQSxVQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsNkRBQUE7RUFDQSx3QkFBQTtFQUNBLHVCQUFBO0VBQ0EsWUFBQTtBQUNSO0FBRUk7RUFDSSx3REFBQTtFQUNBLG9DQUFBO0FBQVI7QUFFUTtFQUNJLG9DQUFBO0FBQVo7QUFHUTtFQUNJLFlBQUE7QUFEWjtBQUtJO0VBQ0ksYUFBQTtFQUNBLHVCQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0VBQ0EseUNBQUE7RUFDQSxlQUFBO0VBQ0Esd0NBQUE7RUFDQSx5QkFBQTtBQUhSO0FBTUk7RUFDSSxZQUFBO0FBSlI7QUFNUTtFQUNJLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLHdDQUFBO0VBQ0EsMEJBQUE7QUFKWjtBQU9RO0VBQ0ksa0JBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7QUFMWjtBQU9ZO0VBQ0ksZ0JBQUE7QUFMaEI7QUFVSTtFQUNJLGtCQUFBO0FBUlI7QUFVUTtFQUNJLFVBQUE7QUFSWjtBQVlJO0VBQ0ksVUFBQTtFQUNBLGNBQUE7RUFDQSxvQkFBQTtFQUNBLGdCQUFBO0FBVlI7QUFZUTtFQUNJLHFDQUFBO0VBRUEsZUFBQTtFQUNBLG9CQUFBO0FBWFo7QUFhWTtFQUNJLGdCQUFBO0FBWGhCO0FBY1k7RUFDSSxhQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0VBQ0EsNENBQUE7RUFDQSxlQUFBO0FBWmhCO0FBY2dCO0VBQ0ksWUFBQTtBQVpwQjtBQWVnQjtFQUNJLGtCQUFBO0FBYnBCO0FBZ0JnQjtFQUNJLGlCQUFBO0FBZHBCO0FBbUJRO0VBQ0ksZUFBQTtFQUNBLFlBQUE7QUFqQlo7QUFtQlk7RUFDSSxVQUFBO0FBakJoQjtBQXNCWTtFQUNJLDRHQUFBO0FBcEJoQjtBQXVCZ0I7RUFDSSxpQkFBQTtFQUNBLDZCQUFBO0VBQ0EsZ0NBQUE7RUFDQSx5Q0FBQTtBQXJCcEI7QUF1Qm9CO0VBQ0kseUNBQUE7QUFyQnhCIiwiZmlsZSI6ImFwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1tZW51IHtcclxuICAgIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWNvbG9yLXVuaXNhLWNvYmFsdC1ibHVlKTtcclxuXHJcbiAgICBpb24tY29udGVudDphZnRlciB7XHJcbiAgICAgICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgICAgIGxlZnQ6IC01MCU7XHJcbiAgICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgICAgIGNvbnRlbnQ6IFwiXCI7XHJcbiAgICAgICAgYmFja2dyb3VuZDogdXJsKFwiLi4vYXNzZXRzL2ltYWdlcy91bmlzYS1saW5lYXJ0LWludmVyc2UucG5nXCIpIG5vLXJlcGVhdCBjZW50ZXI7XHJcbiAgICAgICAgYmFja2dyb3VuZC1zaXplOiBjb250YWluO1xyXG4gICAgICAgIG1peC1ibGVuZC1tb2RlOiBsaWdodGVuO1xyXG4gICAgICAgIG9wYWNpdHk6IDAuMTtcclxuICAgIH1cclxuXHJcbiAgICBpb24taGVhZGVyIHtcclxuICAgICAgICBwYWRkaW5nOiB2YXIoLS1pb24tYXBwLXBhZGRpbmcpIHZhcigtLWlvbi1hcHAtcGFkZGluZykgMDtcclxuICAgICAgICBtYXJnaW4tYm90dG9tOiB2YXIoLS1pb24tYXBwLW1hcmdpbik7XHJcblxyXG4gICAgICAgIGlvbi10b29sYmFyIHtcclxuICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogdmFyKC0taW9uLWFwcC1tYXJnaW4pO1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgLmFwcC1pY29uIHtcclxuICAgICAgICAgICAgY29sb3I6IHdoaXRlO1xyXG4gICAgICAgIH1cclxuICAgIH1cclxuXHJcbiAgICBpb24tYXZhdGFyIHtcclxuICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICAgICAgaGVpZ2h0OiA2MHB4O1xyXG4gICAgICAgIHdpZHRoOiA2MHB4O1xyXG4gICAgICAgIGJhY2tncm91bmQ6IHdoaXRlO1xyXG4gICAgICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItdW5pc2EtY29iYWx0LWJsdWUpO1xyXG4gICAgICAgIGZvbnQtc2l6ZTogMjBweDtcclxuICAgICAgICBmb250LXdlaWdodDogdmFyKC0taW9uLWZvbnQtd2VpZ2h0LWJvbGQpO1xyXG4gICAgICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XHJcbiAgICB9XHJcblxyXG4gICAgaW9uLWxhYmVsIHtcclxuICAgICAgICBjb2xvcjogd2hpdGU7XHJcblxyXG4gICAgICAgIGgzIHtcclxuICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogNXB4O1xyXG4gICAgICAgICAgICBmb250LXNpemU6IDE2cHg7XHJcbiAgICAgICAgICAgIGZvbnQtd2VpZ2h0OiB2YXIoLS1pb24tZm9udC13ZWlnaHQtYm9sZCk7XHJcbiAgICAgICAgICAgIHRleHQtdHJhbnNmb3JtOiBjYXBpdGFsaXplO1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgcCB7XHJcbiAgICAgICAgICAgIG1hcmdpbi1ib3R0b206IDVweDtcclxuICAgICAgICAgICAgY29sb3I6IHdoaXRlO1xyXG4gICAgICAgICAgICBmb250LXNpemU6IDE0cHg7XHJcbiAgICAgICAgICAgIG9wYWNpdHk6IDAuNTtcclxuXHJcbiAgICAgICAgICAgICY6bGFzdC1jaGlsZCB7XHJcbiAgICAgICAgICAgICAgICBtYXJnaW4tYm90dG9tOiAwO1xyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG5cclxuICAgIGlvbi1jb250ZW50IHtcclxuICAgICAgICAtLWJhY2tncm91bmQ6IG5vbmU7XHJcblxyXG4gICAgICAgICY6OnBhcnQoc2Nyb2xsKSB7XHJcbiAgICAgICAgICAgIHotaW5kZXg6IDE7XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG5cclxuICAgIGlvbi1saXN0IHtcclxuICAgICAgICB6LWluZGV4OiAxO1xyXG4gICAgICAgIHBhZGRpbmctdG9wOiAwO1xyXG4gICAgICAgIHBhZGRpbmctYm90dG9tOiAyMHB4O1xyXG4gICAgICAgIGJhY2tncm91bmQ6IG5vbmU7XHJcblxyXG4gICAgICAgIGlvbi1pdGVtIHtcclxuICAgICAgICAgICAgLS1wYWRkaW5nLWVuZDogdmFyKC0taW9uLWFwcC1wYWRkaW5nKTtcclxuXHJcbiAgICAgICAgICAgIHBhZGRpbmc6IDIwcHggMDtcclxuICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogLTIwcHg7XHJcblxyXG4gICAgICAgICAgICAmOmxhc3QtY2hpbGQge1xyXG4gICAgICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogMDtcclxuICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgaW9uLWxhYmVsIHtcclxuICAgICAgICAgICAgICAgIGZsZXg6IGluaXRpYWw7XHJcbiAgICAgICAgICAgICAgICBwYWRkaW5nOiAxNXB4IDMwcHg7XHJcbiAgICAgICAgICAgICAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICAgICAgICAgICAgICBmb250LXdlaWdodDogdmFyKC0taW9uLWZvbnQtd2VpZ2h0LXNlbWlib2xkKTtcclxuICAgICAgICAgICAgICAgIGN1cnNvcjogcG9pbnRlcjtcclxuXHJcbiAgICAgICAgICAgICAgICAuYXBwLWljb24ge1xyXG4gICAgICAgICAgICAgICAgICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICAuYXBwLWljb24tbGVmdCB7XHJcbiAgICAgICAgICAgICAgICAgICAgbWFyZ2luLXJpZ2h0OiAyMHB4O1xyXG4gICAgICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgICAgIC5hcHAtaWNvbi1yaWdodCB7XHJcbiAgICAgICAgICAgICAgICAgICAgbWFyZ2luLWxlZnQ6IDIwcHg7XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIGlvbi1pdGVtLnN1Yml0ZW0ge1xyXG4gICAgICAgICAgICBwYWRkaW5nOiAxMHB4IDA7XHJcbiAgICAgICAgICAgIG9wYWNpdHk6IDAuNTtcclxuXHJcbiAgICAgICAgICAgICYuYWN0aXZlIHtcclxuICAgICAgICAgICAgICAgIG9wYWNpdHk6IDE7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIGlvbi1pdGVtLmFjdGl2ZSB7XHJcbiAgICAgICAgICAgICY6bm90KC5zdWJpdGVtKSB7XHJcbiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiB1cmwoXCIuLi9hc3NldHMvaW1hZ2VzL21lbnUtcm91bmQtdG9wLnN2Z1wiKSBuby1yZXBlYXQgdG9wIGxlZnQsXHJcbiAgICAgICAgICAgICAgICAgICAgdXJsKFwiLi4vYXNzZXRzL2ltYWdlcy9tZW51LXJvdW5kLWJvdHRvbS5zdmdcIikgbm8tcmVwZWF0IGJvdHRvbSBsZWZ0O1xyXG5cclxuICAgICAgICAgICAgICAgIGlvbi1sYWJlbCB7XHJcbiAgICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDogd2hpdGU7XHJcbiAgICAgICAgICAgICAgICAgICAgYm9yZGVyLXRvcC1yaWdodC1yYWRpdXM6IDI1cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgYm9yZGVyLWJvdHRvbS1yaWdodC1yYWRpdXM6IDI1cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgY29sb3I6IHZhcigtLWlvbi1jb2xvci11bmlzYS1jb2JhbHQtYmx1ZSk7XHJcblxyXG4gICAgICAgICAgICAgICAgICAgIC5hcHAtaWNvbiB7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItdW5pc2EtY29iYWx0LWJsdWUpO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgIH1cclxufVxyXG4iXX0= */";
       /***/
     },
 

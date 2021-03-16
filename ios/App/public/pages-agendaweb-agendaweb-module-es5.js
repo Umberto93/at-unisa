@@ -114,7 +114,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | lessons-lessons-module */
-          [__webpack_require__.e("default~lessons-lessons-module~pages-home-home-module~pages-settings-settings-module~profile-profile~502ce0e3"), __webpack_require__.e("lessons-lessons-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("lessons-lessons-module")]).then(__webpack_require__.bind(null,
           /*! ./lessons/lessons.module */
           "uiw9")).then(function (m) {
             return m.LessonsPageModule;
@@ -125,7 +125,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | sessions-sessions-module */
-          [__webpack_require__.e("default~lessons-lessons-module~pages-home-home-module~pages-settings-settings-module~profile-profile~502ce0e3"), __webpack_require__.e("sessions-sessions-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("sessions-sessions-module")]).then(__webpack_require__.bind(null,
           /*! ./sessions/sessions.module */
           "/pR7")).then(function (m) {
             return m.SessionsPageModule;
@@ -136,10 +136,21 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | rooms-rooms-module */
-          [__webpack_require__.e("default~lessons-lessons-module~pages-home-home-module~pages-settings-settings-module~profile-profile~502ce0e3"), __webpack_require__.e("rooms-rooms-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("common"), __webpack_require__.e("rooms-rooms-module")]).then(__webpack_require__.bind(null,
           /*! ./rooms/rooms.module */
           "WBLT")).then(function (m) {
             return m.RoomsPageModule;
+          });
+        }
+      }, {
+        path: 'freerooms',
+        loadChildren: function loadChildren() {
+          return Promise.all(
+          /*! import() | free-rooms-free-rooms-module */
+          [__webpack_require__.e("default~free-rooms-free-rooms-module~lessons-lessons-module~pages-home-home-module~pages-login-login~86e98099"), __webpack_require__.e("common"), __webpack_require__.e("free-rooms-free-rooms-module")]).then(__webpack_require__.bind(null,
+          /*! ./free-rooms/free-rooms.module */
+          "4lm+")).then(function (m) {
+            return m.FreeRoomsPageModule;
           });
         }
       }];
